@@ -26,7 +26,7 @@ class Foobar extends Component {
     let display = this.state.showText ? this.props.text : '';
 
     return (
-      <Text>{display}</Text>
+      <Text style={this.props.style}>{display}</Text>
     );
   }
 }
@@ -38,7 +38,7 @@ class AwesomeProject extends Component {
         <Text style={styles.welcome}>
           Jay, Welcome to React Native!
         </Text>
-        <Foobar text="FOOBAR"/>
+        <Foobar text="FOOBAR" style={styles.instructions}/>
       </View>
     );
   }
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   instructions: {
     textAlign: 'center',
-    color: '#333333',
+    color: '#aa3333',
     marginBottom: 5,
   },
 });
