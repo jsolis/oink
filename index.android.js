@@ -9,13 +9,14 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  TextInput
 } from 'react-native';
 
 class Foobar extends Component {
   constructor(props) {
     super(props);
-    this.state = {showText: false};
+    this.state = { showText: false };
 
     setTimeout(() => {
       this.setState({ showText: true });
@@ -32,13 +33,23 @@ class Foobar extends Component {
 }
 
 class AwesomeProject extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { text: 'FOOBAR' }
+  }
+
   render() {
     return (
       <View style={styles.container}>
+        <TextInput 
+          style={{height: 40, width: 100}}
+          placeholder="Greeting..."
+          onChangeText={(text) => this.setState({text})} />
+
         <Text style={styles.welcome}>
           Jay, Welcome to React Native!
         </Text>
-        <Foobar text="FOOBAR" style={styles.instructions}/>
+        <Foobar text={this.state.text} style={styles.instructions}/>
       </View>
     );
   }
