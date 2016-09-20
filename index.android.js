@@ -15,7 +15,11 @@ import {
 class Foobar extends Component {
   constructor(props) {
     super(props);
-    this.state = {showText: true};
+    this.state = {showText: false};
+
+    setTimeout(() => {
+      this.setState({ showText: true });
+    }, 500);
   }
 
   render() {
