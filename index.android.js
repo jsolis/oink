@@ -10,7 +10,8 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput
+  TextInput,
+  ListView
 } from 'react-native';
 
 class Foobar extends Component {
@@ -35,7 +36,41 @@ class Foobar extends Component {
 class AwesomeProject extends Component {
   constructor(props) {
     super(props);
-    this.state = { text: 'FOOBAR' }
+
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    
+    this.state = {
+      text: 'FOOBAR',
+      dataSource: ds.cloneWithRows([{title: 'Loading...'},{title: 'Waiting...'}])
+    }
+
+    console.log('about to get movies');
+    getMoviesFromApiAsync()
+      .then(movies => {
+        this.setState({title: 'None'});
+        this.setState({ dataSource: this.state.dataSource.cloneWithRows(movies) });
+      });
+
+    async function getMoviesFromApi() {
+      try {
+        let response = await fetch('https://facebook.github.io/react-native/movies.json');
+        let responseJson = await response.json();
+        return responseJson.movies;
+      } catch(error) {
+        console.error(error);
+      }
+    }
+
+    function getMoviesFromApiAsync() {
+      return fetch('https://facebook.github.io/react-native/movies.json')
+        .then((response) => response.json())
+        .then((responseJson) => {
+          return responseJson.movies;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   }
 
   render() {
@@ -45,11 +80,16 @@ class AwesomeProject extends Component {
           style={{height: 40, width: 100}}
           placeholder="Greeting..."
           onChangeText={(text) => this.setState({text})} />
+        <Text>Filter by: </Text><Foobar text={this.state.text} style={styles.instructions}/>
 
         <Text style={styles.welcome}>
-          Jay, Welcome to React Native!
+          Jay, here are your movies
         </Text>
-        <Foobar text={this.state.text} style={styles.instructions}/>
+
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={(rowData) => <Text>{rowData.title}</Text>} />
+        
       </View>
     );
   }
