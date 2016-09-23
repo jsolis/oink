@@ -44,7 +44,6 @@ class Oink extends Component {
       dataSource: ds.cloneWithRows([{title: 'Loading...'}])
     }
 
-    console.log('about to get movies');
     getMoviesFromApi()
       .then(movies => {
         this.setState({ dataSource: this.state.dataSource.cloneWithRows(movies) });
