@@ -40,7 +40,7 @@ class Oink extends Component {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     
     this.state = {
-      text: 'FOOBAR',
+      text: 'James',
       dataSource: ds.cloneWithRows([{title: 'Loading...'},{title: 'Waiting...'}])
     }
 
@@ -69,15 +69,16 @@ class Oink extends Component {
           style={{height: 40, width: 100}}
           placeholder="Greeting..."
           onChangeText={(text) => this.setState({text})} />
-        <Text>Filter by: </Text><Foobar text={this.state.text} style={styles.instructions}/>
+        <Text>Filter by: </Text>
+        <Foobar text={this.state.text} style={styles.instructions}/>
 
         <Text style={styles.welcome}>
-          Jay, here are your movies
+          James Medicines
         </Text>
 
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Text>{rowData.title}</Text>} />
+          renderRow={(rowData) => <Text style={styles.listItem}>{rowData.title}</Text>} />
         
       </View>
     );
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFA4D0',
   },
   welcome: {
-    fontSize: 20,
+    fontSize: 30,
     textAlign: 'center',
     margin: 10,
   },
@@ -101,6 +102,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#aa3333',
     marginBottom: 5,
+  },
+  listItem: {
+    color: '#333',
+    fontSize: 20,
+    marginBottom: 10,
   },
 });
 
