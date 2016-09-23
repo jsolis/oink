@@ -45,9 +45,8 @@ class Oink extends Component {
     }
 
     console.log('about to get movies');
-    getMoviesFromApiAsync()
+    getMoviesFromApi()
       .then(movies => {
-        this.setState({title: 'None'});
         this.setState({ dataSource: this.state.dataSource.cloneWithRows(movies) });
       });
 
@@ -61,16 +60,6 @@ class Oink extends Component {
       }
     }
 
-    function getMoviesFromApiAsync() {
-      return fetch('https://facebook.github.io/react-native/movies.json')
-        .then((response) => response.json())
-        .then((responseJson) => {
-          return responseJson.movies;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
   }
 
   render() {
