@@ -41,7 +41,7 @@ class Oink extends Component {
     
     this.state = {
       text: 'James',
-      dataSource: ds.cloneWithRows([{title: 'Loading...'},{title: 'Waiting...'}])
+      dataSource: ds.cloneWithRows([{title: 'Loading...'}])
     }
 
     console.log('about to get movies');
