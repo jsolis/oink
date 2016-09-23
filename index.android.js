@@ -33,7 +33,7 @@ class Foobar extends Component {
   }
 }
 
-class AwesomeProject extends Component {
+class Oink extends Component {
   constructor(props) {
     super(props);
 
@@ -115,4 +115,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
+AppRegistry.registerComponent('oink', () => Oink);
