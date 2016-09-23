@@ -87,7 +87,7 @@ android {
     buildToolsVersion "24.0.2"
 
     defaultConfig {
-        applicationId "com.awesomeproject"
+        applicationId "com.oink"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
