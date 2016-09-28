@@ -55,7 +55,9 @@ class OinkList extends Component {
           dataSource={this.state.dataSource}
           renderRow={(rowData) => {
             return (
-              <TouchableHighlight onPress={() => {alert(rowData.title)}}>
+              <TouchableHighlight onPress={() => {
+                this.props.navigator.push({id: 'details', medicine: rowData.title});
+              }}>
                 <Text style={styles.listItem}>{rowData.title}</Text>
               </TouchableHighlight>
             );
@@ -88,9 +90,9 @@ class OinkNavigator extends Component {
   renderScene = (route, navigator) => {
     switch (route.id) {
       case 'list':
-        return <OinkList />;
+        return <OinkList navigator={navigator}/>;
       case 'details':
-        return <OinkDetails medicine="foobar"/>;
+        return <OinkDetails navigator={navigator} medicine={route.medicine}/>;
     }
   };
 
