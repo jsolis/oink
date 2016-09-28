@@ -13,8 +13,19 @@ import {
   TextInput,
   ListView,
   TouchableHighlight,
-  Navigator
+  Navigator,
+  BackAndroid
 } from 'react-native';
+
+let _navigator;
+
+BackAndroid.addEventListener('hardwareBackPress', () => {
+  if (_navigator && _navigator.getCurrentRoutes().length === 1  ) {
+    return false;
+  }
+  _navigator.pop();
+  return true;
+});
 
 class OinkList extends Component {
   constructor(props) {
@@ -88,11 +99,14 @@ class OinkDetails extends Component {
 class OinkNavigator extends Component {
 
   renderScene = (route, navigator) => {
+    _navigator = navigator;
     switch (route.id) {
       case 'list':
         return <OinkList navigator={navigator}/>;
       case 'details':
         return <OinkDetails navigator={navigator} medicine={route.medicine}/>;
+      default:
+        return <OinkList navigator={navigator}/>;
     }
   };
 
