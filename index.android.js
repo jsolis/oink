@@ -12,10 +12,11 @@ import {
   View,
   TextInput,
   ListView,
-  TouchableHighlight
+  TouchableHighlight,
+  Navigator
 } from 'react-native';
 
-class Oink extends Component {
+class OinkList extends Component {
   constructor(props) {
     super(props);
 
@@ -65,6 +66,44 @@ class Oink extends Component {
   }
 }
 
+class OinkDetails extends Component {
+  constructor(props) {
+    super(props);
+
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>
+          Details on {this.props.medicine}
+        </Text>
+      </View>
+    );
+  }
+}
+
+class OinkNavigator extends Component {
+
+  renderScene = (route, navigator) => {
+    switch (route.id) {
+      case 'list':
+        return <OinkList />;
+      case 'details':
+        return <OinkDetails medicine="foobar"/>;
+    }
+  };
+
+  render() {
+    return (
+      <Navigator
+        initialRoute={{ id: 'list' }}
+        renderScene={this.renderScene} />
+    );
+  }
+
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -90,4 +129,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('oink', () => Oink);
+AppRegistry.registerComponent('oink', () => OinkNavigator);
