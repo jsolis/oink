@@ -11,7 +11,8 @@ import {
   Text,
   View,
   TextInput,
-  ListView
+  ListView,
+  TouchableHighlight
 } from 'react-native';
 
 class Oink extends Component {
@@ -51,7 +52,13 @@ class Oink extends Component {
 
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Text style={styles.listItem}>{rowData.title}</Text>} />
+          renderRow={(rowData) => {
+            return (
+              <TouchableHighlight onPress={() => {alert(rowData.title)}}>
+                <Text style={styles.listItem}>{rowData.title}</Text>
+              </TouchableHighlight>
+            );
+          }} />
         
       </View>
     );
