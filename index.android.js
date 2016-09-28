@@ -14,25 +14,6 @@ import {
   ListView
 } from 'react-native';
 
-class Foobar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { showText: false };
-
-    setTimeout(() => {
-      this.setState({ showText: true });
-    }, 500);
-  }
-
-  render() {
-    let display = this.state.showText ? this.props.text : '';
-
-    return (
-      <Text style={this.props.style}>{display}</Text>
-    );
-  }
-}
-
 class Oink extends Component {
   constructor(props) {
     super(props);
@@ -64,13 +45,6 @@ class Oink extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TextInput 
-          style={{height: 40, width: 100}}
-          placeholder="Greeting..."
-          onChangeText={(text) => this.setState({text})} />
-        <Text>Filter by: </Text>
-        <Foobar text={this.state.text} style={styles.instructions}/>
-
         <Text style={styles.welcome}>
           James Medicines
         </Text>
