@@ -66,9 +66,11 @@ class OinkList extends Component {
           dataSource={this.state.dataSource}
           renderRow={(rowData) => {
             return (
-              <TouchableHighlight onPress={() => {
-                this.props.navigator.push({id: 'details', medicine: rowData.title});
-              }}>
+              <TouchableHighlight 
+                underlayColor="#e0ffff"
+                onPress={() => {
+                  this.props.navigator.push({id: 'details', medicine: rowData.title});
+                }}>
                 <Text style={styles.listItem}>{rowData.title}</Text>
               </TouchableHighlight>
             );
