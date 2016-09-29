@@ -17,6 +17,16 @@ import {
   BackAndroid
 } from 'react-native';
 
+import * as firebase from 'firebase';
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: 'AIzaSyBdMfL-rIsMEmn1ducZ5E5ZZ3eFQ6ydQZU',
+  authDomain: 'oink-99fe4.firebaseapp.com',
+  databaseURL: 'https://oink-99fe4.firebaseio.com',
+};
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+
 let _navigator;
 
 BackAndroid.addEventListener('hardwareBackPress', () => {
@@ -34,24 +44,33 @@ class OinkList extends Component {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     
     this.state = {
-      text: 'James',
+      name: 'James',
       dataSource: ds.cloneWithRows([{title: 'Loading...'}])
     }
 
-    getMoviesFromApi()
-      .then(movies => {
-        this.setState({ dataSource: this.state.dataSource.cloneWithRows(movies) });
+    this.itemsRef = firebaseApp.database().ref().child('users').child('dummy').child('people').child('James');
+  }
+
+  listenForItems(itemsRef) {
+    itemsRef.on('value', (snapshot) => {
+      var items = [];
+      snapshot.forEach((child) => {
+        items.push({
+          title: child.key,
+          details: child.val(),
+          _key: child.key,
+        });
       });
 
-    async function getMoviesFromApi() {
-      try {
-        let response = await fetch('https://facebook.github.io/react-native/movies.json');
-        let responseJson = await response.json();
-        return responseJson.movies;
-      } catch(error) {
-        console.error(error);
-      }
-    }
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(items)
+      });
+    });
+  }
+
+  componentDidMount() {
+
+    this.listenForItems(this.itemsRef);
 
   }
 
@@ -59,7 +78,7 @@ class OinkList extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          James Medicines
+          {this.state.name}
         </Text>
 
         <ListView
@@ -69,7 +88,7 @@ class OinkList extends Component {
               <TouchableHighlight 
                 underlayColor="#e0ffff"
                 onPress={() => {
-                  this.props.navigator.push({id: 'details', medicine: rowData.title});
+                  this.props.navigator.push({id: 'details', medicine: rowData});
                 }}>
                 <Text style={styles.listItem}>{rowData.title}</Text>
               </TouchableHighlight>
@@ -91,7 +110,10 @@ class OinkDetails extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Details on {this.props.medicine}
+          {this.props.medicine.title}
+        </Text>
+        <Text style={styles.instructions}>
+          {this.props.medicine.details}
         </Text>
       </View>
     );
