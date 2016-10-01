@@ -76,8 +76,8 @@ class OinkList extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
+      <View style={styles.listContainer}>
+        <Text style={styles.header}>
           {this.state.name}
         </Text>
 
@@ -108,8 +108,8 @@ class OinkDetails extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
+      <View style={styles.detailsContainer}>
+        <Text style={styles.header}>
           {this.props.medicine.title}
         </Text>
         <Text style={styles.instructions}>
@@ -145,15 +145,22 @@ class OinkNavigator extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  detailsContainer: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#FFA4D0',
   },
-  welcome: {
-    fontSize: 30,
+  listContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#FFA4D0',
+  },
+  header: {
+    fontSize: 40,
     textAlign: 'center',
     margin: 10,
   },
