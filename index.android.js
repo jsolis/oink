@@ -112,9 +112,10 @@ class OinkDetails extends Component {
         <Text style={styles.header}>
           {this.props.medicine.title}
         </Text>
-        <Text style={styles.instructions}>
-          {this.props.medicine.details}
-        </Text>
+        <TextInput
+          style={styles.detailsTextInput}
+          onChangeText={(text) => alert(text)}
+          value={this.props.medicine.details}/>
       </View>
     );
   }
@@ -164,10 +165,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#aa3333',
-    marginBottom: 5,
+  detailsTextInput: {
+    height: 40,
+    alignSelf: 'stretch',
+    margin: 10,
+    color: '#333',
+    borderColor: 'gray',
+    borderWidth: 1,
   },
   listItem: {
     color: '#333',
