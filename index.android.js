@@ -112,6 +112,26 @@ class OinkDetails extends Component {
         <Text style={styles.header}>
           {this.props.medicine.title}
         </Text>
+        <Text style={styles.detailsText}>
+          {this.props.medicine.details}
+        </Text>
+      </View>
+    );
+  }
+}
+
+class OinkEditDetails extends Component {
+  constructor(props) {
+    super(props);
+
+  }
+
+  render() {
+    return (
+      <View style={styles.detailsContainer}>
+        <Text style={styles.header}>
+          {this.props.medicine.title}
+        </Text>
         <TextInput
           style={styles.detailsTextInput}
           onChangeText={(text) => alert(text)}
@@ -127,9 +147,11 @@ class OinkNavigator extends Component {
     _navigator = navigator;
     switch (route.id) {
       case 'list':
-        return <OinkList navigator={navigator}/>;
+        return <OinkList navigator={navigator} />;
       case 'details':
-        return <OinkDetails navigator={navigator} medicine={route.medicine}/>;
+        return <OinkDetails navigator={navigator} medicine={route.medicine} />;
+      case 'edit':
+        return <OinkEditDetails navigator={navigator} medicine={route.medicine} />;
       default:
         return <OinkList navigator={navigator}/>;
     }
@@ -164,6 +186,11 @@ const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: 'center',
     margin: 10,
+  },
+  detailsText: {
+    color: '#333',
+    fontSize: 20,
+    marginBottom: 10,
   },
   detailsTextInput: {
     height: 40,
