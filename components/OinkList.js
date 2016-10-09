@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
-  TextInput,
   ListView,
-  TouchableHighlight,
-  Navigator,
-  BackAndroid
+  TouchableHighlight
 } from 'react-native';
 
 import * as firebase from 'firebase';
