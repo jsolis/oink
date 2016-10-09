@@ -45,7 +45,7 @@ class OinkNavigator extends Component {
     
     this.state = {
       name: 'James',
-      dataSource: ds.cloneWithRows([{title: 'Loading...'}]),
+      dataSource: ds.cloneWithRows([{name: 'Loading...'}]),
       medicines: [],
     }
 
@@ -60,7 +60,7 @@ class OinkNavigator extends Component {
       snapshot.forEach((child) => {
 
         var medicine = {
-          title: child.key,
+          name: child.key,
           details: child.val(),
           _key: child.key,
         }

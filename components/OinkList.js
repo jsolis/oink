@@ -24,9 +24,9 @@ class OinkList extends Component {
                 underlayColor="#e0ffff"
                 style={styles.listItem}
                 onPress={() => {
-                  this.props.navigator.push({id: 'details', medicineName: rowData.title});
+                  this.props.navigator.push({id: 'details', medicineName: rowData.name});
                 }}>
-                <Text style={styles.listText}>{rowData.title}</Text>
+                <Text style={styles.listText}>{rowData.name}</Text>
               </TouchableHighlight>
             );
           }} />

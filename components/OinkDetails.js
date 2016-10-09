@@ -15,7 +15,7 @@ class OinkDetails extends Component {
     return (
       <View style={styles.detailsContainer}>
         <Text style={styles.header}>
-          {this.props.medicine.title}
+          {this.props.medicine.name}
         </Text>
         <Text style={styles.detailsText}>
           {this.props.medicine.details}

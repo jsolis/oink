@@ -16,7 +16,7 @@ class OinkEditDetails extends Component {
     return (
       <View style={styles.detailsContainer}>
         <Text style={styles.header}>
-          {this.props.medicine.title}
+          {this.props.medicine.name}
         </Text>
         <TextInput
           style={styles.detailsTextInput}
