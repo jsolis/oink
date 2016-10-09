@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    alignItems: 'stretch',
     backgroundColor: '#FFA4D0',
   },
   header: {
@@ -101,12 +101,17 @@ const styles = StyleSheet.create({
   listItem: {
     borderColor: '#333',
     borderWidth: 1,
+    backgroundColor: '#f9dbea',
     flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    marginBottom: 10,
+    marginLeft: 5,
+    marginRight: 5,
   },
   listText: {
     color: '#333',
     fontSize: 20,
-    marginBottom: 10,
   },
 });
 
