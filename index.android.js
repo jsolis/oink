@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
+  ListView,
   Navigator,
   BackAndroid
 } from 'react-native';
@@ -18,12 +19,12 @@ var OinkEditDetails = require('./components/OinkEditDetails');
 import * as firebase from 'firebase';
 
 // Initialize Firebase
-/*const firebaseConfig = {
+const firebaseConfig = {
   apiKey: 'AIzaSyBdMfL-rIsMEmn1ducZ5E5ZZ3eFQ6ydQZU',
   authDomain: 'oink-99fe4.firebaseapp.com',
   databaseURL: 'https://oink-99fe4.firebaseio.com',
 };
-const firebaseApp = firebase.initializeApp(firebaseConfig);*/
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 let _navigator;
 
@@ -37,17 +38,66 @@ BackAndroid.addEventListener('hardwareBackPress', () => {
 
 class OinkNavigator extends Component {
 
+  constructor(props) {
+    super(props);
+
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    
+    this.state = {
+      name: 'James',
+      dataSource: ds.cloneWithRows([{title: 'Loading...'}]),
+      medicines: [],
+    }
+
+    this.itemsRef = firebaseApp.database().ref().child('users').child('dummy').child('people').child('James');
+  }
+
+  listenForItems(itemsRef) {
+    itemsRef.on('value', (snapshot) => {
+      var items = [];
+      var medicines = {};
+
+      snapshot.forEach((child) => {
+
+        var medicine = {
+          title: child.key,
+          details: child.val(),
+          _key: child.key,
+        }
+
+        items.push(medicine);
+
+        medicines[child.key] = medicine;
+
+      });
+
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(items),
+        medicines: medicines,
+      });
+    });
+  }
+
+  componentDidMount() {
+
+    this.listenForItems(this.itemsRef);
+
+  }
+
   renderScene = (route, navigator) => {
     _navigator = navigator;
+
     switch (route.id) {
       case 'list':
-        return <OinkList navigator={navigator} />;
+        return <OinkList navigator={navigator} name={this.state.name} dataSource={this.state.dataSource} />;
       case 'details':
-        return <OinkDetails navigator={navigator} medicine={route.medicine} />;
+        var medicine = this.state.medicines[route.medicineName];
+        return <OinkDetails navigator={navigator} medicine={medicine} />;
       case 'edit':
-        return <OinkEditDetails navigator={navigator} medicine={route.medicine} />;
+        var medicine = this.state.medicines[route.medicineName];
+        return <OinkEditDetails navigator={navigator} medicine={medicine} />;
       default:
-        return <OinkList navigator={navigator}/>;
+        return <OinkList navigator={navigator} name={this.state.name} dataSource={this.state.dataSource} />;
     }
   };
 

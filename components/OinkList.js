@@ -7,69 +7,24 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-import * as firebase from 'firebase';
-
-// Initialize Firebase
-const firebaseConfig = {
-  apiKey: 'AIzaSyBdMfL-rIsMEmn1ducZ5E5ZZ3eFQ6ydQZU',
-  authDomain: 'oink-99fe4.firebaseapp.com',
-  databaseURL: 'https://oink-99fe4.firebaseio.com',
-};
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-
 class OinkList extends Component {
-  constructor(props) {
-    super(props);
-
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    
-    this.state = {
-      name: 'James',
-      dataSource: ds.cloneWithRows([{title: 'Loading...'}])
-    }
-
-    this.itemsRef = firebaseApp.database().ref().child('users').child('dummy').child('people').child('James');
-  }
-
-  listenForItems(itemsRef) {
-    itemsRef.on('value', (snapshot) => {
-      var items = [];
-      snapshot.forEach((child) => {
-        items.push({
-          title: child.key,
-          details: child.val(),
-          _key: child.key,
-        });
-      });
-
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(items)
-      });
-    });
-  }
-
-  componentDidMount() {
-
-    this.listenForItems(this.itemsRef);
-
-  }
 
   render() {
     return (
       <View style={styles.listContainer}>
         <Text style={styles.header}>
-          {this.state.name}
+          {this.props.name}
         </Text>
 
         <ListView
-          dataSource={this.state.dataSource}
+          dataSource={this.props.dataSource}
           renderRow={(rowData) => {
             return (
               <TouchableHighlight 
                 underlayColor="#e0ffff"
                 style={styles.listItem}
                 onPress={() => {
-                  this.props.navigator.push({id: 'details', medicine: rowData});
+                  this.props.navigator.push({id: 'details', medicineName: rowData.title});
                 }}>
                 <Text style={styles.listText}>{rowData.title}</Text>
               </TouchableHighlight>
