@@ -47,9 +47,16 @@ class OinkNavigator extends Component {
       name: 'James',
       dataSource: ds.cloneWithRows([{name: 'Loading...'}]),
       medicines: [],
-    }
+    };
 
-    this.itemsRef = firebaseApp.database().ref().child('users').child('dummy').child('people').child('James');
+    this.itemsRef = firebaseApp.database().ref('users/dummy/people/James');
+
+  }
+
+  updateMedicine(medicineName, details) {
+    if (medicineName) {
+      firebaseApp.database().ref('users/dummy/people/James/' + medicineName).set(details);
+    }
   }
 
   listenForItems(itemsRef) {
@@ -95,7 +102,7 @@ class OinkNavigator extends Component {
         return <OinkDetails navigator={navigator} medicine={medicine} />;
       case 'edit':
         var medicine = this.state.medicines[route.medicineName];
-        return <OinkEditDetails navigator={navigator} medicine={medicine} />;
+        return <OinkEditDetails navigator={navigator} medicine={medicine} updateMedicine={this.updateMedicine} />;
       default:
         return <OinkList navigator={navigator} name={this.state.name} dataSource={this.state.dataSource} />;
     }
