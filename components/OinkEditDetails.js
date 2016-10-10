@@ -16,12 +16,9 @@ class OinkEditDetails extends Component {
       name: this.props.medicine.name,
       details: this.props.medicine.details,
     };
-
-    this.updateMedicine = this.updateMedicine.bind(this);
-
   }
 
-  updateMedicine() {
+  updateMedicine = () => {
     DismissKeyboard()
     this.props.updateMedicine(this.state.name, this.state.details);
     this.props.navigator.pop();
