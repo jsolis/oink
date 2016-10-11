@@ -4,6 +4,7 @@ import {
   Text,
   View,
   ListView,
+  ScrollView,
   TouchableHighlight
 } from 'react-native';
 
@@ -16,20 +17,22 @@ class OinkList extends Component {
           {this.props.name}
         </Text>
 
-        <ListView
-          dataSource={this.props.dataSource}
-          renderRow={(rowData) => {
-            return (
-              <TouchableHighlight 
-                underlayColor="#e0ffff"
-                style={styles.listItem}
-                onPress={() => {
-                  this.props.navigator.push({id: 'details', medicineName: rowData.name});
-                }}>
-                <Text style={styles.listText}>{rowData.name}</Text>
-              </TouchableHighlight>
-            );
-          }} />
+        <ScrollView>
+          <ListView
+            dataSource={this.props.dataSource}
+            renderRow={(rowData) => {
+              return (
+                <TouchableHighlight 
+                  underlayColor="#e0ffff"
+                  style={styles.listItem}
+                  onPress={() => {
+                    this.props.navigator.push({id: 'details', medicineName: rowData.name});
+                  }}>
+                  <Text style={styles.listText}>{rowData.name}</Text>
+                </TouchableHighlight>
+              );
+            }} />
+        </ScrollView>
         
       </View>
     );
