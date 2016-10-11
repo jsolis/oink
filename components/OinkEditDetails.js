@@ -28,8 +28,12 @@ class OinkEditDetails extends Component {
     return (
       <View style={styles.detailsContainer}>
         <Text style={styles.header}>
-          {this.props.medicine.name}
+          {this.state.name}
         </Text>
+        <TextInput
+          style={styles.detailsTextInput}
+          onChangeText={(text) => this.setState({name: text})}
+          value={this.state.name}/>
         <TextInput
           style={styles.detailsTextInput}
           onChangeText={(text) => this.setState({details: text})}
