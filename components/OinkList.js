@@ -10,6 +10,10 @@ import {
 
 class OinkList extends Component {
 
+  addMedicine = () => {
+    this.props.navigator.push({id: 'edit'});
+  }
+
   render() {
     return (
       <View style={styles.listContainer}>
@@ -32,6 +36,12 @@ class OinkList extends Component {
                 </TouchableHighlight>
               );
             }} />
+
+          <Text 
+            style={styles.addButton}
+            onPress={this.addMedicine}>
+            Add
+          </Text>
         </ScrollView>
         
       </View>
@@ -66,6 +76,15 @@ const styles = StyleSheet.create({
   listText: {
     color: '#333',
     fontSize: 20,
+  },
+  addButton: {
+    borderColor: '#333',
+    borderWidth: 1,
+    backgroundColor: '#f9dbea',
+    fontSize: 25,
+    padding: 10,
+    margin: 10,
+    alignSelf: 'center',
   },
 });
 

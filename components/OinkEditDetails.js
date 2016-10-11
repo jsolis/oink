@@ -12,10 +12,14 @@ class OinkEditDetails extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      name: this.props.medicine.name,
-      details: this.props.medicine.details,
-    };
+    if (this.props.medicine) {
+      this.state = this.props.medicine;
+    } else {
+      this.state = {
+        name: '',
+        details: '',
+      };
+    }
   }
 
   updateMedicine = () => {
@@ -38,10 +42,13 @@ class OinkEditDetails extends Component {
         </Text>
         <TextInput
           style={styles.detailsTextInput}
+          autoCapitalize="words"
+          placeholder="Item Name"
           onChangeText={(text) => this.setState({name: text})}
           value={this.state.name}/>
         <TextInput
           style={styles.detailsTextInput}
+          placeholder="Details"
           onChangeText={(text) => this.setState({details: text})}
           value={this.state.details}/>
 

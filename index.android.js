@@ -102,10 +102,15 @@ class OinkNavigator extends Component {
 
     switch (route.id) {
       case 'list':
-        return <OinkList navigator={navigator} name={this.state.name} dataSource={this.state.dataSource} />;
+        return <OinkList 
+                  navigator={navigator} 
+                  name={this.state.name} 
+                  dataSource={this.state.dataSource}  />;
       case 'details':
         var medicine = this.state.medicines[route.medicineName];
-        return <OinkDetails navigator={navigator} medicine={medicine} />;
+        return <OinkDetails 
+                  navigator={navigator} 
+                  medicine={medicine} />;
       case 'edit':
         var medicine = this.state.medicines[route.medicineName];
         return <OinkEditDetails 
@@ -114,7 +119,10 @@ class OinkNavigator extends Component {
                   updateMedicine={this.updateMedicine}
                   deleteMedicine={this.deleteMedicine} />;
       default:
-        return <OinkList navigator={navigator} name={this.state.name} dataSource={this.state.dataSource} />;
+        return <OinkList 
+                  navigator={navigator} 
+                  name={this.state.name} 
+                  dataSource={this.state.dataSource} />;
     }
   };
 
