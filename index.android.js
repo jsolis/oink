@@ -59,6 +59,12 @@ class OinkNavigator extends Component {
     }
   }
 
+  deleteMedicine(medicineName) {
+    if (medicineName) {
+      firebaseApp.database().ref('users/dummy/people/James/' + medicineName).remove();
+    }
+  }
+
   listenForItems(itemsRef) {
     itemsRef.on('value', (snapshot) => {
       var items = [];
@@ -102,7 +108,11 @@ class OinkNavigator extends Component {
         return <OinkDetails navigator={navigator} medicine={medicine} />;
       case 'edit':
         var medicine = this.state.medicines[route.medicineName];
-        return <OinkEditDetails navigator={navigator} medicine={medicine} updateMedicine={this.updateMedicine} />;
+        return <OinkEditDetails 
+                  navigator={navigator} 
+                  medicine={medicine} 
+                  updateMedicine={this.updateMedicine}
+                  deleteMedicine={this.deleteMedicine} />;
       default:
         return <OinkList navigator={navigator} name={this.state.name} dataSource={this.state.dataSource} />;
     }

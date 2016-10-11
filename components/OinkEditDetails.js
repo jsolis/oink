@@ -19,9 +19,15 @@ class OinkEditDetails extends Component {
   }
 
   updateMedicine = () => {
-    DismissKeyboard()
+    DismissKeyboard();
     this.props.updateMedicine(this.state.name, this.state.details);
     this.props.navigator.pop();
+  }
+
+  deleteMedicine = () => {
+    DismissKeyboard();
+    this.props.deleteMedicine(this.state.name);
+    this.props.navigator.push({id: 'list'});
   }
 
   render() {
@@ -39,11 +45,19 @@ class OinkEditDetails extends Component {
           onChangeText={(text) => this.setState({details: text})}
           value={this.state.details}/>
 
-        <Text 
-          style={styles.saveButton}
-          onPress={this.updateMedicine}>
-          Save
-        </Text>
+        <View style={styles.buttonContainer}>
+          <Text 
+            style={styles.saveButton}
+            onPress={this.updateMedicine}>
+            Save
+          </Text>
+          <Text
+            style={styles.deleteButton}
+            onPress={this.deleteMedicine}>
+            Delete
+          </Text>
+        </View>
+
       </View>
     );
   }
@@ -75,12 +89,28 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
   },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
   saveButton: {
     borderColor: '#333',
     borderWidth: 1,
     backgroundColor: '#f9dbea',
     fontSize: 25,
     padding: 10,
+    margin: 10,
+    justifyContent: 'flex-end',
+  },
+  deleteButton: {
+    borderColor: '#333',
+    borderWidth: 1,
+    backgroundColor: '#d60000',
+    fontSize: 25,
+    padding: 10,
+    margin: 10,
     justifyContent: 'flex-end',
   },
 });
