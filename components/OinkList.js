@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   listItem: {
     borderColor: '#333',
     borderWidth: 1,
-    backgroundColor: '#f9dbea',
+    backgroundColor: '#EAD7D1',
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
@@ -76,8 +76,9 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   listText: {
-    color: '#333',
+    color: '#4F7CAC',
     fontSize: 20,
+    fontWeight: 'bold',
   },
   addButton: {
     flex: 1,
