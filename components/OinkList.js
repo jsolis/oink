@@ -21,28 +21,26 @@ class OinkList extends Component {
           {this.props.name}
         </Text>
 
-        <ScrollView>
-          <ListView
-            dataSource={this.props.dataSource}
-            renderRow={(rowData) => {
-              return (
-                <TouchableHighlight 
-                  underlayColor="#e0ffff"
-                  style={styles.listItem}
-                  onPress={() => {
-                    this.props.navigator.push({id: 'details', medicineName: rowData.name});
-                  }}>
-                  <Text style={styles.listText}>{rowData.name}</Text>
-                </TouchableHighlight>
-              );
-            }} />
+        <ListView
+          dataSource={this.props.dataSource}
+          renderRow={(rowData) => {
+            return (
+              <TouchableHighlight 
+                underlayColor="#e0ffff"
+                style={styles.listItem}
+                onPress={() => {
+                  this.props.navigator.push({id: 'details', medicineName: rowData.name});
+                }}>
+                <Text style={styles.listText}>{rowData.name}</Text>
+              </TouchableHighlight>
+            );
+          }} />
 
-          <Text 
-            style={styles.addButton}
-            onPress={this.addMedicine}>
-            Add
-          </Text>
-        </ScrollView>
+        <Text 
+          style={styles.addButton}
+          onPress={this.addMedicine}>
+          +
+        </Text>
         
       </View>
     );
@@ -78,13 +76,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   addButton: {
-    borderColor: '#333',
+    flex: 1,
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    borderColor: '#000',
     borderWidth: 1,
-    backgroundColor: '#f9dbea',
-    fontSize: 25,
-    padding: 10,
-    margin: 10,
-    alignSelf: 'center',
+    backgroundColor: '#000',
+    color: '#fff',
+    fontSize: 35,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    height: 60,
+    width: 60,
   },
 });
 
