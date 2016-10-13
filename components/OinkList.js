@@ -58,7 +58,11 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 40,
     textAlign: 'center',
-    margin: 10,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: '#212D40',
+    color: '#fff',
+    alignSelf: 'stretch',
   },
   listItem: {
     borderColor: '#333',
