@@ -31,6 +31,17 @@ class OinkEditDetails extends Component {
   render() {
     return (
       <View style={styles.detailsContainer}>
+        <View style={styles.navbar}>
+          <Text 
+            style={styles.navItem}
+            onPress={() => {
+              this.props.navigator.pop();
+            }}>&lt;</Text>
+
+            <Text 
+              style={styles.navItem}
+              onPress={this.updateMedicine}>Save</Text>
+        </View>
         <Text style={styles.header}>
           {this.state.name}
         </Text>
@@ -67,6 +78,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FFA4D0',
   },
+  navbar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#212D40',
+    alignSelf: 'stretch',
+    padding: 10,
+  },
+  navItem: {
+    fontSize: 25,
+    color: '#fff',
+  },
   header: {
     fontSize: 40,
     textAlign: 'center',
@@ -98,16 +120,8 @@ const styles = StyleSheet.create({
   saveButton: {
     borderColor: '#333',
     borderWidth: 1,
-    backgroundColor: '#f9dbea',
-    fontSize: 25,
-    padding: 10,
-    margin: 10,
-    justifyContent: 'flex-end',
-  },
-  deleteButton: {
-    borderColor: '#333',
-    borderWidth: 1,
-    backgroundColor: '#d60000',
+    backgroundColor: '#212D40',
+    color: '#fff',
     fontSize: 25,
     padding: 10,
     margin: 10,
