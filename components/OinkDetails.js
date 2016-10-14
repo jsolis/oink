@@ -71,14 +71,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 10,
   },
-  editButton: {
-    borderColor: '#333',
-    borderWidth: 1,
-    backgroundColor: '#f9dbea',
-    fontSize: 25,
-    padding: 10,
-    justifyContent: 'flex-end',
-  },
 });
 
 module.exports = OinkDetails;
