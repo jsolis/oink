@@ -32,12 +32,12 @@ class OinkDetails extends Component {
           <View style={styles.navSub}>
             <Text
               style={styles.navDeleteItem}
-              onPress={this.deleteMedicine}>X</Text>
+              onPress={this.deleteMedicine}>Delete</Text>
             <Text 
               style={styles.navItem}
               onPress={() => {
                 this.props.navigator.push({id: 'edit', medicineName: this.props.medicine.name});
-              }}>/</Text>
+              }}>Edit</Text>
           </View>
         </View>
         <Text style={styles.header}>
@@ -68,12 +68,10 @@ const styles = StyleSheet.create({
   },
   navItem: {
     fontSize: 25,
-    fontWeight: 'bold',
     color: '#fff',
   },
   navDeleteItem: {
     fontSize: 25,
-    fontWeight: 'bold',
     color: '#fff',
     marginRight: 40,
   },
