@@ -28,12 +28,6 @@ class OinkEditDetails extends Component {
     this.props.navigator.pop();
   }
 
-  deleteMedicine = () => {
-    DismissKeyboard();
-    this.props.deleteMedicine(this.state.name);
-    this.props.navigator.push({id: 'list'});
-  }
-
   render() {
     return (
       <View style={styles.detailsContainer}>
@@ -57,11 +51,6 @@ class OinkEditDetails extends Component {
             style={styles.saveButton}
             onPress={this.updateMedicine}>
             Save
-          </Text>
-          <Text
-            style={styles.deleteButton}
-            onPress={this.deleteMedicine}>
-            Delete
           </Text>
         </View>
 

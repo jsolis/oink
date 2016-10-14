@@ -5,10 +5,18 @@ import {
   View
 } from 'react-native';
 
+var DismissKeyboard = require('dismissKeyboard');
+
 class OinkDetails extends Component {
   constructor(props) {
     super(props);
 
+  }
+
+  deleteMedicine = () => {
+    DismissKeyboard();
+    this.props.deleteMedicine(this.props.medicine.name);
+    this.props.navigator.pop();
   }
 
   render() {
@@ -20,11 +28,17 @@ class OinkDetails extends Component {
             onPress={() => {
               this.props.navigator.pop();
             }}>&lt;</Text>
-          <Text 
-            style={styles.navItem}
-            onPress={() => {
-              this.props.navigator.push({id: 'edit', medicineName: this.props.medicine.name});
-            }}>/</Text>
+
+          <View style={styles.navSub}>
+            <Text
+              style={styles.navDeleteItem}
+              onPress={this.deleteMedicine}>X</Text>
+            <Text 
+              style={styles.navItem}
+              onPress={() => {
+                this.props.navigator.push({id: 'edit', medicineName: this.props.medicine.name});
+              }}>/</Text>
+          </View>
         </View>
         <Text style={styles.header}>
           {this.props.medicine.name}
@@ -53,9 +67,19 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   navItem: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
     color: '#fff',
+  },
+  navDeleteItem: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginRight: 40,
+  },
+  navSub: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
   header: {
     fontSize: 40,

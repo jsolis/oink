@@ -110,14 +110,14 @@ class OinkNavigator extends Component {
         var medicine = this.state.medicines[route.medicineName];
         return <OinkDetails 
                   navigator={navigator} 
-                  medicine={medicine} />;
+                  medicine={medicine}
+                  deleteMedicine={this.deleteMedicine} />;
       case 'edit':
         var medicine = this.state.medicines[route.medicineName];
         return <OinkEditDetails 
                   navigator={navigator} 
                   medicine={medicine} 
-                  updateMedicine={this.updateMedicine}
-                  deleteMedicine={this.deleteMedicine} />;
+                  updateMedicine={this.updateMedicine} />;
       default:
         return <OinkList 
                   navigator={navigator} 
