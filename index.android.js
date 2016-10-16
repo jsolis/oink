@@ -12,9 +12,9 @@ import {
   BackAndroid
 } from 'react-native';
 
-var OinkList = require('./components/OinkList');
-var OinkDetails = require('./components/OinkDetails');
-var OinkEditDetails = require('./components/OinkEditDetails');
+import OinkList from './components/OinkList';
+import OinkDetails from './components/OinkDetails';
+import OinkEditDetails from './components/OinkEditDetails';
 
 import * as firebase from 'firebase';
 
