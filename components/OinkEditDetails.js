@@ -5,8 +5,9 @@ import {
   View,
   TextInput,
   Picker,
-  Item
 } from 'react-native';
+
+const Item = Picker.Item;
 
 var DismissKeyboard = require('dismissKeyboard');
 
