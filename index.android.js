@@ -53,9 +53,9 @@ class OinkNavigator extends Component {
 
   }
 
-  updateMedicine(medicineName, details) {
-    if (medicineName) {
-      firebaseApp.database().ref('users/dummy/people/James/' + medicineName).set(details);
+  updateMedicine(medicineObj) {
+    if (medicineObj && medicineObj.name) {
+      firebaseApp.database().ref('users/dummy/people/James/' + medicineObj.name).set(medicineObj);
     }
   }
 
@@ -80,7 +80,8 @@ class OinkNavigator extends Component {
 
         items.push(medicine);
 
-        medicines[child.key] = medicine;
+        medicines[child.key] = child.val();
+        medicines[child.key].name = child.key;
 
       });
 

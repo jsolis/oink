@@ -3,7 +3,9 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput
+  TextInput,
+  Picker,
+  Item
 } from 'react-native';
 
 var DismissKeyboard = require('dismissKeyboard');
@@ -17,6 +19,9 @@ class OinkEditDetails extends Component {
     } else {
       this.state = {
         name: '',
+        dose: '',
+        frequency: '',
+        priority: 'must',
         details: '',
       };
     }
@@ -24,8 +29,12 @@ class OinkEditDetails extends Component {
 
   updateMedicine = () => {
     DismissKeyboard();
-    this.props.updateMedicine(this.state.name, this.state.details);
+    this.props.updateMedicine(this.state);
     this.props.navigator.pop();
+  }
+
+  onValueChange = (key: string, value: string) => {
+    this.setState({priority: value});
   }
 
   render() {
@@ -45,12 +54,35 @@ class OinkEditDetails extends Component {
         <Text style={styles.header}>
           {this.state.name}
         </Text>
+
         <TextInput
           style={styles.detailsTextInput}
           autoCapitalize="words"
           placeholder="Item Name"
           onChangeText={(text) => this.setState({name: text})}
           value={this.state.name}/>
+
+        <TextInput
+          style={styles.detailsTextInput}
+          placeholder="Dose"
+          onChangeText={(text) => this.setState({dose: text})}
+          value={this.state.dose}/>
+
+        <TextInput
+          style={styles.detailsTextInput}
+          placeholder="Frequency"
+          onChangeText={(text) => this.setState({frequency: text})}
+          value={this.state.frequency}/>
+
+        <Picker
+          style={styles.picker}
+          selectedValue={this.state.priority}
+          onValueChange={this.onValueChange.bind(this, 'priority')}>
+          <Item label="Must Take" value="must" />
+          <Item label="Should Take" value="should" />
+          <Item label="Can Take" value="can" />
+        </Picker>
+
         <TextInput
           style={styles.detailsTextInput}
           placeholder="Details"
@@ -110,6 +142,9 @@ const styles = StyleSheet.create({
     color: '#333',
     borderColor: 'gray',
     borderWidth: 1,
+  },
+  picker: {
+    alignSelf: 'stretch',
   },
   buttonContainer: {
     flex: 1,
