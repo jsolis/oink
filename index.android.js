@@ -76,7 +76,7 @@ class OinkNavigator extends Component {
           name: child.key,
           details: child.val(),
           _key: child.key,
-        }
+        };
 
         items.push(medicine);
 
