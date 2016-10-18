@@ -30,8 +30,8 @@ class OinkEditDetails extends Component {
 
   updateMedicine = () => {
     DismissKeyboard();
-    this.props.updateMedicine(this.state);
-    this.props.navigator.pop();
+    this.props.updateMedicine(this.props.medicine.name, this.state);
+    this.props.navigator.replacePreviousAndPop({id: 'details', medicineName: this.state.name});
   }
 
   onValueChange = (key: string, value: string) => {
