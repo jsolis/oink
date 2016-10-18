@@ -31,7 +31,11 @@ class OinkList extends Component {
                 onPress={() => {
                   this.props.navigator.push({id: 'details', medicineName: rowData.name});
                 }}>
-                <Text style={styles.listText}>{rowData.name}</Text>
+                <View style={styles.listItemView}>
+                  <Text style={styles['priority'+rowData.priority]}>&nbsp;</Text>
+                  <Text style={styles.listTitle}>{rowData.name}</Text>
+                  <Text style={styles.listText}>{rowData.dose} / {rowData.frequency}</Text>
+                </View>
               </TouchableHighlight>
             );
           }} />
@@ -75,10 +79,46 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
   },
-  listText: {
+  listItemView: {
+    flexDirection: 'row',
+  },
+  prioritymust: {
+    backgroundColor: '#ff0000',
+    marginRight: 10,
+    borderColor: '#000',
+    borderWidth: 1,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    padding: 5,
+  },
+  priorityshould: {
+    backgroundColor: '#ff7b00',
+    marginRight: 10,
+    borderColor: '#000',
+    borderWidth: 1,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    padding: 5,
+  },
+  prioritycan: {
+    backgroundColor: '#eef200',
+    marginRight: 10,
+    borderColor: '#000',
+    borderWidth: 1,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    padding: 5,
+  },
+  listTitle: {
     color: '#4F7CAC',
     fontSize: 20,
     fontWeight: 'bold',
+    marginRight: 5,
+  },
+  listText: {
+    color: '#4F7CAC',
+    fontSize: 15,
+    textAlignVertical: 'center',
   },
   addButton: {
     flex: 1,

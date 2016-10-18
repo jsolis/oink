@@ -84,11 +84,8 @@ class OinkNavigator extends Component {
 
       snapshot.forEach((child) => {
 
-        var medicine = {
-          name: child.key,
-          details: child.val(),
-          _key: child.key,
-        };
+        var medicine = child.val();
+        medicine._key = child.key;
 
         items.push(medicine);
 
