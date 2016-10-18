@@ -60,8 +60,8 @@ class OinkNavigator extends Component {
   }
 
   deleteMedicine(medicineName) {
-    if (medicineName) {
-      firebaseApp.database().ref('users/dummy/people/James/' + medicineName).remove();
+    if (medicineName && medicineName.length > 0) {
+      firebaseApp.database().ref('users/dummy/people/James/').child(medicineName).remove();
     }
   }
 
