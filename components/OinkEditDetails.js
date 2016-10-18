@@ -15,6 +15,8 @@ class OinkEditDetails extends Component {
   constructor(props) {
     super(props);
 
+    this.originalName = this.props.medicine ? this.props.medicine.name : '';
+
     if (this.props.medicine) {
       this.state = this.props.medicine;
     } else {
@@ -30,8 +32,12 @@ class OinkEditDetails extends Component {
 
   updateMedicine = () => {
     DismissKeyboard();
-    this.props.updateMedicine(this.props.medicine.name, this.state);
-    this.props.navigator.replacePreviousAndPop({id: 'details', medicineName: this.state.name});
+    this.props.updateMedicine(this.originalName, this.state);
+    if (this.originalName === '') {
+      this.props.navigator.pop();
+    } else {
+      this.props.navigator.replacePreviousAndPop({id: 'details', medicineName: this.state.name});
+    }
   }
 
   onValueChange = (key: string, value: string) => {
