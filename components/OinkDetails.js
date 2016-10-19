@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  Alert
 } from 'react-native';
 
 var DismissKeyboard = require('dismissKeyboard');
@@ -14,9 +15,21 @@ class OinkDetails extends Component {
   }
 
   deleteMedicine = () => {
-    DismissKeyboard();
-    this.props.deleteMedicine(this.props.medicine.name);
-    this.props.navigator.pop();
+    Alert.alert(
+      'Delete',
+      `Are you sure you want to delete ${this.props.medicine.name}`,
+      [
+        {text: 'Keep'},
+        {
+          text: 'Delete', 
+          onPress: () => {
+            DismissKeyboard();
+            this.props.navigator.pop();
+            this.props.deleteMedicine(this.props.medicine.name);
+          }
+        }
+      ]
+    );
   }
 
   render() {
