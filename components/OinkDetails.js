@@ -40,12 +40,37 @@ class OinkDetails extends Component {
               }}>Edit</Text>
           </View>
         </View>
+
         <Text style={styles.header}>
           {this.props.medicine.name}
         </Text>
-        <Text style={styles.detailsText}>
-          {this.props.medicine.details}
-        </Text>
+
+        <View style={styles.detailsSectionContainer}>
+          <Text style={styles.detailsHeader}>
+            Dosage Info
+          </Text>
+          <Text style={styles.detailsText}>
+            {this.props.medicine.dose} / {this.props.medicine.frequency}
+          </Text>
+        </View>
+
+        <View style={styles.detailsSectionContainer}>
+          <Text style={styles.detailsHeader}>
+            Priority
+          </Text>
+          <Text style={styles.detailsText}>
+            {this.props.medicine.priority}
+          </Text>
+        </View>
+
+        <View style={styles.detailsSectionContainer}>
+          <Text style={styles.detailsHeader}>
+            Details
+          </Text>
+          <Text style={styles.detailsText}>
+            {this.props.medicine.details}
+          </Text>
+        </View>
       </View>
     );
   }
@@ -88,8 +113,24 @@ const styles = StyleSheet.create({
     color: '#fff',
     alignSelf: 'stretch',
   },
+  detailsSectionContainer: {
+    backgroundColor: '#EAD7D1',
+    borderColor: '#333',
+    borderWidth: 1,
+    alignSelf: 'stretch',
+    padding: 10,
+    marginBottom: 10,
+    marginLeft: 5,
+    marginRight: 5,
+  },
+  detailsHeader: {
+    color: '#4F7CAC',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
   detailsText: {
-    color: '#333',
+    color: '#4F7CAC',
     fontSize: 20,
     marginBottom: 10,
   },
