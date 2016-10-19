@@ -9,7 +9,8 @@ import {
   AppRegistry,
   ListView,
   Navigator,
-  BackAndroid
+  BackAndroid,
+  Alert
 } from 'react-native';
 
 import OinkList from './components/OinkList';
@@ -77,6 +78,32 @@ class OinkNavigator extends Component {
     }
   }
 
+  takeMedicine(medicineName) {
+    if (medicineName && medicineName.length > 0) {
+      firebaseApp.database().ref('users/dummy/people/James/')
+        .child(medicineName)
+        .update({lastTaken: new Date().getTime()})
+        .then(() => {
+          Alert.alert(
+            'Taken',
+            `${medicineName} has been taken`,
+            [
+              {text: 'OK'}
+            ]
+          );
+        })
+        .catch(() => {
+          Alert.alert(
+            'Error',
+            `There was a problem taking ${medicineName}`,
+            [
+              {text: 'OK'}
+            ]
+          );
+        });
+    }
+  }
+
   listenForItems(itemsRef) {
     itemsRef.on('value', (snapshot) => {
       var items = [];
@@ -121,7 +148,8 @@ class OinkNavigator extends Component {
         return <OinkDetails 
                   navigator={navigator} 
                   medicine={medicine}
-                  deleteMedicine={this.deleteMedicine} />;
+                  deleteMedicine={this.deleteMedicine}
+                  takeMedicine={this.takeMedicine} />;
       case 'edit':
         var medicine = this.state.medicines[route.medicineName];
         return <OinkEditDetails 

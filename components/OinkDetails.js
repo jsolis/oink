@@ -30,33 +30,70 @@ class OinkDetails extends Component {
         }
       ]
     );
-  }
+  };
+
+  takeMedicine = () => {
+    this.props.takeMedicine(this.props.medicine.name);
+  };
+
+  formatDate = (date) => {
+    const dayOfWeekArr = [
+      'Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'
+    ];
+    const monthArr = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'
+    ];
+
+    let dateObj = new Date(date);
+
+    let dayOfWeek = dayOfWeekArr[dateObj.getDay()];
+    let month = monthArr[dateObj.getMonth()];
+    let dayOfMonth = dateObj.getDate();
+    let hour = dateObj.getHours();
+    let minute = dateObj.getMinutes();
+
+    return `${dayOfWeek} ${month} ${dayOfMonth} ${hour}:${minute}`;
+  };
 
   render() {
+    let lastTakenProps = this.props.medicine.lastTaken;
+    let lastTaken =  lastTakenProps ? this.formatDate(lastTakenProps) : 'never';
     return (
       <View style={styles.detailsContainer}>
         <View style={styles.navbar}>
           <Text 
-            style={styles.navItem}
+            style={styles.navItemBack}
             onPress={() => {
               this.props.navigator.pop();
             }}>&lt;</Text>
 
           <View style={styles.navSub}>
             <Text
-              style={styles.navDeleteItem}
+              style={styles.navItem}
               onPress={this.deleteMedicine}>Delete</Text>
             <Text 
               style={styles.navItem}
               onPress={() => {
                 this.props.navigator.push({id: 'edit', medicineName: this.props.medicine.name});
               }}>Edit</Text>
+            <Text
+              style={styles.navItem}
+              onPress={this.takeMedicine}>Take</Text>
           </View>
         </View>
 
         <Text style={styles.header}>
           {this.props.medicine.name}
         </Text>
+
+        <View style={styles.detailsSectionContainer}>
+          <Text style={styles.detailsHeader}>
+            Last Taken
+          </Text>
+          <Text style={styles.detailsText}>
+            {lastTaken}
+          </Text>
+        </View>
 
         <View style={styles.detailsSectionContainer}>
           <Text style={styles.detailsHeader}>
@@ -104,14 +141,15 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     padding: 10,
   },
-  navItem: {
+  navItemBack: {
     fontSize: 25,
     color: '#fff',
   },
-  navDeleteItem: {
+  navItem: {
     fontSize: 25,
     color: '#fff',
-    marginRight: 40,
+    marginLeft: 30,
+    marginRight: 5,
   },
   navSub: {
     flexDirection: 'row',
