@@ -24,6 +24,7 @@ class OinkList extends Component {
         <ListView
           dataSource={this.props.dataSource}
           renderRow={(rowData) => {
+            let doseInfo = rowData.dose ? `${rowData.dose} / ${rowData.frequency}` : '';
             return (
               <TouchableHighlight 
                 underlayColor="#e0ffff"
@@ -34,7 +35,7 @@ class OinkList extends Component {
                 <View style={styles.listItemView}>
                   <Text style={styles['priority'+rowData.priority]}>&nbsp;</Text>
                   <Text style={styles.listTitle}>{rowData.name}</Text>
-                  <Text style={styles.listText}>{rowData.dose} / {rowData.frequency}</Text>
+                  <Text style={styles.listText}>{doseInfo}</Text>
                 </View>
               </TouchableHighlight>
             );
