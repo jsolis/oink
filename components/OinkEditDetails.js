@@ -147,8 +147,6 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     margin: 10,
     color: '#333',
-    borderColor: 'gray',
-    borderWidth: 1,
   },
   picker: {
     alignSelf: 'stretch',
