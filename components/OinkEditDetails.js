@@ -5,11 +5,10 @@ import {
   View,
   TextInput,
   Picker,
+  Keyboard,
 } from 'react-native';
 
 const Item = Picker.Item;
-
-var DismissKeyboard = require('dismissKeyboard');
 
 class OinkEditDetails extends Component {
   constructor(props) {
@@ -31,7 +30,7 @@ class OinkEditDetails extends Component {
   }
 
   updateMedicine = () => {
-    DismissKeyboard();
+    Keyboard.dismiss();
     this.props.updateMedicine(this.originalName, this.state);
     if (this.originalName === '') {
       this.props.navigator.pop();
