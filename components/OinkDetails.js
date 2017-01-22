@@ -50,7 +50,7 @@ class OinkDetails extends Component {
     let month = monthArr[dateObj.getMonth()];
     let dayOfMonth = dateObj.getDate();
     let hour = dateObj.getHours();
-    let minute = dateObj.getMinutes();
+    let minute = (dateObj.getMinutes() < 10 ? '0' : '') + dateObj.getMinutes();
 
     return `${dayOfWeek} ${month} ${dayOfMonth} ${hour}:${minute}`;
   };
