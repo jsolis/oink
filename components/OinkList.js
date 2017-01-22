@@ -52,6 +52,12 @@ class OinkList extends Component {
   }
 }
 
+OinkList.propTypes = {
+  navigator: React.PropTypes.object.isRequired,
+  name: React.PropTypes.string.isRequired,
+  dataSource: React.PropTypes.object.isRequired,
+};
+
 const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
