@@ -108,6 +108,18 @@ class OinkEditDetails extends Component {
   }
 }
 
+OinkEditDetails.propTypes = {
+  navigator: React.PropTypes.object.isRequired,
+  medicine: React.PropTypes.shape({
+    name: React.PropTypes.string.isRequired,
+    dose: React.PropTypes.string.isRequired,
+    frequency: React.PropTypes.string.isRequired,
+    priority: React.PropTypes.string.isRequired,
+    details: React.PropTypes.string.isRequired,
+  }),
+  updateMedicine: React.PropTypes.func.isRequired,
+};
+
 const styles = StyleSheet.create({
   detailsContainer: {
     flex: 1,
