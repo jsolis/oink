@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
   ListView,
   ScrollView,
-  TouchableHighlight
+  StyleSheet,
+  TouchableHighlight,
+  Text,
+  View
 } from 'react-native';
+import {
+  Fab,
+  Icon,
+} from 'native-base';
 
 class OinkList extends Component {
 
@@ -40,11 +44,11 @@ class OinkList extends Component {
             );
           }} />
 
-        <Text 
-          style={styles.addButton}
+        <Fab
+          position="bottomRight"
           onPress={this.addMedicine}>
-          +
-        </Text>
+          <Icon name='add' />
+        </Fab>
         
       </View>
     );
