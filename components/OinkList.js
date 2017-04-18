@@ -99,15 +99,6 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#FFA4D0',
   },
-  header: {
-    fontSize: 40,
-    textAlign: 'center',
-    marginBottom: 10,
-    padding: 10,
-    backgroundColor: '#212D40',
-    color: '#fff',
-    alignSelf: 'stretch',
-  },
   listItem: {
     borderColor: '#333',
     borderWidth: 1,
@@ -160,21 +151,6 @@ const styles = StyleSheet.create({
     color: '#4F7CAC',
     fontSize: 15,
     textAlignVertical: 'center',
-  },
-  addButton: {
-    flex: 1,
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    borderColor: '#000',
-    borderWidth: 1,
-    backgroundColor: '#000',
-    color: '#fff',
-    fontSize: 35,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    height: 60,
-    width: 60,
   },
 });
 
