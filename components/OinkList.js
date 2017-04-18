@@ -27,10 +27,22 @@ class OinkList extends Component {
 
   render() {
     return (
-      <View style={styles.listContainer}>
-        <Text style={styles.header}>
-          {this.props.name}
-        </Text>
+      <Container style={StyleSheet.flatten(styles.listContainer)}>
+        <Header backgroundColor='#212D40'>
+          <Left>
+            <Button transparent>
+              <Icon name='arrow-back' />
+            </Button>
+          </Left>
+          <Body>
+            <Text>{this.props.name}</Text>
+          </Body>
+          <Right>
+            <Button transparent>
+              <Icon name='menu' />
+            </Button>
+          </Right>
+        </Header>
 
         <List
           dataArray={this.props.medicineList}
