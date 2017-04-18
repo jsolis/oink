@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import {
-  ListView,
-  ScrollView,
   StyleSheet,
   TouchableHighlight,
   Text,
-  View
+  View,
 } from 'react-native';
 import {
+  Body,
+  Button,
+  Container,
   Fab,
+  Footer,
+  FooterTab,
+  Header,
   Icon,
+  Left,
+  List,
+  Right,
 } from 'native-base';
 
 class OinkList extends Component {
@@ -25,8 +32,8 @@ class OinkList extends Component {
           {this.props.name}
         </Text>
 
-        <ListView
-          dataSource={this.props.dataSource}
+        <List
+          dataArray={this.props.medicineList}
           renderRow={(rowData) => {
             const doseInfo = rowData.dose ? `${rowData.dose} / ${rowData.frequency}` : '';
             return (
@@ -50,7 +57,7 @@ class OinkList extends Component {
           <Icon name='add' />
         </Fab>
         
-      </View>
+      </Container>
     );
   }
 }
@@ -58,7 +65,7 @@ class OinkList extends Component {
 OinkList.propTypes = {
   navigator: React.PropTypes.object.isRequired,
   name: React.PropTypes.string.isRequired,
-  dataSource: React.PropTypes.object.isRequired,
+  medicineList: React.PropTypes.array.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -85,7 +92,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
-    marginBottom: 10,
+    marginTop: 5,
+    marginBottom: 5,
     marginLeft: 5,
     marginRight: 5,
   },

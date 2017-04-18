@@ -41,13 +41,11 @@ class OinkNavigator extends Component {
 
   constructor(props) {
     super(props);
-
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     
     this.state = {
       name: 'James',
-      dataSource: ds.cloneWithRows([{name: 'Loading...'}]),
-      medicines: [],
+      medicines: {},
+      medicineList: [{name: 'Loading...'}],
     };
 
     this.itemsRef = firebaseApp.database().ref('users/dummy/people/James');
@@ -122,8 +120,8 @@ class OinkNavigator extends Component {
       });
 
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(items),
         medicines: medicines,
+        medicineList: items,
       });
     });
   }
@@ -142,7 +140,7 @@ class OinkNavigator extends Component {
         return <OinkList 
                   navigator={navigator} 
                   name={this.state.name} 
-                  dataSource={this.state.dataSource}  />;
+                  medicineList={this.state.medicineList}  />;
       case 'details':
         var medicine = this.state.medicines[route.medicineName];
         return <OinkDetails 
@@ -160,7 +158,7 @@ class OinkNavigator extends Component {
         return <OinkList 
                   navigator={navigator} 
                   name={this.state.name} 
-                  dataSource={this.state.dataSource} />;
+                  medicineList={this.state.medicineList} />;
     }
   };
 
