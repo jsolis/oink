@@ -9,7 +9,7 @@ import {
   Body,
   Button,
   Container,
-  Fab,
+  Content,
   Footer,
   FooterTab,
   Header,
@@ -31,37 +31,41 @@ class OinkList extends Component {
         <Header backgroundColor='#212D40'>
           <Left>
             <Button transparent>
-              <Icon name='arrow-back' />
+              <Icon name='menu' />
             </Button>
           </Left>
           <Body>
             <Text>{this.props.name}</Text>
           </Body>
           <Right>
-            <Button transparent>
-              <Icon name='menu' />
+            <Button 
+              transparent
+              onPress={this.addMedicine}>
+              <Icon name='add' />
             </Button>
           </Right>
         </Header>
 
-        <List
-          dataArray={this.props.medicineList}
-          renderRow={(rowData) => {
-            const doseInfo = rowData.dose ? `${rowData.dose} / ${rowData.frequency}` : '';
-            return (
-              <TouchableHighlight 
-                underlayColor="#e0ffff"
-                style={styles.listItem}
-                onPress={() => this.props.navigator.push({id: 'details', medicineName: rowData.name})
-              }>
-                <View style={styles.listItemView}>
-                  <Text style={styles['priority'+rowData.priority]}>&nbsp;</Text>
-                  <Text style={styles.listTitle}>{rowData.name}</Text>
-                  <Text style={styles.listText}>{doseInfo}</Text>
-                </View>
-              </TouchableHighlight>
-            );
-          }} />
+        <Content>
+          <List
+            dataArray={this.props.medicineList}
+            renderRow={(rowData) => {
+              const doseInfo = rowData.dose ? `${rowData.dose} / ${rowData.frequency}` : '';
+              return (
+                <TouchableHighlight 
+                  underlayColor="#e0ffff"
+                  style={styles.listItem}
+                  onPress={() => this.props.navigator.push({id: 'details', medicineName: rowData.name})
+                }>
+                  <View style={styles.listItemView}>
+                    <Text style={styles['priority'+rowData.priority]}>&nbsp;</Text>
+                    <Text style={styles.listTitle}>{rowData.name}</Text>
+                    <Text style={styles.listText}>{doseInfo}</Text>
+                  </View>
+                </TouchableHighlight>
+              );
+            }} />
+        </Content>
 
         <Footer>
           <FooterTab>
@@ -75,12 +79,6 @@ class OinkList extends Component {
             </Button>
           </FooterTab>
         </Footer>
-
-        <Fab
-          position="bottomRight"
-          onPress={this.addMedicine}>
-          <Icon name='add' />
-        </Fab>
         
       </Container>
     );
