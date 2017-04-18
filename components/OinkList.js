@@ -63,6 +63,19 @@ class OinkList extends Component {
             );
           }} />
 
+        <Footer>
+          <FooterTab>
+            <Button active>
+              <Text>Pill Box</Text>
+            </Button>
+          </FooterTab>
+          <FooterTab>
+            <Button>
+              <Text>Medine Cabinet</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
+
         <Fab
           position="bottomRight"
           onPress={this.addMedicine}>
