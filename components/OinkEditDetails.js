@@ -7,6 +7,16 @@ import {
   Picker,
   Keyboard,
 } from 'react-native';
+import {
+  Body,
+  Button,
+  Container,
+  Content,
+  Header,
+  Icon,
+  Left,
+  Right,
+} from 'native-base';
 
 const Item = Picker.Item;
 
@@ -45,65 +55,76 @@ class OinkEditDetails extends Component {
 
   render() {
     return (
-      <View style={styles.detailsContainer}>
-        <View style={styles.navbar}>
-          <Text 
-            style={styles.navItem}
-            onPress={() => {
-              this.props.navigator.pop();
-            }}>&lt;</Text>
+      <Container style={StyleSheet.flatten(styles.detailsContainer)}>
+        <Header backgroundColor='#212D40'>
+          <Left>
+            <Button 
+              transparent
+              onPress={this.props.navigator.pop}>
+              <Icon name='arrow-back' />
+            </Button>
+          </Left>
+          <Body>
+            <Text>{this.state.name}</Text>
+          </Body>
+          <Right>
+            <Button 
+              transparent
+              onPress={this.updateMedicine}>
+              <Icon name='create' />
+            </Button>
+          </Right>
+        </Header>
 
-            <Text 
-              style={styles.navItem}
-              onPress={this.updateMedicine}>Save</Text>
-        </View>
-        <Text style={styles.header}>
-          {this.state.name}
-        </Text>
+        <Content>
+          <TextInput
+            style={styles.detailsTextInput}
+            autoCapitalize="words"
+            placeholder="Item Name"
+            onChangeText={(text) => this.setState({name: text})}
+            value={this.state.name}/>
 
-        <TextInput
-          style={styles.detailsTextInput}
-          autoCapitalize="words"
-          placeholder="Item Name"
-          onChangeText={(text) => this.setState({name: text})}
-          value={this.state.name}/>
+          <TextInput
+            style={styles.detailsTextInput}
+            placeholder="Dose"
+            onChangeText={(text) => this.setState({dose: text})}
+            value={this.state.dose}/>
 
-        <TextInput
-          style={styles.detailsTextInput}
-          placeholder="Dose"
-          onChangeText={(text) => this.setState({dose: text})}
-          value={this.state.dose}/>
+          <TextInput
+            style={styles.detailsTextInput}
+            placeholder="Frequency"
+            onChangeText={(text) => this.setState({frequency: text})}
+            value={this.state.frequency}/>
 
-        <TextInput
-          style={styles.detailsTextInput}
-          placeholder="Frequency"
-          onChangeText={(text) => this.setState({frequency: text})}
-          value={this.state.frequency}/>
+          <Picker
+            style={styles.picker}
+            selectedValue={this.state.priority}
+            onValueChange={this.onValueChange.bind(this, 'priority')}>
+            <Item label="Must Take" value="must" />
+            <Item label="Should Take" value="should" />
+            <Item label="Can Take" value="can" />
+          </Picker>
 
-        <Picker
-          style={styles.picker}
-          selectedValue={this.state.priority}
-          onValueChange={this.onValueChange.bind(this, 'priority')}>
-          <Item label="Must Take" value="must" />
-          <Item label="Should Take" value="should" />
-          <Item label="Can Take" value="can" />
-        </Picker>
+          <TextInput
+            style={styles.detailsTextInput}
+            placeholder="Details"
+            onChangeText={(text) => this.setState({details: text})}
+            value={this.state.details}/>
 
-        <TextInput
-          style={styles.detailsTextInput}
-          placeholder="Details"
-          onChangeText={(text) => this.setState({details: text})}
-          value={this.state.details}/>
+          <View style={styles.buttonContainer}>
+            <Button 
+              iconLeft 
+              dark
+              onPress={this.updateMedicine}
+            >
+              <Icon name='create' />
+              <Text style={{color: 'white', fontSize: 25}}>Save</Text>
+            </Button>
+          </View>
 
-        <View style={styles.buttonContainer}>
-          <Text 
-            style={styles.saveButton}
-            onPress={this.updateMedicine}>
-            Save
-          </Text>
-        </View>
+        </Content>
 
-      </View>
+      </Container>
     );
   }
 }
@@ -125,33 +146,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    alignItems: 'stretch',
     backgroundColor: '#FFA4D0',
-  },
-  navbar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#212D40',
-    alignSelf: 'stretch',
-    padding: 10,
-  },
-  navItem: {
-    fontSize: 25,
-    color: '#fff',
-  },
-  header: {
-    fontSize: 40,
-    textAlign: 'center',
-    marginBottom: 10,
-    padding: 10,
-    backgroundColor: '#212D40',
-    color: '#fff',
-    alignSelf: 'stretch',
-  },
-  detailsText: {
-    color: '#333',
-    fontSize: 20,
-    marginBottom: 10,
   },
   detailsTextInput: {
     height: 40,
@@ -167,16 +163,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-start',
-  },
-  saveButton: {
-    borderColor: '#333',
-    borderWidth: 1,
-    backgroundColor: '#212D40',
-    color: '#fff',
-    fontSize: 25,
-    padding: 10,
-    margin: 10,
-    justifyContent: 'flex-end',
   },
 });
 
