@@ -5,6 +5,19 @@ import {
   View,
   Alert
 } from 'react-native';
+import {
+  Body,
+  Button,
+  Container,
+  Content,
+  Footer,
+  FooterTab,
+  Header,
+  Icon,
+  Left,
+  List,
+  Right,
+} from 'native-base';
 
 var DismissKeyboard = require('dismissKeyboard');
 
@@ -59,69 +72,79 @@ class OinkDetails extends Component {
     let lastTakenProps = this.props.medicine.lastTaken;
     let lastTaken =  lastTakenProps ? this.formatDate(lastTakenProps) : 'never';
     return (
-      <View style={styles.detailsContainer}>
-        <View style={styles.navbar}>
-          <Text 
-            style={styles.navItemBack}
-            onPress={() => {
-              this.props.navigator.pop();
-            }}>&lt;</Text>
-
-          <View style={styles.navSub}>
-            <Text
-              style={styles.navItem}
-              onPress={this.deleteMedicine}>Delete</Text>
-            <Text 
-              style={styles.navItem}
+      <Container style={StyleSheet.flatten(styles.detailsContainer)}>
+        <Header backgroundColor='#212D40'>
+          <Left>
+            <Button 
+              transparent
+              onPress={this.props.navigator.pop}>
+              <Icon name='arrow-back' />
+            </Button>
+          </Left>
+          <Body>
+            <Text>{this.props.medicine.name}</Text>
+          </Body>
+          <Right>
+            <Button 
+              transparent
+              onPress={this.deleteMedicine}>
+              <Icon name='trash' />
+            </Button>
+            <Button 
+              transparent
               onPress={() => {
                 this.props.navigator.push({id: 'edit', medicineName: this.props.medicine.name});
-              }}>Edit</Text>
-            <Text
-              style={styles.navItem}
-              onPress={this.takeMedicine}>Take</Text>
+              }}>
+              <Icon name='create' />
+            </Button>
+            <Button 
+              transparent
+              onPress={this.takeMedicine}>
+              <Icon name='nutrition' />
+            </Button>
+          </Right>
+        </Header>
+
+        <Content>
+          <View style={styles.detailsSectionContainer}>
+            <Text style={styles.detailsHeader}>
+              Last Taken
+            </Text>
+            <Text style={styles.detailsText}>
+              {lastTaken}
+            </Text>
           </View>
-        </View>
 
-        <Text style={styles.header}>
-          {this.props.medicine.name}
-        </Text>
+          <View style={styles.detailsSectionContainer}>
+            <Text style={styles.detailsHeader}>
+              Dosage Info
+            </Text>
+            <Text style={styles.detailsText}>
+              {this.props.medicine.dose} / {this.props.medicine.frequency}
+            </Text>
+          </View>
 
-        <View style={styles.detailsSectionContainer}>
-          <Text style={styles.detailsHeader}>
-            Last Taken
-          </Text>
-          <Text style={styles.detailsText}>
-            {lastTaken}
-          </Text>
-        </View>
+          <View style={styles.detailsSectionContainer}>
+            <Text style={styles.detailsHeader}>
+              Priority
+            </Text>
+            <Text style={styles.detailsText}>
+              {this.props.medicine.priority}
+            </Text>
+          </View>
 
-        <View style={styles.detailsSectionContainer}>
-          <Text style={styles.detailsHeader}>
-            Dosage Info
-          </Text>
-          <Text style={styles.detailsText}>
-            {this.props.medicine.dose} / {this.props.medicine.frequency}
-          </Text>
-        </View>
-
-        <View style={styles.detailsSectionContainer}>
-          <Text style={styles.detailsHeader}>
-            Priority
-          </Text>
-          <Text style={styles.detailsText}>
-            {this.props.medicine.priority}
-          </Text>
-        </View>
-
-        <View style={styles.detailsSectionContainer}>
-          <Text style={styles.detailsHeader}>
-            Details
-          </Text>
-          <Text style={styles.detailsText}>
-            {this.props.medicine.details}
-          </Text>
-        </View>
-      </View>
+          {!!this.props.medicine.details && 
+            <View style={styles.detailsSectionContainer}>
+              <Text style={styles.detailsHeader}>
+                Details
+              </Text>
+              <Text style={styles.detailsText}>
+                {this.props.medicine.details}
+              </Text>
+            </View>
+          }
+        </Content>
+      </Container>
     );
   }
 }
@@ -144,38 +167,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    alignItems: 'stretch',
     backgroundColor: '#FFA4D0',
-  },
-  navbar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#212D40',
-    alignSelf: 'stretch',
-    padding: 10,
-  },
-  navItemBack: {
-    fontSize: 25,
-    color: '#fff',
-  },
-  navItem: {
-    fontSize: 25,
-    color: '#fff',
-    marginLeft: 30,
-    marginRight: 5,
-  },
-  navSub: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-  header: {
-    fontSize: 40,
-    textAlign: 'center',
-    marginBottom: 10,
-    padding: 10,
-    backgroundColor: '#212D40',
-    color: '#fff',
-    alignSelf: 'stretch',
   },
   detailsSectionContainer: {
     backgroundColor: '#EAD7D1',
@@ -183,7 +176,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignSelf: 'stretch',
     padding: 10,
-    marginBottom: 10,
+    marginTop: 10,
     marginLeft: 5,
     marginRight: 5,
   },
