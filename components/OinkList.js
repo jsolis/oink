@@ -10,6 +10,7 @@ import {
   Button,
   Container,
   Content,
+  Drawer,
   Footer,
   FooterTab,
   Header,
@@ -18,6 +19,7 @@ import {
   List,
   Right,
 } from 'native-base';
+import OinkDrawer from './OinkDrawer';
 
 class OinkList extends Component {
 
@@ -25,12 +27,30 @@ class OinkList extends Component {
     this.props.navigator.push({id: 'edit'});
   }
 
+  openDrawer = () => {
+    this._drawer._root.open()
+  };
+
+  closeDrawer = () => {
+    this._drawer._root.close()
+  };
+
   render() {
     return (
       <Container style={StyleSheet.flatten(styles.listContainer)}>
+
+      <Drawer
+        ref={(ref) => { this._drawer = ref; }}
+        content={<OinkDrawer navigator={this.props.navigator} />}
+        onClose={() => this.closeDrawer()}
+      >
+
         <Header backgroundColor='#212D40'>
           <Left>
-            <Button transparent>
+            <Button 
+              transparent
+              onPress={this.openDrawer}
+            >
               <Icon name='menu' />
             </Button>
           </Left>
@@ -80,6 +100,8 @@ class OinkList extends Component {
           </FooterTab>
         </Footer>
         
+      </Drawer>
+
       </Container>
     );
   }
