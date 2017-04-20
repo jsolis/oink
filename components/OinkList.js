@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   TouchableHighlight,
-  Text,
   View,
 } from 'react-native';
 import {
@@ -18,6 +16,7 @@ import {
   Left,
   List,
   Right,
+  Text,
 } from 'native-base';
 import OinkDrawer from './OinkDrawer';
 
@@ -41,7 +40,7 @@ class OinkList extends Component {
 
   render() {
     return (
-      <Container style={StyleSheet.flatten(styles.listContainer)}>
+      <Container style={styles.listContainer}>
 
       <Drawer
         ref={(ref) => { this._drawer = ref; }}
@@ -59,7 +58,7 @@ class OinkList extends Component {
             </Button>
           </Left>
           <Body>
-            <Text>{this.props.name}</Text>
+            <Text style={styles.headerTitle}>{this.props.name}</Text>
           </Body>
           <Right>
             <Button 
@@ -126,13 +125,17 @@ OinkList.propTypes = {
   updateFilter: React.PropTypes.func.isRequired,
 };
 
-const styles = StyleSheet.create({
+const styles = {
   listContainer: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     backgroundColor: '#FFA4D0',
+  },
+  headerTitle: {
+    color: 'white',
+    fontSize: 20,
   },
   listItem: {
     borderColor: '#333',
@@ -187,6 +190,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlignVertical: 'center',
   },
-});
+};
 
 module.exports = OinkList;
