@@ -45,7 +45,9 @@ class OinkNavigator extends Component {
     this.state = {
       name: 'James',
       medicines: {},
-      medicineList: [{name: 'Loading...'}],
+      medicineList: [],
+      filteredList: [{name: 'Loading...'}],
+      filter: 'all',
     };
 
     this.itemsRef = firebaseApp.database().ref('users/dummy/people/James');
@@ -102,9 +104,25 @@ class OinkNavigator extends Component {
     }
   }
 
+  updateFilter = (filter) => {
+    const filtered = this.filterMedicineList(this.state.medicineList, filter);
+    this.setState({
+      filter: filter,
+      filteredList: filtered,
+    });
+  }
+
+  filterMedicineList = (list, filter) => {
+    return list.filter(medicine => {
+      return (filter === 'pillBox' && (medicine.priority === 'must' || medicine.priority === 'should'))
+        || (filter === 'medicineCabinet' && medicine.priority === 'can')
+        || (filter === 'all');
+    });
+  }
+
   listenForItems(itemsRef) {
     itemsRef.on('value', (snapshot) => {
-      var items = [];
+      var medicineList = [];
       var medicines = {};
 
       snapshot.forEach((child) => {
@@ -112,16 +130,19 @@ class OinkNavigator extends Component {
         var medicine = child.val();
         medicine._key = child.key;
 
-        items.push(medicine);
+        medicineList.push(medicine);
 
         medicines[child.key] = child.val();
         medicines[child.key].name = child.key;
 
       });
 
+      const filteredList = this.filterMedicineList(medicineList, this.state.filter);
+
       this.setState({
         medicines: medicines,
-        medicineList: items,
+        medicineList: medicineList,
+        filteredList: filteredList,
       });
     });
   }
@@ -140,7 +161,8 @@ class OinkNavigator extends Component {
         return <OinkList 
                   navigator={navigator} 
                   name={this.state.name} 
-                  medicineList={this.state.medicineList}  />;
+                  medicineList={this.state.filteredList} 
+                  updateFilter={this.updateFilter} />;
       case 'details':
         var medicine = this.state.medicines[route.medicineName];
         return <OinkDetails 
@@ -158,7 +180,8 @@ class OinkNavigator extends Component {
         return <OinkList 
                   navigator={navigator} 
                   name={this.state.name} 
-                  medicineList={this.state.medicineList} />;
+                  medicineList={this.state.filteredList}
+                  updateFilter={this.updateFilter} />;
     }
   };
 

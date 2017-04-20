@@ -29,11 +29,15 @@ class OinkList extends Component {
 
   openDrawer = () => {
     this._drawer._root.open()
-  };
+  }
 
   closeDrawer = () => {
     this._drawer._root.close()
-  };
+  }
+
+  updateFilter = (filter) => {
+    this.props.updateFilter(filter);
+  }
 
   render() {
     return (
@@ -89,12 +93,14 @@ class OinkList extends Component {
 
         <Footer>
           <FooterTab>
-            <Button active>
+            <Button 
+              onPress={() => this.updateFilter('pillBox')}>
               <Text>Pill Box</Text>
             </Button>
           </FooterTab>
           <FooterTab>
-            <Button>
+            <Button
+              onPress={() => this.updateFilter('medicineCabinet')}>
               <Text>Medine Cabinet</Text>
             </Button>
           </FooterTab>
@@ -111,6 +117,7 @@ OinkList.propTypes = {
   navigator: React.PropTypes.object.isRequired,
   name: React.PropTypes.string.isRequired,
   medicineList: React.PropTypes.array.isRequired,
+  updateFilter: React.PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
