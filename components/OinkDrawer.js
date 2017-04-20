@@ -20,7 +20,7 @@ class OinkDrawer extends Component {
       <Container style={styles.drawerContainer}>
 
         <H1 style={styles.header}>
-          People
+          Family
         </H1>
 
         <Content style={styles.content}>
