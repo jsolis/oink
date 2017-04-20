@@ -46,7 +46,7 @@ class OinkNavigator extends Component {
       name: 'James',
       medicines: {},
       medicineList: [],
-      filteredList: [{name: 'Loading...'}],
+      filteredList: [],
       filter: 'all',
     };
 

@@ -16,6 +16,7 @@ import {
   Left,
   List,
   Right,
+  Spinner,
   Text,
 } from 'native-base';
 import OinkDrawer from './OinkDrawer';
@@ -39,6 +40,10 @@ class OinkList extends Component {
   }
 
   render() {
+    let loading;
+    if (this.props.medicineList.length === 0) {
+      loading = <View><Spinner color='blue' /></View>;
+    }
     return (
       <Container style={styles.listContainer}>
 
@@ -70,6 +75,7 @@ class OinkList extends Component {
         </Header>
 
         <Content>
+          {loading}
           <List
             dataArray={this.props.medicineList}
             renderRow={(rowData) => {
