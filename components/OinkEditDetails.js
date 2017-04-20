@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
   TextInput,
   Picker,
   Keyboard,
@@ -16,6 +13,8 @@ import {
   Icon,
   Left,
   Right,
+  Text,
+  View,
 } from 'native-base';
 
 const Item = Picker.Item;
@@ -55,7 +54,7 @@ class OinkEditDetails extends Component {
 
   render() {
     return (
-      <Container style={StyleSheet.flatten(styles.detailsContainer)}>
+      <Container style={styles.detailsContainer}>
         <Header backgroundColor='#212D40'>
           <Left>
             <Button 
@@ -65,7 +64,7 @@ class OinkEditDetails extends Component {
             </Button>
           </Left>
           <Body>
-            <Text>{this.state.name}</Text>
+            <Text style={styles.headerTitle}>{this.state.name}</Text>
           </Body>
           <Right>
             <Button 
@@ -141,13 +140,17 @@ OinkEditDetails.propTypes = {
   updateMedicine: React.PropTypes.func.isRequired,
 };
 
-const styles = StyleSheet.create({
+const styles = {
   detailsContainer: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     backgroundColor: '#FFA4D0',
+  },
+  headerTitle: {
+    color: 'white',
+    fontSize: 20,
   },
   detailsTextInput: {
     height: 40,
@@ -164,6 +167,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
-});
+};
 
 module.exports = OinkEditDetails;
