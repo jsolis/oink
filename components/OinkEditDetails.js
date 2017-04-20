@@ -151,6 +151,7 @@ const styles = {
   headerTitle: {
     color: 'white',
     fontSize: 20,
+    fontWeight: 'bold',
   },
   detailsTextInput: {
     height: 40,

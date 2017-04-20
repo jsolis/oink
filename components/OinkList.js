@@ -139,6 +139,7 @@ const styles = {
   headerTitle: {
     color: 'white',
     fontSize: 20,
+    fontWeight: 'bold',
   },
   listItem: {
     borderColor: '#333',

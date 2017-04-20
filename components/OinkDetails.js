@@ -171,6 +171,7 @@ const styles = {
   headerTitle: {
     color: 'white',
     fontSize: 20,
+    fontWeight: 'bold',
   },
   detailsSectionContainer: {
     backgroundColor: '#EAD7D1',
