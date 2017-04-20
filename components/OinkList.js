@@ -93,18 +93,20 @@ class OinkList extends Component {
         <Footer>
           <FooterTab>
             <Button
-              active
+              active={this.props.filter === 'all'}
               onPress={() => this.updateFilter('all')}>
               <Icon name='people' />
               <Text>All</Text>
             </Button>
             <Button 
+              active={this.props.filter === 'pillBox'}
               onPress={() => this.updateFilter('pillBox')}>
               <Text>Pill Box</Text>
             </Button>
           </FooterTab>
           <FooterTab>
             <Button
+              active={this.props.filter === 'medicineCabinet'}
               onPress={() => this.updateFilter('medicineCabinet')}>
               <Text>Medine Cabinet</Text>
             </Button>
@@ -123,6 +125,7 @@ OinkList.propTypes = {
   name: React.PropTypes.string.isRequired,
   medicineList: React.PropTypes.array.isRequired,
   updateFilter: React.PropTypes.func.isRequired,
+  filter: React.PropTypes.string.isRequired,
 };
 
 const styles = {

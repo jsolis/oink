@@ -162,7 +162,8 @@ class OinkNavigator extends Component {
                   navigator={navigator} 
                   name={this.state.name} 
                   medicineList={this.state.filteredList} 
-                  updateFilter={this.updateFilter} />;
+                  updateFilter={this.updateFilter} 
+                  filter={this.state.filter} />;
       case 'details':
         var medicine = this.state.medicines[route.medicineName];
         return <OinkDetails 
@@ -181,7 +182,8 @@ class OinkNavigator extends Component {
                   navigator={navigator} 
                   name={this.state.name} 
                   medicineList={this.state.filteredList}
-                  updateFilter={this.updateFilter} />;
+                  updateFilter={this.updateFilter} 
+                  filter={this.state.filter} />;
     }
   };
 
