@@ -93,6 +93,12 @@ class OinkList extends Component {
 
         <Footer>
           <FooterTab>
+            <Button
+              active
+              onPress={() => this.updateFilter('all')}>
+              <Icon name='people' />
+              <Text>All</Text>
+            </Button>
             <Button 
               onPress={() => this.updateFilter('pillBox')}>
               <Text>Pill Box</Text>
