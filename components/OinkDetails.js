@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
+
 import {
-  StyleSheet,
-  Text,
-  View,
-  Alert
-} from 'react-native';
-import {
+  Alert,
   Body,
   Button,
   Container,
@@ -17,6 +13,8 @@ import {
   Left,
   List,
   Right,
+  Text,
+  View,
 } from 'native-base';
 
 var DismissKeyboard = require('dismissKeyboard');
@@ -72,7 +70,7 @@ class OinkDetails extends Component {
     let lastTakenProps = this.props.medicine.lastTaken;
     let lastTaken =  lastTakenProps ? this.formatDate(lastTakenProps) : 'never';
     return (
-      <Container style={StyleSheet.flatten(styles.detailsContainer)}>
+      <Container style={styles.detailsContainer}>
         <Header backgroundColor='#212D40'>
           <Left>
             <Button 
@@ -82,7 +80,7 @@ class OinkDetails extends Component {
             </Button>
           </Left>
           <Body>
-            <Text>{this.props.medicine.name}</Text>
+            <Text style={styles.headerTitle}>{this.props.medicine.name}</Text>
           </Body>
           <Right>
             <Button 
@@ -162,13 +160,17 @@ OinkDetails.propTypes = {
   takeMedicine: React.PropTypes.func.isRequired,
 };
 
-const styles = StyleSheet.create({
+const styles = {
   detailsContainer: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     backgroundColor: '#FFA4D0',
+  },
+  headerTitle: {
+    color: 'white',
+    fontSize: 20,
   },
   detailsSectionContainer: {
     backgroundColor: '#EAD7D1',
@@ -191,6 +193,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 10,
   },
-});
+};
 
 module.exports = OinkDetails;
