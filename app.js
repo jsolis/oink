@@ -6,11 +6,12 @@
 
 import React, { Component } from 'react';
 import {
+  Alert,
   AppRegistry,
+  AsyncStorage,
+  BackAndroid,
   ListView,
   Navigator,
-  BackAndroid,
-  Alert
 } from 'react-native';
 
 import OinkList from './components/OinkList';
@@ -106,6 +107,7 @@ class OinkNavigator extends Component {
 
   updateFilter = (filter) => {
     const filtered = this.filterMedicineList(this.state.medicineList, filter);
+    AsyncStorage.setItem('filter', filter);
     this.setState({
       filter: filter,
       filteredList: filtered,
@@ -145,6 +147,16 @@ class OinkNavigator extends Component {
         filteredList: filteredList,
       });
     });
+  }
+
+  componentWillMount() {
+
+    AsyncStorage.getItem('filter').then((filter) => {
+      this.setState({
+        filter: filter || this.state.filter,
+      });
+    });
+
   }
 
   componentDidMount() {
