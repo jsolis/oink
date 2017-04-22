@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import {
   Alert,
+} from 'react-native';
+import {
   Body,
   Button,
   Container,
