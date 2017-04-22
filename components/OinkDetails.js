@@ -14,6 +14,7 @@ import {
   List,
   Right,
   Text,
+  Title,
   View,
 } from 'native-base';
 
@@ -80,7 +81,7 @@ class OinkDetails extends Component {
             </Button>
           </Left>
           <Body>
-            <Text style={styles.headerTitle}>{this.props.medicine.name}</Text>
+            <Title>{this.props.medicine.name}</Title>
           </Body>
           <Right>
             <Button 
@@ -167,11 +168,6 @@ const styles = {
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     backgroundColor: '#FFA4D0',
-  },
-  headerTitle: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
   },
   detailsSectionContainer: {
     backgroundColor: '#EAD7D1',

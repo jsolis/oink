@@ -14,6 +14,7 @@ import {
   Left,
   Right,
   Text,
+  Title,
   View,
 } from 'native-base';
 
@@ -64,7 +65,7 @@ class OinkEditDetails extends Component {
             </Button>
           </Left>
           <Body>
-            <Text style={styles.headerTitle}>{this.state.name}</Text>
+            <Title>{this.state.name}</Title>
           </Body>
           <Right>
             <Button 
@@ -147,11 +148,6 @@ const styles = {
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     backgroundColor: '#FFA4D0',
-  },
-  headerTitle: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
   },
   detailsTextInput: {
     height: 40,

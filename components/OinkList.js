@@ -143,11 +143,6 @@ const styles = {
     alignItems: 'stretch',
     backgroundColor: '#FFA4D0',
   },
-  headerTitle: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
   listItem: {
     borderColor: '#333',
     borderWidth: 1,
