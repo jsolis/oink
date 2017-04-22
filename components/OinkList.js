@@ -18,6 +18,7 @@ import {
   Right,
   Spinner,
   Text,
+  Title,
 } from 'native-base';
 import OinkDrawer from './OinkDrawer';
 
@@ -63,7 +64,7 @@ class OinkList extends Component {
             </Button>
           </Left>
           <Body>
-            <Text style={styles.headerTitle}>{this.props.name}</Text>
+            <Title>{this.props.name}</Title>
           </Body>
           <Right>
             <Button 
