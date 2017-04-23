@@ -81,11 +81,16 @@ class OinkNavigator extends Component {
     }
   }
 
-  takeMedicine(medicineName) {
+  takeMedicine(medicineName, hour, minutes) {
     if (medicineName && medicineName.length > 0) {
+      const takenDate = new Date();
+      if (hour && minutes != undefined) {
+        takenDate.setHours(hour);
+        takenDate.setMinutes(minutes);
+      }
       firebaseApp.database().ref('users/dummy/people/James/')
         .child(medicineName)
-        .update({lastTaken: new Date().getTime()})
+        .update({lastTaken: takenDate.getTime()})
         .then(() => {
           Toast.show({
             text: `${medicineName} has been taken`,

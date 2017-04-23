@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import {
   Alert,
+  Modal,
+  Picker,
 } from 'react-native';
 import {
   Body,
@@ -20,12 +22,33 @@ import {
   View,
 } from 'native-base';
 
-var DismissKeyboard = require('dismissKeyboard');
+const Item = Picker.Item;
+
+const DismissKeyboard = require('dismissKeyboard');
 
 class OinkDetails extends Component {
   constructor(props) {
     super(props);
 
+    const now = new Date();
+
+    this.state = {
+      takenModalVisible: false,
+      takenHour: now.getHours(),
+      takenMinutes: now.getMinutes(),
+    };
+  }
+
+  setTakenModalVisible = (visible) => {
+    this.setState({takenModalVisible: visible});
+  }
+
+  onHourChange = (key, value) => {
+    this.setState({takenHour: value});
+  }
+
+  onMinuteChange = (key, value) => {
+    this.setState({takenMinutes: value});
   }
 
   deleteMedicine = () => {
@@ -47,7 +70,8 @@ class OinkDetails extends Component {
   };
 
   takeMedicine = () => {
-    this.props.takeMedicine(this.props.medicine.name);
+    this.props.takeMedicine(this.props.medicine.name, this.state.takenHour, this.state.takenMinutes);
+    this.setTakenModalVisible(false);
   };
 
   formatDate = (date) => {
@@ -70,8 +94,21 @@ class OinkDetails extends Component {
   };
 
   render() {
-    let lastTakenProps = this.props.medicine.lastTaken;
-    let lastTaken =  lastTakenProps ? this.formatDate(lastTakenProps) : 'never';
+
+    const lastTakenProps = this.props.medicine.lastTaken;
+    const lastTaken =  lastTakenProps ? this.formatDate(lastTakenProps) : 'never';
+
+    const hourItems = [];
+    for (let i=0; i < 24; i++) {
+      hourItems.push(<Item label={String(i)} value={i} key={i} />);
+    }
+
+    const minutesItems = [];
+    for (let i=0; i < 60; i++) {
+      const label = i < 10 ? '0' + i : String(i);
+      minutesItems.push(<Item label={label} value={i} key={i} />);
+    }
+
     return (
       <Container style={styles.detailsContainer}>
         <Header backgroundColor='#212D40'>
@@ -102,6 +139,11 @@ class OinkDetails extends Component {
               transparent
               onPress={this.takeMedicine}>
               <Icon name='nutrition' />
+            </Button>
+            <Button
+              transparent
+              onPress={() => this.setTakenModalVisible(true)}>
+              <Text>Take</Text>
             </Button>
           </Right>
         </Header>
@@ -145,6 +187,48 @@ class OinkDetails extends Component {
             </View>
           }
         </Content>
+
+        <Modal
+          animationType={"slide"}
+          transparent={true}
+          visible={this.state.takenModalVisible}
+          onRequestClose={() => {alert("Modal has been closed.")}}
+        >
+          <View style={styles.takenModal}>
+            <View>
+              <Text style={{fontWeight: 'bold'}}>When was this taken?</Text>
+            </View>
+            <View style={styles.takenModalRow}>
+              <Picker
+                style={styles.picker}
+                selectedValue={this.state.takenHour}
+                onValueChange={this.onHourChange.bind(this, 'takenHour')}
+              >
+                {hourItems}
+              </Picker>
+              <Text>:</Text>
+              <Picker
+                style={styles.picker}
+                selectedValue={this.state.takenMinutes}
+                onValueChange={this.onMinuteChange.bind(this, 'takenMinutes')}
+              >
+                {minutesItems}
+              </Picker>
+            </View>
+
+            <View style={styles.takenModalRow}>
+              <Button 
+                onPress={() => this.setTakenModalVisible(!this.state.takenModalVisible) }
+                style={{backgroundColor: 'gray'}}
+              >
+                <Text>Cancel</Text>
+              </Button>
+              <Button onPress={this.takeMedicine}>
+                <Text>Take</Text>
+              </Button>
+            </View>
+          </View>
+        </Modal>
       </Container>
     );
   }
@@ -191,6 +275,22 @@ const styles = {
     color: '#4F7CAC',
     fontSize: 20,
     marginBottom: 10,
+  },
+  takenModal: {
+    backgroundColor: 'white',
+    marginTop: 100,
+    marginLeft: 10,
+    marginRight: 10,
+    padding: 25,
+  },
+  takenModalRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  picker: {
+    alignSelf: 'stretch',
+    width: '45%',
   },
 };
 
