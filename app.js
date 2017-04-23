@@ -6,13 +6,15 @@
 
 import React, { Component } from 'react';
 import {
-  Alert,
   AppRegistry,
   AsyncStorage,
   BackAndroid,
   ListView,
   Navigator,
 } from 'react-native';
+import {
+  Toast,
+} from 'native-base';
 
 import OinkList from './components/OinkList';
 import OinkDetails from './components/OinkDetails';
@@ -85,22 +87,19 @@ class OinkNavigator extends Component {
         .child(medicineName)
         .update({lastTaken: new Date().getTime()})
         .then(() => {
-          Alert.alert(
-            'Taken',
-            `${medicineName} has been taken`,
-            [
-              {text: 'OK'}
-            ]
-          );
+          Toast.show({
+            text: `${medicineName} has been taken`,
+            position: 'bottom',
+            buttonText: 'OK',
+            duration: 2000,
+          });
         })
         .catch(() => {
-          Alert.alert(
-            'Error',
-            `There was a problem taking ${medicineName}`,
-            [
-              {text: 'OK'}
-            ]
-          );
+          Toash.show({
+            text: `There was a problem taking ${medicineName}`,
+            position: 'bottom',
+            buttonText: 'OK',
+          });
         });
     }
   }
