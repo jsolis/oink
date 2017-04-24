@@ -84,7 +84,7 @@ class OinkNavigator extends Component {
   takeMedicine(medicineName, hour, minutes) {
     if (medicineName && medicineName.length > 0) {
       const takenDate = new Date();
-      if (hour && minutes != undefined) {
+      if (hour != undefined && minutes != undefined) {
         takenDate.setHours(hour);
         takenDate.setMinutes(minutes);
       }
