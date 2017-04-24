@@ -135,15 +135,10 @@ class OinkDetails extends Component {
               }}>
               <Icon name='create' />
             </Button>
-            <Button 
-              transparent
-              onPress={this.takeMedicine}>
-              <Icon name='nutrition' />
-            </Button>
             <Button
               transparent
               onPress={() => this.setTakenModalVisible(true)}>
-              <Text>Take</Text>
+              <Icon name='nutrition' />
             </Button>
           </Right>
         </Header>
