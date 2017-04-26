@@ -53,7 +53,7 @@ class OinkNavigator extends Component {
       filter: 'all',
     };
 
-    this.itemsRef = firebaseApp.database().ref('users/dummy/people/James');
+    this.itemsRef = firebaseApp.database().ref(`users/dummy/people/${this.state.name}`);
 
   }
 
