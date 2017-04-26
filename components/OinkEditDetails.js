@@ -49,7 +49,7 @@ class OinkEditDetails extends Component {
     }
   }
 
-  onValueChange = (key: string, value: string) => {
+  onValueChange = (key, value) => {
     this.setState({priority: value});
   }
 
