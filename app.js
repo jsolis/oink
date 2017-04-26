@@ -57,14 +57,14 @@ class OinkNavigator extends Component {
 
   }
 
-  updateMedicine(originalName, medicineObj) {
+  updateMedicine = (originalName, medicineObj) => {
     if (medicineObj && medicineObj.name) {
-      firebaseApp.database().ref('users/dummy/people/James')
+      this.itemsRef
         .child(medicineObj.name)
         .set(medicineObj)
         .then(() => {
           if (originalName !== '' && originalName !== medicineObj.name) {
-            firebaseApp.database().ref('users/dummy/people/James')
+            this.itemsRef
               .child(originalName)
               .remove();
           }
@@ -75,20 +75,21 @@ class OinkNavigator extends Component {
     }
   }
 
-  deleteMedicine(medicineName) {
+  deleteMedicine = (medicineName) => {
     if (medicineName && medicineName.length > 0) {
-      firebaseApp.database().ref('users/dummy/people/James/').child(medicineName).remove();
+      this.itemsRef
+        .child(medicineName).remove();
     }
   }
 
-  takeMedicine(medicineName, hour, minutes) {
+  takeMedicine = (medicineName, hour, minutes) => {
     if (medicineName && medicineName.length > 0) {
       const takenDate = new Date();
       if (hour != undefined && minutes != undefined) {
         takenDate.setHours(hour);
         takenDate.setMinutes(minutes);
       }
-      firebaseApp.database().ref('users/dummy/people/James/')
+      this.itemsRef
         .child(medicineName)
         .update({lastTaken: takenDate.getTime()})
         .then(() => {
