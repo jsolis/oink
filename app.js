@@ -51,6 +51,7 @@ class OinkNavigator extends Component {
       medicineList: [],
       filteredList: [],
       filter: 'all',
+      medicineHistory: [],
     };
 
     this.itemsRef = firebaseApp.database().ref(`users/dummy/people/${this.state.name}`);
@@ -110,6 +111,10 @@ class OinkNavigator extends Component {
     }
   }
 
+  recordMedicineHistory = () => {
+
+  }
+
   updateFilter = (filter) => {
     const filtered = this.filterMedicineList(this.state.medicineList, filter);
     AsyncStorage.setItem('filter', filter);
@@ -154,6 +159,39 @@ class OinkNavigator extends Component {
     });
   }
 
+  listenForHistory(historyRef) {
+    historyRef.limitToFirst(10).on('value', (snapshot) => {
+      const medicineHistory = [];
+
+      snapshot.forEach((child) => {
+        const key = child.key;
+        const val = child.val();
+        medicineHistory.push({key, val});
+      });
+
+      this.setState({
+        medicineHistory,
+      });
+    });
+  }
+
+  stopListenForHistory(historyRef) {
+    if (historyRef) {
+      historyRef.off('value');
+    }
+  }
+
+  updateHistoryRefAndListen = (medicineName) => {
+
+    if (medicineName) {
+      // TODO call off when exiting details / edit details view?
+      this.stopListenForHistory(this.historyRef);
+      this.historyRef = firebaseApp.database().ref(`users/dummy/history/${this.state.name}/${medicineName}`);
+      this.listenForHistory(this.historyRef);
+    }
+
+  }
+
   componentWillMount() {
 
     AsyncStorage.getItem('filter').then((filter) => {
@@ -187,7 +225,9 @@ class OinkNavigator extends Component {
                   navigator={navigator} 
                   medicine={medicine}
                   deleteMedicine={this.deleteMedicine}
-                  takeMedicine={this.takeMedicine} />;
+                  takeMedicine={this.takeMedicine}
+                  updateHistoryRefAndListen={this.updateHistoryRefAndListen}
+                  medicineHistory={this.state.medicineHistory} />;
       case 'edit':
         var medicine = this.state.medicines[route.medicineName];
         return <OinkEditDetails 

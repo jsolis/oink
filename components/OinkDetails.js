@@ -93,6 +93,12 @@ class OinkDetails extends Component {
     return `${dayOfWeek} ${month} ${dayOfMonth} ${hour}:${minute}`;
   };
 
+  componentDidMount() {
+
+    this.props.updateHistoryRefAndListen(this.props.medicine.name);
+
+  }
+
   render() {
 
     const lastTakenProps = this.props.medicine.lastTaken;
@@ -181,6 +187,25 @@ class OinkDetails extends Component {
               </Text>
             </View>
           }
+
+          {!!this.props.medicineHistory && this.props.medicineHistory.length > 0 &&
+            <View style={styles.detailsSectionContainer}>
+              <Text style={styles.detailsHeader}>
+                History
+              </Text>
+              <List 
+                dataArray={this.props.medicineHistory}
+                renderRow={(rowData) => {
+                  const dateTaken = this.formatDate(Number(rowData.key));
+                  return (
+                    <View style={{flexDirection: 'row'}}>
+                      <Text style={styles.detailsText}>{dateTaken}</Text>
+                      <Text style={styles.detailsText}>{rowData.val}</Text>
+                    </View>
+                  );
+                }} />
+            </View>
+          }
         </Content>
 
         <Modal
@@ -240,6 +265,8 @@ OinkDetails.propTypes = {
   }).isRequired,
   deleteMedicine: React.PropTypes.func.isRequired,
   takeMedicine: React.PropTypes.func.isRequired,
+  updateHistoryRefAndListen: React.PropTypes.func.isRequired,
+  medicineHistory: React.PropTypes.array.isRequired,
 };
 
 const styles = {
