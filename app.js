@@ -129,12 +129,12 @@ class OinkNavigator extends Component {
 
   listenForItems(itemsRef) {
     itemsRef.on('value', (snapshot) => {
-      var medicineList = [];
-      var medicines = {};
+      const medicineList = [];
+      const medicines = {};
 
       snapshot.forEach((child) => {
 
-        var medicine = child.val();
+        const medicine = child.val();
         medicine._key = child.key;
 
         medicineList.push(medicine);
