@@ -199,7 +199,7 @@ class OinkDetails extends Component {
                   const { dateTaken, dose } = rowData;
                   const dateTakenFormatted = this.formatDate(Number(dateTaken));
                   return (
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                       <Text style={styles.detailsText}>{dateTakenFormatted}</Text>
                       <Text style={styles.detailsText}>{dose}</Text>
                     </View>
