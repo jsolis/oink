@@ -163,7 +163,9 @@ class OinkNavigator extends Component {
     historyRef.limitToFirst(10).on('value', (snapshot) => {
       const medicineHistory = [];
 
-      snapshot.forEach(child => medicineHistory.push(child.val()));
+      snapshot.forEach(child => {
+        medicineHistory.push(child.val());
+      });
 
       this.setState({
         medicineHistory,
