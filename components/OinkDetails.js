@@ -196,11 +196,12 @@ class OinkDetails extends Component {
               <List 
                 dataArray={this.props.medicineHistory}
                 renderRow={(rowData) => {
-                  const dateTaken = this.formatDate(Number(rowData.key));
+                  const { dateTaken, dose } = rowData;
+                  const dateTakenFormatted = this.formatDate(Number(dateTaken));
                   return (
                     <View style={{flexDirection: 'row'}}>
-                      <Text style={styles.detailsText}>{dateTaken}</Text>
-                      <Text style={styles.detailsText}>{rowData.val}</Text>
+                      <Text style={styles.detailsText}>{dateTakenFormatted}</Text>
+                      <Text style={styles.detailsText}>{dose}</Text>
                     </View>
                   );
                 }} />
