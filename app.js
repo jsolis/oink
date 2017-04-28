@@ -108,11 +108,19 @@ class OinkNavigator extends Component {
             buttonText: 'OK',
           });
         });
+      this.recordMedicineHistory(medicineName, takenDate.getTime());
     }
   }
 
-  recordMedicineHistory = () => {
-
+  recordMedicineHistory = (medicineName, takenDateInMillis) => {
+    const dose = this.state.medicines[medicineName].dose;
+    const taken = {};
+    taken[takenDateInMillis] = {dateTaken: takenDateInMillis, dose};
+    this.historyRef
+      .update(taken)
+      .then(() => {
+        alert('history has been written')
+      });
   }
 
   updateFilter = (filter) => {
