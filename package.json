@@ -7,6 +7,7 @@
     "android": "node node_modules/react-native/local-cli/cli.js run-android",
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
     "release-android": "cd android && ./gradlew assembleRelease",
+    "bundle-ios": "react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
     "update": "sudo npm install -g react-native-git-upgrade && react-native-git-upgrade"
   },
   "dependencies": {
