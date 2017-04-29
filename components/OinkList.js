@@ -89,8 +89,10 @@ class OinkList extends Component {
                 }>
                   <View style={styles.listItemView}>
                     <Text style={styles['priority'+rowData.priority]}>&nbsp;</Text>
-                    <Text style={styles.listTitle}>{rowData.name}</Text>
-                    <Text style={styles.listText}>{doseInfo}</Text>
+                    <View>
+                      <Text style={styles.listTitle}>{rowData.name}</Text>
+                      <Text style={styles.listText}>{doseInfo}</Text>
+                    </View>
                   </View>
                 </TouchableHighlight>
               );
