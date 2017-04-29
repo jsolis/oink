@@ -40,6 +40,22 @@ class OinkList extends Component {
     this.props.updateFilter(filter);
   }
 
+  formatTime = (date) => {
+    const dateObj = new Date(date);
+    const today = new Date();
+
+    if (dateObj.getMonth() === today.getMonth()
+      && dateObj.getDate() === today.getDate()
+      && dateObj.getFullYear() === today.getFullYear()) {
+
+      const hour = dateObj.getHours();
+      const minute = (dateObj.getMinutes() < 10 ? '0' : '') + dateObj.getMinutes();
+      return `${hour}:${minute}`;
+    } else {
+      return '';
+    }
+  };
+
   render() {
     let loading;
     if (this.props.medicineList.length === 0) {
@@ -92,6 +108,9 @@ class OinkList extends Component {
                     <View>
                       <Text style={styles.listTitle}>{rowData.name}</Text>
                       <Text style={styles.listText}>{doseInfo}</Text>
+                    </View>
+                    <View style={styles.listItemViewRight}>
+                      <Text style={styles.listText}>{this.formatTime(rowData.lastTaken)}</Text>
                     </View>
                   </View>
                 </TouchableHighlight>
@@ -159,6 +178,10 @@ const styles = {
   },
   listItemView: {
     flexDirection: 'row',
+    flexGrow: 1,
+  },
+  listItemViewRight: {
+    marginLeft: 'auto',
   },
   prioritymust: {
     backgroundColor: '#ff0000',
