@@ -93,29 +93,31 @@ class OinkList extends Component {
 
         <Content>
           {loading}
-          <List
-            dataArray={this.props.medicineList}
-            renderRow={(rowData) => {
-              const doseInfo = rowData.dose ? `${rowData.dose} / ${rowData.frequency}` : '';
-              return (
-                <TouchableHighlight 
-                  underlayColor="#e0ffff"
-                  style={styles.listItem}
-                  onPress={() => this.props.navigator.push({id: 'details', medicineName: rowData.name})
-                }>
-                  <View style={styles.listItemView}>
-                    <Text style={styles['priority'+rowData.priority]}>&nbsp;</Text>
-                    <View>
-                      <Text style={styles.listTitle}>{rowData.name}</Text>
-                      <Text style={styles.listText}>{doseInfo}</Text>
+          <View style={styles.listWrapper}>
+            <List
+              dataArray={this.props.medicineList}
+              renderRow={(rowData) => {
+                const doseInfo = rowData.dose ? `${rowData.dose} / ${rowData.frequency}` : '';
+                return (
+                  <TouchableHighlight 
+                    underlayColor="#e0ffff"
+                    style={styles.listItem}
+                    onPress={() => this.props.navigator.push({id: 'details', medicineName: rowData.name})
+                  }>
+                    <View style={styles.listItemView}>
+                      <Text style={styles['priority'+rowData.priority]}>&nbsp;</Text>
+                      <View>
+                        <Text style={styles.listTitle}>{rowData.name}</Text>
+                        <Text style={styles.listText}>{doseInfo}</Text>
+                      </View>
+                      <View style={styles.listItemViewRight}>
+                        <Text style={styles.listText}>{this.formatTime(rowData.lastTaken)}</Text>
+                      </View>
                     </View>
-                    <View style={styles.listItemViewRight}>
-                      <Text style={styles.listText}>{this.formatTime(rowData.lastTaken)}</Text>
-                    </View>
-                  </View>
-                </TouchableHighlight>
-              );
-            }} />
+                  </TouchableHighlight>
+                );
+              }} />
+            </View>
         </Content>
 
         <Footer>
@@ -164,6 +166,12 @@ const styles = {
     alignItems: 'stretch',
     backgroundColor: '#FFA4D0',
   },
+  listWrapper: {
+    marginTop: 5,
+    marginBottom: 5,
+    marginLeft: 5,
+    marginRight: 5,
+  },
   listItem: {
     borderColor: '#333',
     borderWidth: 1,
@@ -171,10 +179,8 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
-    marginTop: 10,
-    marginBottom: 0,
-    marginLeft: 5,
-    marginRight: 5,
+    marginTop: 5,
+    marginBottom: 5,
   },
   listItemView: {
     flexDirection: 'row',
@@ -214,7 +220,6 @@ const styles = {
     color: '#4F7CAC',
     fontSize: 20,
     fontWeight: 'bold',
-    marginRight: 5,
   },
   listText: {
     color: '#4F7CAC',
