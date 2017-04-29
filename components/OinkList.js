@@ -64,86 +64,86 @@ class OinkList extends Component {
     return (
       <Container style={styles.listContainer}>
 
-      <Drawer
-        ref={(ref) => { this._drawer = ref; }}
-        content={<OinkDrawer navigator={this.props.navigator} />}
-        onClose={() => this.closeDrawer()}
-      >
+        <Drawer
+          ref={(ref) => { this._drawer = ref; }}
+          content={<OinkDrawer navigator={this.props.navigator} />}
+          onClose={() => this.closeDrawer()}
+        >
 
-        <Header backgroundColor='#212D40'>
-          <Left>
-            <Button 
-              transparent
-              onPress={this.openDrawer}
-            >
-              <Icon name='menu' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>{this.props.name}</Title>
-          </Body>
-          <Right>
-            <Button 
-              transparent
-              onPress={this.addMedicine}>
-              <Icon name='add' />
-            </Button>
-          </Right>
-        </Header>
+          <Header backgroundColor='#212D40'>
+            <Left>
+              <Button 
+                transparent
+                onPress={this.openDrawer}
+              >
+                <Icon name='menu' />
+              </Button>
+            </Left>
+            <Body>
+              <Title>{this.props.name}</Title>
+            </Body>
+            <Right>
+              <Button 
+                transparent
+                onPress={this.addMedicine}>
+                <Icon name='add' />
+              </Button>
+            </Right>
+          </Header>
 
-        <Content>
-          {loading}
-          <View style={styles.listWrapper}>
-            <List
-              dataArray={this.props.medicineList}
-              renderRow={(rowData) => {
-                const doseInfo = rowData.dose ? `${rowData.dose} / ${rowData.frequency}` : '';
-                return (
-                  <TouchableHighlight 
-                    underlayColor="#e0ffff"
-                    style={styles.listItem}
-                    onPress={() => this.props.navigator.push({id: 'details', medicineName: rowData.name})
-                  }>
-                    <View style={styles.listItemView}>
-                      <Text style={styles['priority'+rowData.priority]}>&nbsp;</Text>
-                      <View>
-                        <Text style={styles.listTitle}>{rowData.name}</Text>
-                        <Text style={styles.listText}>{doseInfo}</Text>
+          <Content>
+            {loading}
+            <View style={styles.listWrapper}>
+              <List
+                dataArray={this.props.medicineList}
+                renderRow={(rowData) => {
+                  const doseInfo = rowData.dose ? `${rowData.dose} / ${rowData.frequency}` : '';
+                  return (
+                    <TouchableHighlight 
+                      underlayColor="#e0ffff"
+                      style={styles.listItem}
+                      onPress={() => this.props.navigator.push({id: 'details', medicineName: rowData.name})
+                    }>
+                      <View style={styles.listItemView}>
+                        <Text style={styles['priority'+rowData.priority]}>&nbsp;</Text>
+                        <View>
+                          <Text style={styles.listTitle}>{rowData.name}</Text>
+                          <Text style={styles.listText}>{doseInfo}</Text>
+                        </View>
+                        <View style={styles.listItemViewRight}>
+                          <Text style={styles.listText}>{this.formatTime(rowData.lastTaken)}</Text>
+                        </View>
                       </View>
-                      <View style={styles.listItemViewRight}>
-                        <Text style={styles.listText}>{this.formatTime(rowData.lastTaken)}</Text>
-                      </View>
-                    </View>
-                  </TouchableHighlight>
-                );
-              }} />
-            </View>
-        </Content>
+                    </TouchableHighlight>
+                  );
+                }} />
+              </View>
+          </Content>
 
-        <Footer>
-          <FooterTab>
-            <Button
-              active={this.props.filter === 'all'}
-              onPress={() => this.updateFilter('all')}>
-              <Icon name='people' />
-              <Text>All</Text>
-            </Button>
-            <Button 
-              active={this.props.filter === 'pillBox'}
-              onPress={() => this.updateFilter('pillBox')}>
-              <Text>Pill Box</Text>
-            </Button>
-          </FooterTab>
-          <FooterTab>
-            <Button
-              active={this.props.filter === 'medicineCabinet'}
-              onPress={() => this.updateFilter('medicineCabinet')}>
-              <Text>Medine Cabinet</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-        
-      </Drawer>
+          <Footer>
+            <FooterTab>
+              <Button
+                active={this.props.filter === 'all'}
+                onPress={() => this.updateFilter('all')}>
+                <Icon name='people' />
+                <Text>All</Text>
+              </Button>
+              <Button 
+                active={this.props.filter === 'pillBox'}
+                onPress={() => this.updateFilter('pillBox')}>
+                <Text>Pill Box</Text>
+              </Button>
+            </FooterTab>
+            <FooterTab>
+              <Button
+                active={this.props.filter === 'medicineCabinet'}
+                onPress={() => this.updateFilter('medicineCabinet')}>
+                <Text>Medine Cabinet</Text>
+              </Button>
+            </FooterTab>
+          </Footer>
+          
+        </Drawer>
 
       </Container>
     );
