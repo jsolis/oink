@@ -153,7 +153,6 @@ class OinkNavigator extends Component {
         medicineList.push(medicine);
 
         medicines[child.key] = child.val();
-        medicines[child.key].name = child.key;
 
       });
 
