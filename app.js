@@ -168,7 +168,7 @@ class OinkNavigator extends Component {
   }
 
   listenForHistory(historyRef) {
-    historyRef.limitToFirst(10).on('value', (snapshot) => {
+    historyRef.orderByKey().limitToLast(7).on('value', (snapshot) => {
       const medicineHistory = [];
 
       snapshot.forEach(child => {
