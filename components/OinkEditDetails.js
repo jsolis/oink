@@ -118,7 +118,7 @@ class OinkEditDetails extends Component {
               onPress={this.updateMedicine}
             >
               <Icon name='create' />
-              <Text style={{color: 'white', fontSize: 25}}>Save</Text>
+              <Text>Save</Text>
             </Button>
           </View>
 
