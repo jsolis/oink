@@ -56,6 +56,8 @@ class OinkNavigator extends Component {
 
     this.itemsRef = firebaseApp.database().ref(`users/dummy/people/${this.state.name}`);
 
+    firebase.auth().signInAnonymously();
+
   }
 
   updateMedicine = (originalName, medicineObj) => {
