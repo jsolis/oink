@@ -46,7 +46,7 @@ class OinkNavigator extends Component {
     super(props);
     
     this.state = {
-      user: 'dummy',
+      user: 'dummier',
       name: 'James',
       medicines: {},
       medicineList: [],
@@ -62,40 +62,39 @@ class OinkNavigator extends Component {
 
   }
 
-  updateMedicine = (originalName, medicineObj) => {
-    if (medicineObj && medicineObj.name) {
-      this.itemsRef
-        .child(medicineObj.name)
-        .set(medicineObj)
-        .then(() => {
-          if (originalName !== '' && originalName !== medicineObj.name) {
-            this.itemsRef
-              .child(originalName)
-              .remove();
-          }
-        })
-        .catch(() => {
-
-        });
+  addMedicine = (medicineObj) => {
+    if (medicineObj) {
+      const newMedicineRef = this.itemsRef.push();
+      newMedicineRef.set(medicineObj);
     }
   }
 
-  deleteMedicine = (medicineName) => {
-    if (medicineName && medicineName.length > 0) {
+  updateMedicine = (medicineObj) => {
+    if (medicineObj && medicineObj.name && medicineObj._key) {
       this.itemsRef
-        .child(medicineName).remove();
+        .child(medicineObj._key)
+        .set(medicineObj);
     }
   }
 
-  takeMedicine = (medicineName, hour, minutes) => {
-    if (medicineName && medicineName.length > 0) {
+  deleteMedicine = (medicineKey) => {
+    if (medicineKey && medicineKey.length > 0) {
+      // TODO - delete medicineHistory too
+      this.itemsRef
+        .child(medicineKey).remove();
+    }
+  }
+
+  takeMedicine = (medicineKey, hour, minutes) => {
+    if (medicineKey && medicineKey.length > 0) {
+      const medicineName = this.state.medicines[medicineKey].name;
       const takenDate = new Date();
       if (hour != undefined && minutes != undefined) {
         takenDate.setHours(hour);
         takenDate.setMinutes(minutes);
       }
       this.itemsRef
-        .child(medicineName)
+        .child(medicineKey)
         .update({lastTaken: takenDate.getTime()})
         .then(() => {
           Toast.show({
@@ -112,12 +111,12 @@ class OinkNavigator extends Component {
             buttonText: 'OK',
           });
         });
-      this.recordMedicineHistory(medicineName, takenDate.getTime());
+      this.recordMedicineHistory(medicineKey, takenDate.getTime());
     }
   }
 
-  recordMedicineHistory = (medicineName, takenDateInMillis) => {
-    const dose = this.state.medicines[medicineName].dose;
+  recordMedicineHistory = (medicineKey, takenDateInMillis) => {
+    const dose = this.state.medicines[medicineKey].dose;
     const taken = {};
     taken[takenDateInMillis] = {dateTaken: takenDateInMillis, dose};
     this.historyRef
@@ -156,7 +155,7 @@ class OinkNavigator extends Component {
 
         medicineList.push(medicine);
 
-        medicines[child.key] = child.val();
+        medicines[child.key] = medicine;
 
       });
 
@@ -191,12 +190,12 @@ class OinkNavigator extends Component {
     }
   }
 
-  updateHistoryRefAndListen = (medicineName) => {
+  updateHistoryRefAndListen = (medicineKey) => {
 
-    if (medicineName) {
+    if (medicineKey) {
       // TODO call off when exiting details / edit details view?
       this.stopListenForHistory(this.historyRef);
-      this.historyRef = firebaseApp.database().ref(`users/${this.state.user}/history/${this.state.name}/${medicineName}`);
+      this.historyRef = firebaseApp.database().ref(`users/${this.state.user}/history/${this.state.name}/${medicineKey}`);
       this.listenForHistory(this.historyRef);
     }
 
@@ -231,7 +230,7 @@ class OinkNavigator extends Component {
                   filter={this.state.filter}
                   listLoading={this.state.listLoading} />;
       case 'details':
-        var medicine = this.state.medicines[route.medicineName];
+        var medicine = this.state.medicines[route.medicineKey];
         return <OinkDetails 
                   navigator={navigator} 
                   medicine={medicine}
@@ -240,10 +239,11 @@ class OinkNavigator extends Component {
                   updateHistoryRefAndListen={this.updateHistoryRefAndListen}
                   medicineHistory={this.state.medicineHistory} />;
       case 'edit':
-        var medicine = this.state.medicines[route.medicineName];
+        var medicine = this.state.medicines[route.medicineKey];
         return <OinkEditDetails 
                   navigator={navigator} 
                   medicine={medicine} 
+                  addMedicine={this.addMedicine}
                   updateMedicine={this.updateMedicine} />;
       default:
         return <OinkList 

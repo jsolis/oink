@@ -62,7 +62,7 @@ class OinkDetails extends Component {
           onPress: () => {
             DismissKeyboard();
             this.props.navigator.pop();
-            this.props.deleteMedicine(this.props.medicine.name);
+            this.props.deleteMedicine(this.props.medicine._key);
           }
         }
       ]
@@ -70,7 +70,7 @@ class OinkDetails extends Component {
   };
 
   takeMedicine = () => {
-    this.props.takeMedicine(this.props.medicine.name, this.state.takenHour, this.state.takenMinutes);
+    this.props.takeMedicine(this.props.medicine._key, this.state.takenHour, this.state.takenMinutes);
     this.setTakenModalVisible(false);
   };
 
@@ -95,7 +95,7 @@ class OinkDetails extends Component {
 
   componentDidMount() {
 
-    this.props.updateHistoryRefAndListen(this.props.medicine.name);
+    this.props.updateHistoryRefAndListen(this.props.medicine._key);
 
   }
 
@@ -137,7 +137,7 @@ class OinkDetails extends Component {
             <Button 
               transparent
               onPress={() => {
-                this.props.navigator.push({id: 'edit', medicineName: this.props.medicine.name});
+                this.props.navigator.push({id: 'edit', medicineKey: this.props.medicine._key});
               }}>
               <Icon name='create' />
             </Button>

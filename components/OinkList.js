@@ -78,7 +78,7 @@ class OinkList extends Component {
                 <TouchableHighlight 
                   underlayColor="#e0ffff"
                   style={styles.listItem}
-                  onPress={() => this.props.navigator.push({id: 'details', medicineName: rowData.name})
+                  onPress={() => this.props.navigator.push({id: 'details', medicineKey: rowData._key})
                 }>
                   <View style={styles.listItemView}>
                     <Text style={styles['priority'+rowData.priority]}>&nbsp;</Text>

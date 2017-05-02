@@ -24,7 +24,7 @@ class OinkEditDetails extends Component {
   constructor(props) {
     super(props);
 
-    this.originalName = this.props.medicine ? this.props.medicine.name : '';
+    this.isNew = !(!!this.props.medicine && !!this.props.medicine.name);
 
     if (this.props.medicine) {
       this.state = this.props.medicine;
@@ -39,13 +39,14 @@ class OinkEditDetails extends Component {
     }
   }
 
-  updateMedicine = () => {
+  saveMedicine = () => {
     Keyboard.dismiss();
-    this.props.updateMedicine(this.originalName, this.state);
-    if (this.originalName === '') {
+    if (this.isNew) {
+      this.props.addMedicine(this.state);
       this.props.navigator.pop();
     } else {
-      this.props.navigator.replacePreviousAndPop({id: 'details', medicineName: this.state.name});
+      this.props.updateMedicine(this.state);
+      this.props.navigator.replacePreviousAndPop({id: 'details', medicineKey: this.state._key});
     }
   }
 
@@ -70,7 +71,7 @@ class OinkEditDetails extends Component {
           <Right>
             <Button 
               transparent
-              onPress={this.updateMedicine}>
+              onPress={this.saveMedicine}>
               <Icon name='create' />
             </Button>
           </Right>
@@ -115,7 +116,7 @@ class OinkEditDetails extends Component {
             <Button 
               iconLeft 
               dark
-              onPress={this.updateMedicine}
+              onPress={this.saveMedicine}
             >
               <Icon name='create' />
               <Text>Save</Text>
@@ -138,6 +139,7 @@ OinkEditDetails.propTypes = {
     priority: React.PropTypes.string.isRequired,
     details: React.PropTypes.string.isRequired,
   }),
+  addMedicine: React.PropTypes.func.isRequired,
   updateMedicine: React.PropTypes.func.isRequired,
 };
 
