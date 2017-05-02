@@ -57,9 +57,44 @@ class OinkList extends Component {
   };
 
   render() {
-    let loading;
-    if (this.props.medicineList.length === 0) {
-      loading = <View><Spinner color='blue' /></View>;
+    let content;
+    if (this.props.listLoading) {
+      content = <View><Spinner color='blue' /></View>;
+    } else if (this.props.medicineList.length === 0) {
+      content = (
+        <View style={{padding: 25}}>
+          <Text style={{fontSize: 20}}>Nothing here :-(</Text>
+          <Text style={{fontSize: 20}}>Trying adding something!</Text>
+        </View>
+      );
+    } else {
+      content = (
+        <View style={styles.listWrapper}>
+          <List
+            dataArray={this.props.medicineList}
+            renderRow={(rowData) => {
+              const doseInfo = rowData.dose ? `${rowData.dose} / ${rowData.frequency}` : '';
+              return (
+                <TouchableHighlight 
+                  underlayColor="#e0ffff"
+                  style={styles.listItem}
+                  onPress={() => this.props.navigator.push({id: 'details', medicineName: rowData.name})
+                }>
+                  <View style={styles.listItemView}>
+                    <Text style={styles['priority'+rowData.priority]}>&nbsp;</Text>
+                    <View>
+                      <Text style={styles.listTitle}>{rowData.name}</Text>
+                      <Text style={styles.listText}>{doseInfo}</Text>
+                    </View>
+                    <View style={styles.listItemViewRight}>
+                      <Text style={styles.listText}>{this.formatTime(rowData.lastTaken)}</Text>
+                    </View>
+                  </View>
+                </TouchableHighlight>
+              );
+            }} />
+        </View>
+      );
     }
     return (
       <Container style={styles.listContainer}>
@@ -92,32 +127,7 @@ class OinkList extends Component {
           </Header>
 
           <Content>
-            {loading}
-            <View style={styles.listWrapper}>
-              <List
-                dataArray={this.props.medicineList}
-                renderRow={(rowData) => {
-                  const doseInfo = rowData.dose ? `${rowData.dose} / ${rowData.frequency}` : '';
-                  return (
-                    <TouchableHighlight 
-                      underlayColor="#e0ffff"
-                      style={styles.listItem}
-                      onPress={() => this.props.navigator.push({id: 'details', medicineName: rowData.name})
-                    }>
-                      <View style={styles.listItemView}>
-                        <Text style={styles['priority'+rowData.priority]}>&nbsp;</Text>
-                        <View>
-                          <Text style={styles.listTitle}>{rowData.name}</Text>
-                          <Text style={styles.listText}>{doseInfo}</Text>
-                        </View>
-                        <View style={styles.listItemViewRight}>
-                          <Text style={styles.listText}>{this.formatTime(rowData.lastTaken)}</Text>
-                        </View>
-                      </View>
-                    </TouchableHighlight>
-                  );
-                }} />
-              </View>
+            {content}
           </Content>
 
           <Footer>
@@ -156,6 +166,7 @@ OinkList.propTypes = {
   medicineList: React.PropTypes.array.isRequired,
   updateFilter: React.PropTypes.func.isRequired,
   filter: React.PropTypes.string.isRequired,
+  listLoading: React.PropTypes.bool.isRequired,
 };
 
 const styles = {

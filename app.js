@@ -52,6 +52,7 @@ class OinkNavigator extends Component {
       filteredList: [],
       filter: 'all',
       medicineHistory: [],
+      listLoading: true,
     };
 
     this.itemsRef = firebaseApp.database().ref(`users/dummy/people/${this.state.name}`);
@@ -164,6 +165,7 @@ class OinkNavigator extends Component {
         medicines: medicines,
         medicineList: medicineList,
         filteredList: filteredList,
+        listLoading: false,
       });
     });
   }
@@ -225,7 +227,8 @@ class OinkNavigator extends Component {
                   name={this.state.name} 
                   medicineList={this.state.filteredList} 
                   updateFilter={this.updateFilter} 
-                  filter={this.state.filter} />;
+                  filter={this.state.filter}
+                  listLoading={this.state.listLoading} />;
       case 'details':
         var medicine = this.state.medicines[route.medicineName];
         return <OinkDetails 
