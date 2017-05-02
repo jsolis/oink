@@ -56,7 +56,7 @@ class OinkNavigator extends Component {
       listLoading: true,
     };
 
-    this.itemsRef = firebaseApp.database().ref(`users/${this.state.user}/people/${this.state.name}`);
+    this.medicinesRef = firebaseApp.database().ref(`users/${this.state.user}/medicines/${this.state.name}`);
 
     firebase.auth().signInAnonymously();
 
@@ -64,14 +64,14 @@ class OinkNavigator extends Component {
 
   addMedicine = (medicineObj) => {
     if (medicineObj) {
-      const newMedicineRef = this.itemsRef.push();
+      const newMedicineRef = this.medicinesRef.push();
       newMedicineRef.set(medicineObj);
     }
   }
 
   updateMedicine = (medicineObj) => {
     if (medicineObj && medicineObj.name && medicineObj._key) {
-      this.itemsRef
+      this.medicinesRef
         .child(medicineObj._key)
         .set(medicineObj);
     }
@@ -80,7 +80,7 @@ class OinkNavigator extends Component {
   deleteMedicine = (medicineKey) => {
     if (medicineKey && medicineKey.length > 0) {
       // TODO - delete medicineHistory too
-      this.itemsRef
+      this.medicinesRef
         .child(medicineKey).remove();
     }
   }
@@ -93,7 +93,7 @@ class OinkNavigator extends Component {
         takenDate.setHours(hour);
         takenDate.setMinutes(minutes);
       }
-      this.itemsRef
+      this.medicinesRef
         .child(medicineKey)
         .update({lastTaken: takenDate.getTime()})
         .then(() => {
@@ -143,8 +143,8 @@ class OinkNavigator extends Component {
     });
   }
 
-  listenForItems(itemsRef) {
-    itemsRef.on('value', (snapshot) => {
+  listenForItems(medicinesRef) {
+    medicinesRef.on('value', (snapshot) => {
       const medicineList = [];
       const medicines = {};
 
@@ -213,7 +213,7 @@ class OinkNavigator extends Component {
 
   componentDidMount() {
 
-    this.listenForItems(this.itemsRef);
+    this.listenForItems(this.medicinesRef);
 
   }
 
