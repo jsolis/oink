@@ -46,6 +46,7 @@ class OinkNavigator extends Component {
     super(props);
     
     this.state = {
+      user: 'dummy',
       name: 'James',
       medicines: {},
       medicineList: [],
@@ -55,7 +56,7 @@ class OinkNavigator extends Component {
       listLoading: true,
     };
 
-    this.itemsRef = firebaseApp.database().ref(`users/dummy/people/${this.state.name}`);
+    this.itemsRef = firebaseApp.database().ref(`users/${this.state.user}/people/${this.state.name}`);
 
     firebase.auth().signInAnonymously();
 
@@ -195,7 +196,7 @@ class OinkNavigator extends Component {
     if (medicineName) {
       // TODO call off when exiting details / edit details view?
       this.stopListenForHistory(this.historyRef);
-      this.historyRef = firebaseApp.database().ref(`users/dummy/history/${this.state.name}/${medicineName}`);
+      this.historyRef = firebaseApp.database().ref(`users/${this.state.user}/history/${this.state.name}/${medicineName}`);
       this.listenForHistory(this.historyRef);
     }
 
