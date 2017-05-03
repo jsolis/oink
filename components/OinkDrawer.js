@@ -6,22 +6,30 @@ import {
   View,
 } from 'react-native';
 import {
+  Body,
   Button,
   Container,
   Content,
   H1,
   Icon,
+  ListItem,
+  Left,
 } from 'native-base';
 
 class OinkDrawer extends Component {
 
   render() {
     const people = this.props.people.map(person =>
-      <View key={person.name} style={styles.listItem}>
-        <Icon name='person' />
-        <Text style={styles.listText}>{person.name}</Text>
-      </View>
+      <ListItem icon key={person.name} onPress={() => alert(person._key)}>
+        <Left>
+          <Icon name='person' />
+        </Left>
+        <Body>
+          <Text>{person.name}</Text>
+        </Body>
+      </ListItem>
     );
+
     return (
       <Container style={styles.drawerContainer}>
 
@@ -32,14 +40,22 @@ class OinkDrawer extends Component {
             </H1>
           </View>
           {people}
-          <View style={styles.listItem}>
-            <Icon name='person-add' />
-            <Text style={styles.listText}>Add Person</Text>
-          </View>
-          <View style={styles.listItem}>
-            <Icon name='settings' />
-            <Text style={styles.listText}>Manage People</Text>
-          </View>
+          <ListItem icon onPress={() => this.props.navigator.push({id: 'addPerson'})}>
+            <Left>
+              <Icon name='person-add' />
+            </Left>
+            <Body>
+              <Text>Add Person</Text>
+            </Body>
+          </ListItem>
+          <ListItem icon>
+            <Left>
+              <Icon name='settings' />
+            </Left>
+            <Body>
+              <Text>Manage People</Text>
+            </Body>
+          </ListItem>
         </Content>
 
       </Container>
@@ -70,16 +86,6 @@ const styles = {
     alignSelf: 'center',
   },
   content: {
-  },
-  listItem: {
-    flexDirection: 'row',
-    padding: 5,
-    marginLeft: 10,
-    alignItems: 'center',
-  },
-  listText: {
-    fontSize: 20,
-    marginLeft: 10,
   },
 };
 
