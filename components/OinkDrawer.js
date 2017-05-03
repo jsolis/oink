@@ -20,7 +20,10 @@ class OinkDrawer extends Component {
 
   render() {
     const people = this.props.people.map(person =>
-      <ListItem icon key={person.name} onPress={() => alert(person._key)}>
+      <ListItem icon key={person.name} onPress={() => {
+        this.props.switchPerson(person._key);
+        this.props.closeDrawer();
+      }}>
         <Left>
           <Icon name='person' />
         </Left>
@@ -66,6 +69,8 @@ class OinkDrawer extends Component {
 OinkDrawer.propTypes = {
   navigator: React.PropTypes.object.isRequired,
   people: React.PropTypes.array.isRequired,
+  switchPerson: React.PropTypes.func.isRequired,
+  closeDrawer: React.PropTypes.func.isRequired,
 };
 
 const styles = {

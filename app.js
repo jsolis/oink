@@ -49,6 +49,7 @@ class OinkNavigator extends Component {
     this.state = {
       user: 'dummier',
       name: 'James',
+      personKey: '',
       people: [],
       medicines: {},
       medicineList: [],
@@ -57,8 +58,6 @@ class OinkNavigator extends Component {
       medicineHistory: [],
       listLoading: true,
     };
-
-    this.medicinesRef = firebaseApp.database().ref(`users/${this.state.user}/medicines/${this.state.name}`);
 
     this.peopleRef = firebaseApp.database().ref(`users/${this.state.user}/people`);
 
@@ -154,7 +153,7 @@ class OinkNavigator extends Component {
     });
   }
 
-  listenForItems(medicinesRef) {
+  listenForMedicines(medicinesRef) {
     medicinesRef.on('value', (snapshot) => {
       const medicineList = [];
       const medicines = {};
@@ -213,6 +212,34 @@ class OinkNavigator extends Component {
     });
   }
 
+  switchPerson = (personKey) => {
+
+    AsyncStorage.setItem('personKey', personKey);
+    let name;
+    this.state.people.forEach(person => {
+      if (person._key === personKey) {
+        name = person.name;
+      }
+    });
+
+    this.setState({
+      personKey,
+      name,
+    });
+
+    this.updateMedicineRefAndListen(personKey);
+
+  }
+
+  updateMedicineRefAndListen = (personKey) => {
+
+    if (personKey) {
+      this.medicinesRef = firebaseApp.database().ref(`users/${this.state.user}/medicines/${personKey}`);
+      this.listenForMedicines(this.medicinesRef);
+    }
+
+  }
+
   stopListenForHistory(historyRef) {
     if (historyRef) {
       historyRef.off('value');
@@ -238,11 +265,16 @@ class OinkNavigator extends Component {
       });
     });
 
+    AsyncStorage.getItem('personKey').then((personKey) => {
+      this.setState({
+        personKey: personKey || '',
+      });
+      this.updateMedicineRefAndListen(this.state.personKey);
+    });
+
   }
 
   componentDidMount() {
-
-    this.listenForItems(this.medicinesRef);
 
     this.listenForPeople(this.peopleRef);
 
@@ -260,7 +292,8 @@ class OinkNavigator extends Component {
                   medicineList={this.state.filteredList}
                   updateFilter={this.updateFilter}
                   filter={this.state.filter}
-                  listLoading={this.state.listLoading} />;
+                  listLoading={this.state.listLoading}
+                  switchPerson={this.switchPerson} />;
       case 'details':
         var medicine = this.state.medicines[route.medicineKey];
         return <OinkDetails 
@@ -287,7 +320,9 @@ class OinkNavigator extends Component {
                   name={this.state.name} 
                   medicineList={this.state.filteredList}
                   updateFilter={this.updateFilter} 
-                  filter={this.state.filter} />;
+                  filter={this.state.filter}
+                  listLoading={this.state.listLoading}
+                  switchPerson={this.switchPerson} />;
     }
   };
 
