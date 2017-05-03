@@ -19,6 +19,7 @@ import {
 import OinkList from './components/OinkList';
 import OinkDetails from './components/OinkDetails';
 import OinkEditDetails from './components/OinkEditDetails';
+import OinkAddPerson from './components/OinkAddPerson';
 
 import * as firebase from 'firebase';
 
@@ -129,6 +130,13 @@ class OinkNavigator extends Component {
       });
   }
 
+  addPerson = (person) => {
+    if (person) {
+      const newPersonRef = this.peopleRef.push();
+      newPersonRef.set(person);
+    }
+  }
+
   updateFilter = (filter) => {
     const filtered = this.filterMedicineList(this.state.medicineList, filter);
     AsyncStorage.setItem('filter', filter);
@@ -192,7 +200,10 @@ class OinkNavigator extends Component {
       const people = [];
 
       snapshot.forEach(child => {
-        people.push(child.val());
+        const person = child.val();
+        person._key = child.key;
+
+        people.push(person);
       });
 
       this.setState({
@@ -266,6 +277,10 @@ class OinkNavigator extends Component {
                   medicine={medicine} 
                   addMedicine={this.addMedicine}
                   updateMedicine={this.updateMedicine} />;
+      case 'addPerson':
+        return <OinkAddPerson
+                  navigator={navigator}
+                  addPerson={this.addPerson} />;
       default:
         return <OinkList 
                   navigator={navigator} 
