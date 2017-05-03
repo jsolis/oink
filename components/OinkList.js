@@ -101,7 +101,7 @@ class OinkList extends Component {
 
         <Drawer
           ref={(ref) => { this._drawer = ref; }}
-          content={<OinkDrawer navigator={this.props.navigator} />}
+          content={<OinkDrawer navigator={this.props.navigator} people={this.props.people}/>}
           onClose={() => this.closeDrawer()}
         >
 
@@ -163,6 +163,7 @@ class OinkList extends Component {
 OinkList.propTypes = {
   navigator: React.PropTypes.object.isRequired,
   name: React.PropTypes.string.isRequired,
+  people: React.PropTypes.array.isRequired,
   medicineList: React.PropTypes.array.isRequired,
   updateFilter: React.PropTypes.func.isRequired,
   filter: React.PropTypes.string.isRequired,

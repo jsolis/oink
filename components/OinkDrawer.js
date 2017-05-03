@@ -16,6 +16,12 @@ import {
 class OinkDrawer extends Component {
 
   render() {
+    const people = this.props.people.map(person =>
+      <View key={person.name} style={styles.listItem}>
+        <Icon name='person' />
+        <Text style={styles.listText}>{person.name}</Text>
+      </View>
+    );
     return (
       <Container style={styles.drawerContainer}>
 
@@ -25,6 +31,7 @@ class OinkDrawer extends Component {
               Family
             </H1>
           </View>
+          {people}
           <View style={styles.listItem}>
             <Text style={styles.listText}>James</Text>
           </View>
@@ -40,6 +47,7 @@ class OinkDrawer extends Component {
 
 OinkDrawer.propTypes = {
   navigator: React.PropTypes.object.isRequired,
+  people: React.PropTypes.array.isRequired,
 };
 
 const styles = {
