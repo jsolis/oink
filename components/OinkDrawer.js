@@ -33,10 +33,12 @@ class OinkDrawer extends Component {
           </View>
           {people}
           <View style={styles.listItem}>
-            <Text style={styles.listText}>James</Text>
+            <Icon name='person-add' />
+            <Text style={styles.listText}>Add Person</Text>
           </View>
           <View style={styles.listItem}>
-            <Text style={styles.listText}>Hazel</Text>
+            <Icon name='settings' />
+            <Text style={styles.listText}>Manage People</Text>
           </View>
         </Content>
 
