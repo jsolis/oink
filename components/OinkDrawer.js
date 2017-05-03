@@ -78,7 +78,7 @@ const styles = {
   },
   headerWrapper: {
     alignSelf: 'stretch',
-    padding: 15,
+    padding: 25,
     backgroundColor: '#00fffa',
     marginBottom: 10,
   },
