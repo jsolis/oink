@@ -19,11 +19,12 @@ class OinkDrawer extends Component {
     return (
       <Container style={styles.drawerContainer}>
 
-        <H1 style={styles.header}>
-          Family
-        </H1>
-
         <Content style={styles.content}>
+          <View style={styles.headerWrapper}>
+            <H1 style={styles.header}>
+              Family
+            </H1>
+          </View>
           <View style={styles.listItem}>
             <Text style={styles.listText}>James</Text>
           </View>
@@ -47,21 +48,28 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'stretch',
+    backgroundColor: '#fff',
+  },
+  headerWrapper: {
+    alignSelf: 'stretch',
+    padding: 15,
     backgroundColor: '#00fffa',
+    marginBottom: 10,
   },
   header: {
     alignSelf: 'center',
-    padding: 10,
   },
   content: {
-    marginTop: 10,
   },
   listItem: {
+    flexDirection: 'row',
     padding: 5,
     marginLeft: 10,
+    alignItems: 'center',
   },
   listText: {
     fontSize: 20,
+    marginLeft: 10,
   },
 };
 
