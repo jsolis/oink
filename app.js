@@ -56,6 +56,7 @@ class OinkNavigator extends Component {
       filteredList: [],
       filter: 'all',
       medicineHistory: [],
+      peopleLoading: true,
       listLoading: true,
     };
 
@@ -207,7 +208,11 @@ class OinkNavigator extends Component {
 
       this.setState({
         people,
+        peopleLoading: false,
       });
+      if (this.state.personKey) {
+        this.switchPerson(this.state.personKey);
+      }
 
     });
   }
@@ -215,7 +220,7 @@ class OinkNavigator extends Component {
   switchPerson = (personKey) => {
 
     AsyncStorage.setItem('personKey', personKey);
-    let name;
+    let name = '';
     this.state.people.forEach(person => {
       if (person._key === personKey) {
         name = person.name;
@@ -266,10 +271,12 @@ class OinkNavigator extends Component {
     });
 
     AsyncStorage.getItem('personKey').then((personKey) => {
-      this.setState({
-        personKey: personKey || '',
-      });
-      this.updateMedicineRefAndListen(this.state.personKey);
+      if (personKey) {
+        this.setState({
+          personKey: personKey || '',
+        });
+        this.updateMedicineRefAndListen(this.state.personKey);
+      }
     });
 
   }
@@ -292,6 +299,7 @@ class OinkNavigator extends Component {
                   medicineList={this.state.filteredList}
                   updateFilter={this.updateFilter}
                   filter={this.state.filter}
+                  peopleLoading={this.state.peopleLoading}
                   listLoading={this.state.listLoading}
                   switchPerson={this.switchPerson} />;
       case 'details':
@@ -321,6 +329,7 @@ class OinkNavigator extends Component {
                   medicineList={this.state.filteredList}
                   updateFilter={this.updateFilter} 
                   filter={this.state.filter}
+                  peopleLoading={this.state.peopleLoading}
                   listLoading={this.state.listLoading}
                   switchPerson={this.switchPerson} />;
     }

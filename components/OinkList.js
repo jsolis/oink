@@ -58,13 +58,23 @@ class OinkList extends Component {
 
   render() {
     let content;
-    if (this.props.listLoading) {
+    if (this.props.listLoading || this.props.peopleLoading) {
       content = <View><Spinner color='blue' /></View>;
+    } else if (this.props.people.length === 0 || !this.props.name) {
+      content = (
+        <View style={{padding: 25}}>
+          <Text style={{fontSize: 20}}>Nobody here :-(</Text>
+          <Text style={{fontSize: 20}}>Trying adding someone!</Text>
+          <Text style={{fontSize: 20}}>Use the drawer on your left.</Text>
+        </View>
+      );
     } else if (this.props.medicineList.length === 0) {
       content = (
         <View style={{padding: 25}}>
-          <Text style={{fontSize: 20}}>Nothing here :-(</Text>
+          <Text style={{fontSize: 20}}>Welcome {this.props.name}</Text>
+          <Text style={{fontSize: 20}}>You have not added anything yet.</Text>
           <Text style={{fontSize: 20}}>Trying adding something!</Text>
+          <Text style={{fontSize: 20}}>Use the plus sign up top.</Text>
         </View>
       );
     } else {
@@ -172,6 +182,7 @@ OinkList.propTypes = {
   medicineList: React.PropTypes.array.isRequired,
   updateFilter: React.PropTypes.func.isRequired,
   filter: React.PropTypes.string.isRequired,
+  peopleLoading: React.PropTypes.bool.isRequired,
   listLoading: React.PropTypes.bool.isRequired,
   switchPerson: React.PropTypes.func.isRequired,
 };
