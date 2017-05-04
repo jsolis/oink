@@ -48,7 +48,7 @@ class OinkNavigator extends Component {
     
     this.state = {
       user: 'dummier',
-      name: 'James',
+      name: '',
       personKey: '',
       people: [],
       medicines: {},
