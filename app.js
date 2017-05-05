@@ -126,7 +126,7 @@ class OinkNavigator extends Component {
     this.historyRef
       .update(taken)
       .then(() => {
-        alert('history has been written')
+        
       });
   }
 
