@@ -60,10 +60,6 @@ class OinkNavigator extends Component {
       listLoading: true,
     };
 
-    this.peopleRef = firebaseApp.database().ref(`users/${this.state.user}/people`);
-
-    firebase.auth().signInAnonymously();
-
   }
 
   addMedicine = (medicineObj) => {
@@ -283,7 +279,10 @@ class OinkNavigator extends Component {
 
   componentDidMount() {
 
-    this.listenForPeople(this.peopleRef);
+    firebase.auth().signInAnonymously().then(() => {
+      this.peopleRef = firebaseApp.database().ref(`users/${this.state.user}/people`);
+      this.listenForPeople(this.peopleRef);
+    });
 
   }
 
