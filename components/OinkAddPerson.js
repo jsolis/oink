@@ -69,25 +69,25 @@ class OinkAddPerson extends Component {
           </Right>
         </Header>
 
-          <Content>
-            <Text>Add Person Here</Text>
+        <Content>
+          <Text>Add Person Here</Text>
 
-            <TextInput
-              style={styles.textInput}
-              autoCapitalize="words"
-              placeholder="Person's Name"
-              onChangeText={(text) => this.setState({name: text})}
-              value={this.state.name}/>
+          <TextInput
+            style={styles.textInput}
+            autoCapitalize="words"
+            placeholder="Person's Name"
+            onChangeText={(text) => this.setState({name: text})}
+            value={this.state.name}/>
 
-            <Button
-              iconLeft
-              dark
-              onPress={() => this.addPerson(this.state)}
-            >
-              <Icon name='create' />
-              <Text>Add</Text>
-            </Button>
-          </Content>
+          <Button
+            iconLeft
+            dark
+            onPress={() => this.addPerson(this.state)}
+          >
+            <Icon name='create' />
+            <Text>Add</Text>
+          </Button>
+        </Content>
 
       </Container>
     );
