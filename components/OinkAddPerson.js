@@ -15,7 +15,13 @@ import {
   Right,
   Text,
   Title,
+  View,
 } from 'native-base';
+
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { Platform } from 'react-native';
+
+const platform = Platform.OS;
 
 class OinkAddPerson extends Component {
 
@@ -64,13 +70,14 @@ class OinkAddPerson extends Component {
             <Button 
               transparent
               onPress={() => this.addPerson({name: 'Ayla'})}>
-              <Icon name='create' />
+              <FontAwesome name='save'
+                size={(platform === 'ios') ? 30 : 28}
+                color={(platform === 'ios') ? '#007aff' : '#fff'} />
             </Button>
           </Right>
         </Header>
 
         <Content>
-          <Text>Add Person Here</Text>
 
           <TextInput
             style={styles.textInput}
@@ -79,14 +86,19 @@ class OinkAddPerson extends Component {
             onChangeText={(text) => this.setState({name: text})}
             value={this.state.name}/>
 
-          <Button
-            iconLeft
-            dark
-            onPress={() => this.addPerson(this.state)}
-          >
-            <Icon name='create' />
-            <Text>Add</Text>
-          </Button>
+          <View style={styles.buttonContainer}>
+            <Button
+              iconLeft
+              dark
+              onPress={() => this.addPerson(this.state)}
+            >
+              <FontAwesome name='save'
+                size={(platform === 'ios') ? 30 : 28}
+                color='#fff' />
+              <Text style={{marginLeft: 5}}>Save</Text>
+            </Button>
+          </View>
+
         </Content>
 
       </Container>
@@ -112,6 +124,12 @@ const styles = {
     alignSelf: 'stretch',
     margin: 10,
     color: '#333',
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
 };
 
