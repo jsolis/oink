@@ -118,6 +118,8 @@ class OinkList extends Component {
                     closeDrawer={this.closeDrawer}
                   />}
           onClose={() => this.closeDrawer()}
+          panOpenMask={.25}
+          panCloseMask={.25}
         >
 
           <Header backgroundColor='#212D40'>
