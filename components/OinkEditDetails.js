@@ -18,6 +18,11 @@ import {
   View,
 } from 'native-base';
 
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { Platform } from 'react-native';
+
+const platform = Platform.OS;
+
 const Item = Picker.Item;
 
 class OinkEditDetails extends Component {
@@ -72,7 +77,9 @@ class OinkEditDetails extends Component {
             <Button 
               transparent
               onPress={this.saveMedicine}>
-              <Icon name='create' />
+              <FontAwesome name='save'
+                size={(platform === 'ios') ? 30 : 28}
+                color={(platform === 'ios') ? '#007aff' : '#fff'} />
             </Button>
           </Right>
         </Header>
@@ -118,8 +125,10 @@ class OinkEditDetails extends Component {
               dark
               onPress={this.saveMedicine}
             >
-              <Icon name='create' />
-              <Text>Save</Text>
+              <FontAwesome name='save'
+                size={(platform === 'ios') ? 30 : 28}
+                color='#fff' />
+              <Text style={{marginLeft: 5}}>Save</Text>
             </Button>
           </View>
 
