@@ -192,7 +192,7 @@ class OinkNavigator extends Component {
   }
 
   listenForPeople(peopleRef) {
-    peopleRef.on('value', (snapshot) => {
+    peopleRef.orderByChild('name').on('value', (snapshot) => {
       const people = [];
 
       snapshot.forEach(child => {
