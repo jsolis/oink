@@ -6,6 +6,7 @@ import {
   Picker,
 } from 'react-native';
 import {
+  ActionSheet,
   Body,
   Button,
   Container,
@@ -143,7 +144,25 @@ class OinkDetails extends Component {
             </Button>
             <Button
               transparent
-              onPress={() => this.setTakenModalVisible(true)}>
+              onPress={() => ActionSheet.show(
+                {
+                  options: [
+                    `Now (${this.state.takenHour}:${this.state.takenMinutes})`,
+                    'Pick Time',
+                    'Cancel',
+                  ],
+                  cancelButtonIndex: 2,
+                  title: 'When was this taken',
+                },
+                (buttonIndex) => {
+                  if (buttonIndex === 0) {
+                    this.takeMedicine();
+                  } else if (buttonIndex === 1) {
+                    this.setTakenModalVisible(true);
+                  }
+                }
+              )}
+            >
               <Icon name='nutrition' />
             </Button>
           </Right>
