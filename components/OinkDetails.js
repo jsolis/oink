@@ -213,7 +213,7 @@ class OinkDetails extends Component {
           animationType={"slide"}
           transparent={true}
           visible={this.state.takenModalVisible}
-          onRequestClose={() => {alert("Modal has been closed.")}}
+          onRequestClose={() => {}}
         >
           <View style={styles.takenModal}>
             <View>
