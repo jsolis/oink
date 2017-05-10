@@ -51,7 +51,7 @@ class OinkDrawer extends Component {
               <Text>Add Person</Text>
             </Body>
           </ListItem>
-          <ListItem icon>
+          <ListItem icon onPress={() => this.props.navigator.push({id: 'managePeople'})}>
             <Left>
               <Icon name='settings' />
             </Left>

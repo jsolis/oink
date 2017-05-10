@@ -13,6 +13,7 @@ import {
   Navigator,
 } from 'react-native';
 import {
+  Text,
   Toast,
 } from 'native-base';
 
@@ -20,6 +21,7 @@ import OinkList from './components/OinkList';
 import OinkDetails from './components/OinkDetails';
 import OinkEditDetails from './components/OinkEditDetails';
 import OinkAddPerson from './components/OinkAddPerson';
+import OinkManagePeople from './components/OinkManagePeople';
 
 import * as firebase from 'firebase';
 
@@ -321,6 +323,10 @@ class OinkNavigator extends Component {
         return <OinkAddPerson
                   navigator={navigator}
                   addPerson={this.addPerson} />;
+      case 'managePeople':
+        return <OinkManagePeople
+                  navigator={navigator}
+                  people={this.state.people} />;
       default:
         return <Text style={{paddingTop: 25}}>Huh?</Text>;
     }
