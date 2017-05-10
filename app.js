@@ -322,15 +322,7 @@ class OinkNavigator extends Component {
                   navigator={navigator}
                   addPerson={this.addPerson} />;
       default:
-        return <OinkList 
-                  navigator={navigator} 
-                  name={this.state.name} 
-                  medicineList={this.state.filteredList}
-                  updateFilter={this.updateFilter} 
-                  filter={this.state.filter}
-                  peopleLoading={this.state.peopleLoading}
-                  listLoading={this.state.listLoading}
-                  switchPerson={this.switchPerson} />;
+        return <Text style={{paddingTop: 25}}>Huh?</Text>;
     }
   };
 
