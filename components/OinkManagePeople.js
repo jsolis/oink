@@ -77,18 +77,6 @@ const styles = {
     alignItems: 'stretch',
     backgroundColor: '#FFA4D0',
   },
-  textInput: {
-    height: 40,
-    alignSelf: 'stretch',
-    margin: 10,
-    color: '#333',
-  },
-  buttonContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-  },
 };
 
 module.exports = OinkManagePeople;
