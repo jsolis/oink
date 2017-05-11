@@ -45,9 +45,8 @@ class OinkAddPerson extends Component {
       this.props.addPerson(this.state);
       this.props.navigator.pop();
     } else {
-      // TODO (might want to pop navigator here too)
-      //this.props.updatePerson(this.state);
-      //this.props.navigator.replacePreviousAndPop({id: 'list'});
+      this.props.updatePerson(this.state);
+      this.props.navigator.pop();
     }
   }
 
@@ -108,7 +107,8 @@ class OinkAddPerson extends Component {
 
 OinkAddPerson.propTypes = {
   navigator: React.PropTypes.object.isRequired,
-  addPerson: React.PropTypes.func.isRequired,
+  addPerson: React.PropTypes.func,
+  updatePerson: React.PropTypes.func,
   person: React.PropTypes.object,
 };
 

@@ -135,6 +135,14 @@ class OinkNavigator extends Component {
     }
   }
 
+  updatePerson = (person) => {
+    if (person && person.name && person._key) {
+      this.peopleRef
+        .child(person._key)
+        .set(person);
+    }
+  }
+
   updateFilter = (filter) => {
     const filtered = this.filterMedicineList(this.state.medicineList, filter);
     AsyncStorage.setItem('filter', filter);
@@ -327,7 +335,7 @@ class OinkNavigator extends Component {
         var person = this.state.people.find(person => person._key === route.personKey);
         return <OinkAddPerson
                   navigator={navigator}
-                  addPerson={this.addPerson}
+                  updatePerson={this.updatePerson}
                   person={person} />
       case 'managePeople':
         return <OinkManagePeople
