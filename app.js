@@ -143,6 +143,13 @@ class OinkNavigator extends Component {
     }
   }
 
+  deletePerson = (personKey) => {
+    if (personKey && personKey.length > 0) {
+      this.peopleRef
+        .child(personKey).remove();
+    }
+  }
+
   updateFilter = (filter) => {
     const filtered = this.filterMedicineList(this.state.medicineList, filter);
     AsyncStorage.setItem('filter', filter);
@@ -335,6 +342,7 @@ class OinkNavigator extends Component {
         var person = this.state.people.find(person => person._key === route.personKey);
         return <OinkAddPerson
                   navigator={navigator}
+                  deletePerson={this.deletePerson}
                   updatePerson={this.updatePerson}
                   person={person} />
       case 'managePeople':

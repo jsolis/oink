@@ -50,6 +50,13 @@ class OinkAddPerson extends Component {
     }
   }
 
+  deletePerson = () => {
+    if (this.props.person._key) {
+      this.props.deletePerson(this.props.person._key);
+      this.props.navigator.pop();
+    }
+  }
+
   render() {
     return (
       <Container style={styles.addPersonContainer}>
@@ -66,6 +73,14 @@ class OinkAddPerson extends Component {
             <Title>Add Person</Title>
           </Body>
           <Right>
+            {!this.isNew &&
+              <Button
+                transparent
+                onPress={this.deletePerson}
+              >
+                <Icon name="trash" />
+              </Button>
+            }
             <Button 
               transparent
               onPress={() => this.addPerson(this.state)}>
@@ -108,6 +123,7 @@ class OinkAddPerson extends Component {
 OinkAddPerson.propTypes = {
   navigator: React.PropTypes.object.isRequired,
   addPerson: React.PropTypes.func,
+  deletePerson: React.PropTypes.func,
   updatePerson: React.PropTypes.func,
   person: React.PropTypes.object,
 };
