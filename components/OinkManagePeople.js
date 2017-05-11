@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import {
-  TextInput,
-  Keyboard,
-} from 'react-native';
-import {
   Body,
   Button,
   Container,
