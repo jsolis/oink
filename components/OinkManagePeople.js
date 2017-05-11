@@ -26,9 +26,6 @@ class OinkManagePeople extends Component {
     super(props);
   }
 
-  foobar = () => {
-  }
-
   render() {
     return (
       <Container style={styles.managePeopleContainer}>
@@ -51,7 +48,10 @@ class OinkManagePeople extends Component {
           <List
             dataArray={this.props.people}
             renderRow={(person) =>
-              <ListItem icon>
+              <ListItem 
+                icon
+                onPress={() => this.props.navigator.push({id: 'editPerson', personKey: person._key})}
+              >
                 <Left>
                   <Icon name="person" />
                 </Left>

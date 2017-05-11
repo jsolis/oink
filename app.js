@@ -323,6 +323,12 @@ class OinkNavigator extends Component {
         return <OinkAddPerson
                   navigator={navigator}
                   addPerson={this.addPerson} />;
+      case 'editPerson':
+        var person = this.state.people.find(person => person._key === route.personKey);
+        return <OinkAddPerson
+                  navigator={navigator}
+                  addPerson={this.addPerson}
+                  person={person} />
       case 'managePeople':
         return <OinkManagePeople
                   navigator={navigator}

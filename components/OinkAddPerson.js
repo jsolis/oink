@@ -109,6 +109,7 @@ class OinkAddPerson extends Component {
 OinkAddPerson.propTypes = {
   navigator: React.PropTypes.object.isRequired,
   addPerson: React.PropTypes.func.isRequired,
+  person: React.PropTypes.object,
 };
 
 const styles = {
