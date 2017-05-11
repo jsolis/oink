@@ -51,8 +51,13 @@ class OinkManagePeople extends Component {
           <List
             dataArray={this.props.people}
             renderRow={(person) =>
-              <ListItem>
-                <Text>{person.name}</Text>
+              <ListItem icon>
+                <Left>
+                  <Icon name="person" />
+                </Left>
+                <Body>
+                  <Text>{person.name}</Text>
+                </Body>
               </ListItem>
             }
           />
