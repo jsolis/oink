@@ -69,7 +69,7 @@ class OinkAddPerson extends Component {
           <Right>
             <Button 
               transparent
-              onPress={() => this.addPerson({name: 'Ayla'})}>
+              onPress={() => this.addPerson(this.state)}>
               <FontAwesome name='save'
                 size={(platform === 'ios') ? 30 : 28}
                 color={(platform === 'ios') ? '#007aff' : '#fff'} />
