@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Alert,
   TextInput,
   Keyboard,
 } from 'react-native';
@@ -22,6 +23,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Platform } from 'react-native';
 
 const platform = Platform.OS;
+
+const DismissKeyboard = require('dismissKeyboard');
 
 class OinkAddPerson extends Component {
 
@@ -52,8 +55,21 @@ class OinkAddPerson extends Component {
 
   deletePerson = () => {
     if (this.props.person._key) {
-      this.props.deletePerson(this.props.person._key);
-      this.props.navigator.pop();
+      Alert.alert(
+        'Delete',
+        `Are you sure you want to delete ${this.props.person.name}`,
+        [
+          {text: 'Keep'},
+          {
+            text: 'Delete', 
+            onPress: () => {
+              DismissKeyboard();
+              this.props.deletePerson(this.props.person._key);
+              this.props.navigator.pop();
+            }
+          }
+        ]
+      );
     }
   }
 
