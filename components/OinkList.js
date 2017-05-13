@@ -36,6 +36,10 @@ class OinkList extends Component {
     this._drawer._root.close()
   }
 
+  openChat = () => {
+    this.props.navigator.push({id: 'chat'});
+  }
+
   updateFilter = (filter) => {
     this.props.updateFilter(filter);
   }
@@ -135,6 +139,11 @@ class OinkList extends Component {
               <Title>{this.props.name}</Title>
             </Body>
             <Right>
+              <Button
+                transparent
+                onPress={this.openChat}>
+                <Icon name='chatboxes' />
+              </Button>
               <Button 
                 transparent
                 onPress={this.addMedicine}>

@@ -22,6 +22,7 @@ import OinkDetails from './components/OinkDetails';
 import OinkEditDetails from './components/OinkEditDetails';
 import OinkAddPerson from './components/OinkAddPerson';
 import OinkManagePeople from './components/OinkManagePeople';
+import OinkChat from './components/OinkChat';
 
 import * as firebase from 'firebase';
 
@@ -349,6 +350,9 @@ class OinkNavigator extends Component {
         return <OinkManagePeople
                   navigator={navigator}
                   people={this.state.people} />;
+      case 'chat':
+        return <OinkChat
+                  navigator={navigator} />;
       default:
         return <Text style={{paddingTop: 25}}>Huh?</Text>;
     }
