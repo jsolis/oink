@@ -61,6 +61,11 @@ class OinkChat extends Component {
     }
   }
 
+  sendChatMessage = () => {
+    this.props.sendChatMessage(this.state.message, 'Jay');
+    this.state.message = '';
+  }
+
   render() {
     return (
       <Container>
@@ -85,11 +90,7 @@ class OinkChat extends Component {
             onLayout={this.onScrollViewLayout}
           >
             <List
-              dataArray={[
-                {text: 'hello world', name: 'Oink Bot'},
-                {text: 'oh hello there!', name: 'Jay'},
-                {text: 'Im saying something else', name: 'Ayla'},
-              ]}
+              dataArray={this.props.messages}
               renderRow={(message) =>
                 <ListItem
                   icon
@@ -106,7 +107,7 @@ class OinkChat extends Component {
                     }
                   </Left>
                   <Body>
-                    <Text style={styles.chatMessage}>{message.text}</Text>
+                    <Text style={styles.chatMessage}>{message.message}</Text>
                     <Text style={styles.chatName}>{message.name}</Text>
                   </Body>
                 </ListItem>
@@ -114,11 +115,13 @@ class OinkChat extends Component {
             />
             <TextInput
               style={styles.chatTextInput}
-              autoCapitalize="words"
+              autoCapitalize="sentences"
               placeholder="Write something"
+              returnKeyType="done"
               onLayout={this.onInputLayout}
               onChangeText={text => this.setState({message: text})}
-              value={this.state.name}
+              onSubmitEditing={this.sendChatMessage}
+              value={this.state.message}
             />
           </KeyboardAwareScrollView>
 
@@ -131,6 +134,9 @@ class OinkChat extends Component {
 
 OinkChat.propTypes = {
   navigator: React.PropTypes.object.isRequired,
+  messages: React.PropTypes.array.isRequired,
+  messagesLoading: React.PropTypes.bool.isRequired,
+  sendChatMessage: React.PropTypes.func.isRequired,
 };
 
 const styles = {

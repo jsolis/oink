@@ -59,8 +59,10 @@ class OinkNavigator extends Component {
       filteredList: [],
       filter: 'all',
       medicineHistory: [],
+      messages: [],
       peopleLoading: true,
       listLoading: true,
+      messagesLoading: true,
     };
 
   }
@@ -276,6 +278,36 @@ class OinkNavigator extends Component {
 
   }
 
+  listenForChatMessages(chatRef) {
+    chatRef.orderByKey().limitToLast(50).on('value', (snapshot) => {
+      const messages = [];
+
+      snapshot.forEach(child => {
+        const message = child.val();
+        messages.push(message);
+      });
+
+      this.setState({
+        messages,
+        messagesLoading: false,
+      });
+
+    });
+  }
+
+  sendChatMessage = (message, name, timestamp = Date.now()) => {
+
+    if (message) {
+      const newMessageRef = this.chatRef.push();
+      newMessageRef.set({
+        message,
+        name,
+        timestamp,
+      });
+    }
+
+  }
+
   componentWillMount() {
 
     AsyncStorage.getItem('filter').then((filter) => {
@@ -300,6 +332,8 @@ class OinkNavigator extends Component {
     firebase.auth().signInAnonymously().then(() => {
       this.peopleRef = firebaseApp.database().ref(`users/${this.state.user}/people`);
       this.listenForPeople(this.peopleRef);
+      this.chatRef = firebaseApp.database().ref(`users/${this.state.user}/chat`);
+      this.listenForChatMessages(this.chatRef);
     });
 
   }
@@ -352,7 +386,10 @@ class OinkNavigator extends Component {
                   people={this.state.people} />;
       case 'chat':
         return <OinkChat
-                  navigator={navigator} />;
+                  navigator={navigator}
+                  messages={this.state.messages}
+                  messagesLoading={this.state.messagesLoading}
+                  sendChatMessage={this.sendChatMessage} />;
       default:
         return <Text style={{paddingTop: 25}}>Huh?</Text>;
     }
