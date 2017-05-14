@@ -31,35 +31,8 @@ class OinkChat extends Component {
 
     this.state = {
       message: '',
-      scrollViewHeight: 0,
-      inputHeight: 0,
       newChatName: '',
     };
-  }
-
-  onScrollViewLayout = (event) => {
-    const layout = event.nativeEvent.layout;
-    this.setState({
-      scrollViewHeight: layout.height,
-    });
-  }
-
-  onInputLayout = (event) => {
-    const layout = event.nativeEvent.layout;
-    this.setState({
-      inputHeight: layout.height,
-    });
-  }
-
-  scrollToBottom(animate = true) {
-    const { scrollViewHeight, inputHeight } = this.state;
-    const { chatHeight } = this.props;
-
-    const scrollTo = chatHeight - scrollViewHeight + inputHeight;
-
-    if (scrollTo > 0) {
-      this.refs.scroll.scrollToPosition(0, scrollTo, animate)
-    }
   }
 
   sendChatMessage = () => {
@@ -81,7 +54,7 @@ class OinkChat extends Component {
     let content;
     if (!this.props.chatName) {
       content = (
-        <View>
+        <Content>
           <Text>
             Pick a name to use in the chat.
           </Text>
@@ -94,13 +67,14 @@ class OinkChat extends Component {
             onSubmitEditing={this.saveChatName}
             value={this.state.newChatName}
           />
-        </View>
+        </Content>
       );
     } else {
+      let _scrollView;
       content = (
         <KeyboardAwareScrollView
-          ref="scroll"
-          onLayout={this.onScrollViewLayout}
+          ref={(scrollView) => { _scrollView = scrollView; }}
+          onContentSizeChange={() => _scrollView.scrollToEnd({animated: true})}
         >
           <List
             dataArray={this.props.messages}
@@ -131,7 +105,6 @@ class OinkChat extends Component {
             autoCapitalize="sentences"
             placeholder="Write something"
             returnKeyType="done"
-            onLayout={this.onInputLayout}
             onChangeText={text => this.setState({message: text})}
             onSubmitEditing={this.sendChatMessage}
             value={this.state.message}
@@ -163,11 +136,7 @@ class OinkChat extends Component {
           </Right>
         </Header>
 
-        <Content>
-
-          {content}
-
-        </Content>
+        {content}
 
       </Container>
     );
