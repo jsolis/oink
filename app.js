@@ -53,6 +53,7 @@ class OinkNavigator extends Component {
       user: 'dummier',
       name: '',
       personKey: '',
+      chatName: '',
       people: [],
       medicines: {},
       medicineList: [],
@@ -308,6 +309,13 @@ class OinkNavigator extends Component {
 
   }
 
+  saveChatName = (chatName) => {
+    AsyncStorage.setItem('chatName', chatName);
+    this.setState({
+      chatName,
+    });
+  }
+
   componentWillMount() {
 
     AsyncStorage.getItem('filter').then((filter) => {
@@ -323,6 +331,12 @@ class OinkNavigator extends Component {
         });
         this.updateMedicineRefAndListen(this.state.personKey);
       }
+    });
+
+    AsyncStorage.getItem('chatName').then((chatName) => {
+      this.setState({
+        chatName: chatName || '',
+      });
     });
 
   }
@@ -389,7 +403,9 @@ class OinkNavigator extends Component {
                   navigator={navigator}
                   messages={this.state.messages}
                   messagesLoading={this.state.messagesLoading}
-                  sendChatMessage={this.sendChatMessage} />;
+                  sendChatMessage={this.sendChatMessage}
+                  chatName={this.state.chatName}
+                  saveChatName={this.saveChatName} />;
       default:
         return <Text style={{paddingTop: 25}}>Huh?</Text>;
     }

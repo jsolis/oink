@@ -33,6 +33,7 @@ class OinkChat extends Component {
       message: '',
       scrollViewHeight: 0,
       inputHeight: 0,
+      newChatName: '',
     };
   }
 
@@ -62,11 +63,83 @@ class OinkChat extends Component {
   }
 
   sendChatMessage = () => {
-    this.props.sendChatMessage(this.state.message, 'Jay');
+    this.props.sendChatMessage(this.state.message, this.props.chatName);
     this.state.message = '';
   }
 
+  saveChatName = () => {
+    this.setState({newChatName: ''});
+    this.props.saveChatName(this.state.newChatName);
+  }
+
+  clearChatName = () => {
+    this.setState({newChatName: ''});
+    this.props.saveChatName('');
+  }
+
   render() {
+    let content;
+    if (!this.props.chatName) {
+      content = (
+        <View>
+          <Text>
+            Pick a name to use in the chat.
+          </Text>
+          <TextInput
+            style={styles.chatTextInput}
+            autoCapitalize="words"
+            placeholder="Pick a Name"
+            returnKeyType="done"
+            onChangeText={newChatName => this.setState({newChatName})}
+            onSubmitEditing={this.saveChatName}
+            value={this.state.newChatName}
+          />
+        </View>
+      );
+    } else {
+      content = (
+        <KeyboardAwareScrollView
+          ref="scroll"
+          onLayout={this.onScrollViewLayout}
+        >
+          <List
+            dataArray={this.props.messages}
+            renderRow={(message) =>
+              <ListItem
+                icon
+              >
+                <Left>
+                  {message.name === 'Oink Bot' ?
+                    <MaterialCommunityIcons 
+                      name='pig'
+                      color='#FFA4D0'
+                      size={28}
+                    />
+                  :
+                    <Icon name='person' />
+                  }
+                </Left>
+                <Body>
+                  <Text style={styles.chatMessage}>{message.message}</Text>
+                  <Text style={styles.chatName}>{message.name}</Text>
+                </Body>
+              </ListItem>
+            }
+          />
+          <TextInput
+            style={styles.chatTextInput}
+            autoCapitalize="sentences"
+            placeholder="Write something"
+            returnKeyType="done"
+            onLayout={this.onInputLayout}
+            onChangeText={text => this.setState({message: text})}
+            onSubmitEditing={this.sendChatMessage}
+            value={this.state.message}
+          />
+        </KeyboardAwareScrollView>
+      );
+    }
+
     return (
       <Container>
 
@@ -81,49 +154,18 @@ class OinkChat extends Component {
           <Body>
             <Title>Chat</Title>
           </Body>
-          <Right />
+          <Right>
+            <Button 
+              transparent
+              onPress={() => this.saveChatName('')}>
+              <Text>Change Name</Text>
+            </Button>
+          </Right>
         </Header>
 
         <Content>
-          <KeyboardAwareScrollView
-            ref="scroll"
-            onLayout={this.onScrollViewLayout}
-          >
-            <List
-              dataArray={this.props.messages}
-              renderRow={(message) =>
-                <ListItem
-                  icon
-                >
-                  <Left>
-                    {message.name === 'Oink Bot' ?
-                      <MaterialCommunityIcons 
-                        name='pig'
-                        color='#FFA4D0'
-                        size={28}
-                      />
-                    :
-                      <Icon name='person' />
-                    }
-                  </Left>
-                  <Body>
-                    <Text style={styles.chatMessage}>{message.message}</Text>
-                    <Text style={styles.chatName}>{message.name}</Text>
-                  </Body>
-                </ListItem>
-              }
-            />
-            <TextInput
-              style={styles.chatTextInput}
-              autoCapitalize="sentences"
-              placeholder="Write something"
-              returnKeyType="done"
-              onLayout={this.onInputLayout}
-              onChangeText={text => this.setState({message: text})}
-              onSubmitEditing={this.sendChatMessage}
-              value={this.state.message}
-            />
-          </KeyboardAwareScrollView>
+
+          {content}
 
         </Content>
 
@@ -137,6 +179,8 @@ OinkChat.propTypes = {
   messages: React.PropTypes.array.isRequired,
   messagesLoading: React.PropTypes.bool.isRequired,
   sendChatMessage: React.PropTypes.func.isRequired,
+  chatName: React.PropTypes.string,
+  saveChatName: React.PropTypes.func.isRequired,
 };
 
 const styles = {
