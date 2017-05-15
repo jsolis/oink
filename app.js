@@ -26,6 +26,8 @@ import OinkChat from './components/OinkChat';
 
 import * as firebase from 'firebase';
 
+import { formatDate } from './utils/dateFormats';
+
 // Initialize Firebase
 const firebaseConfig = {
   apiKey: 'AIzaSyBdMfL-rIsMEmn1ducZ5E5ZZ3eFQ6ydQZU',
@@ -99,6 +101,8 @@ class OinkNavigator extends Component {
         takenDate.setHours(hour);
         takenDate.setMinutes(minutes);
       }
+      const formattedDate = formatDate(takenDate);
+
       this.medicinesRef
         .child(medicineKey)
         .update({lastTaken: takenDate.getTime()})
@@ -118,6 +122,7 @@ class OinkNavigator extends Component {
           });
         });
       this.recordMedicineHistory(medicineKey, takenDate.getTime());
+      this.sendChatMessage(`${this.state.name} took ${medicineName} at ${formattedDate}`, 'Oink Bot');
     }
   }
 
