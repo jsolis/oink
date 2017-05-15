@@ -27,6 +27,8 @@ const Item = Picker.Item;
 
 const DismissKeyboard = require('dismissKeyboard');
 
+import { formatDate } from '../utils/dateFormats';
+
 class OinkDetails extends Component {
   constructor(props) {
     super(props);
@@ -75,25 +77,6 @@ class OinkDetails extends Component {
     this.setTakenModalVisible(false);
   };
 
-  formatDate = (date) => {
-    const dayOfWeekArr = [
-      'Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'
-    ];
-    const monthArr = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'
-    ];
-
-    let dateObj = new Date(date);
-
-    let dayOfWeek = dayOfWeekArr[dateObj.getDay()];
-    let month = monthArr[dateObj.getMonth()];
-    let dayOfMonth = dateObj.getDate();
-    let hour = dateObj.getHours();
-    let minute = (dateObj.getMinutes() < 10 ? '0' : '') + dateObj.getMinutes();
-
-    return `${dayOfWeek} ${month} ${dayOfMonth} ${hour}:${minute}`;
-  };
-
   componentDidMount() {
 
     this.props.updateHistoryRefAndListen(this.props.medicine._key);
@@ -103,7 +86,7 @@ class OinkDetails extends Component {
   render() {
 
     const lastTakenProps = this.props.medicine.lastTaken;
-    const lastTaken =  lastTakenProps ? this.formatDate(lastTakenProps) : 'never';
+    const lastTaken =  lastTakenProps ? formatDate(lastTakenProps) : 'never';
 
     const hourItems = [];
     for (let i=0; i < 24; i++) {
@@ -216,7 +199,7 @@ class OinkDetails extends Component {
                 dataArray={this.props.medicineHistory}
                 renderRow={(rowData) => {
                   const { dateTaken, dose } = rowData;
-                  const dateTakenFormatted = this.formatDate(dateTaken);
+                  const dateTakenFormatted = formatDate(dateTaken);
                   return (
                     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                       <Text style={styles.detailsText}>{dateTakenFormatted}</Text>
