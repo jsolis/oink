@@ -116,7 +116,7 @@ class OinkChat extends Component {
     }
 
     return (
-      <Container>
+      <Container style={styles.chatContainer}>
 
         <Header backgroundColor='#212D40'>
           <Left>
@@ -156,11 +156,7 @@ OinkChat.propTypes = {
 
 const styles = {
   chatContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-    backgroundColor: '#FFA4D0',
+    backgroundColor: '#efefef',
   },
   chatTextInput: {
     height: 40,
