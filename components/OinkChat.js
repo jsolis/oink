@@ -94,8 +94,8 @@ class OinkChat extends Component {
                   }
                 </Left>
                 <Body>
-                  <Text style={styles.chatMessage}>{message.message}</Text>
-                  <Text style={styles.chatName}>{message.name}</Text>
+                  <Text>{message.message}</Text>
+                  <Text note>{message.name}</Text>
                 </Body>
               </ListItem>
             }
@@ -164,13 +164,6 @@ const styles = {
     height: 40,
     alignSelf: 'stretch',
     margin: 10,
-    color: '#333',
-  },
-  chatMessage: {
-
-  },
-  chatName: {
-    fontSize: 12,
     color: '#333',
   },
 };
