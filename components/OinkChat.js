@@ -23,6 +23,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
+import moment from 'moment';
 
 class OinkChat extends Component {
   constructor(props) {
@@ -95,6 +96,9 @@ class OinkChat extends Component {
                   <Text>{message.message}</Text>
                   <Text note>{message.name}</Text>
                 </Body>
+                <Right>
+                  <Text note>{moment(message.timestamp).from(Date.now())}</Text>
+                </Right>
               </ListItem>
             }
           />
