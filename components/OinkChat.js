@@ -23,7 +23,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-const DismissKeyboard = require('dismissKeyboard');
 
 class OinkChat extends Component {
   constructor(props) {
