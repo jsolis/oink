@@ -86,11 +86,10 @@ class OinkChat extends Component {
                   {message.name === 'Oink Bot' ?
                     <MaterialCommunityIcons 
                       name='pig'
-                      color='#FFA4D0'
-                      size={28}
+                      style={{ color:'#FFA4D0', fontSize: 28 }}
                     />
                   :
-                    <Icon name='person' />
+                    <Icon name='person' style={{ fontSize: 28 }} />
                   }
                 </Left>
                 <Body>
