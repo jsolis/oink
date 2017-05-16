@@ -80,7 +80,7 @@ class OinkChat extends Component {
             dataArray={this.props.messages}
             renderRow={(message) =>
               <ListItem
-                icon
+                avatar
               >
                 <Left>
                   {message.name === 'Oink Bot' ?
