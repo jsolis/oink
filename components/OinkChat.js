@@ -21,7 +21,7 @@ import {
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import moment from 'moment';
 
@@ -31,7 +31,6 @@ class OinkChat extends Component {
 
     this.state = {
       message: '',
-      newChatName: '',
     };
   }
 
@@ -40,38 +39,30 @@ class OinkChat extends Component {
     this.state.message = '';
   }
 
-  saveChatName = () => {
-    this.setState({newChatName: ''});
-    this.props.saveChatName(this.state.newChatName);
-  }
-
-  clearChatName = () => {
-    this.setState({newChatName: ''});
-    this.props.saveChatName('');
-  }
-
   render() {
-    let content;
-    if (!this.props.chatName) {
-      content = (
-        <Content>
-          <Text>
-            Pick a name to use in the chat.
-          </Text>
-          <TextInput
-            style={styles.chatTextInput}
-            autoCapitalize="words"
-            placeholder="Pick a Name"
-            returnKeyType="done"
-            onChangeText={newChatName => this.setState({newChatName})}
-            onSubmitEditing={this.saveChatName}
-            value={this.state.newChatName}
-          />
-        </Content>
-      );
-    } else {
-      let _scrollView;
-      content = (
+    return (
+      <Container style={styles.chatContainer}>
+
+        <Header backgroundColor='#212D40'>
+          <Left>
+            <Button 
+              transparent
+              onPress={this.props.navigator.pop}>
+              <Icon name='arrow-back' />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Chat</Title>
+          </Body>
+          <Right>
+            <Button 
+              transparent
+              onPress={() => this.props.navigator.push({id: 'editChatInfo'})}>
+              <Text>Change Name</Text>
+            </Button>
+          </Right>
+        </Header>
+
         <KeyboardAwareScrollView
           ref={(scrollView) => { _scrollView = scrollView; }}
           onContentSizeChange={() => _scrollView.scrollToEnd({animated: true})}
@@ -112,33 +103,6 @@ class OinkChat extends Component {
             value={this.state.message}
           />
         </KeyboardAwareScrollView>
-      );
-    }
-
-    return (
-      <Container style={styles.chatContainer}>
-
-        <Header backgroundColor='#212D40'>
-          <Left>
-            <Button 
-              transparent
-              onPress={this.props.navigator.pop}>
-              <Icon name='arrow-back' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Chat</Title>
-          </Body>
-          <Right>
-            <Button 
-              transparent
-              onPress={() => this.saveChatName('')}>
-              <Text>Change Name</Text>
-            </Button>
-          </Right>
-        </Header>
-
-        {content}
 
       </Container>
     );
@@ -151,7 +115,6 @@ OinkChat.propTypes = {
   messagesLoading: React.PropTypes.bool.isRequired,
   sendChatMessage: React.PropTypes.func.isRequired,
   chatName: React.PropTypes.string,
-  saveChatName: React.PropTypes.func.isRequired,
 };
 
 const styles = {

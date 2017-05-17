@@ -23,6 +23,7 @@ import OinkEditDetails from './components/OinkEditDetails';
 import OinkAddPerson from './components/OinkAddPerson';
 import OinkManagePeople from './components/OinkManagePeople';
 import OinkChat from './components/OinkChat';
+import OinkEditChatInfo from './components/OinkEditChatInfo';
 
 import * as firebase from 'firebase';
 
@@ -404,11 +405,22 @@ class OinkNavigator extends Component {
                   navigator={navigator}
                   people={this.state.people} />;
       case 'chat':
-        return <OinkChat
+        return this.state.chatName ?
+                <OinkChat
                   navigator={navigator}
                   messages={this.state.messages}
                   messagesLoading={this.state.messagesLoading}
                   sendChatMessage={this.sendChatMessage}
+                  chatName={this.state.chatName}
+                  saveChatName={this.saveChatName} />
+                :
+                <OinkEditChatInfo
+                  navigator={navigator}
+                  chatName={this.state.chatName}
+                  saveChatName={this.saveChatName} />;
+      case 'editChatInfo':
+        return <OinkEditChatInfo
+                  navigator={navigator}
                   chatName={this.state.chatName}
                   saveChatName={this.saveChatName} />;
       default:
