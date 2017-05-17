@@ -138,6 +138,7 @@ class OinkDetails extends Component {
                   title: 'When was this taken',
                 },
                 (buttonIndex) => {
+                  buttonIndex = Number(buttonIndex);
                   if (buttonIndex === 0) {
                     this.takeMedicine();
                   } else if (buttonIndex === 1) {
