@@ -16,6 +16,7 @@
     "native-base": "^2.1.1",
     "react": "^16.0.0-alpha.6",
     "react-native": "^0.43.3",
+    "react-native-color-picker": "^0.2.1",
     "react-native-keyboard-aware-scroll-view": "^0.2.8"
   }
 }
