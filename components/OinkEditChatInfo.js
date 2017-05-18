@@ -21,6 +21,7 @@ import {
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Platform } from 'react-native';
+import { ColorPicker } from 'react-native-color-picker';
 
 const platform = Platform.OS;
 
@@ -32,7 +33,30 @@ class OinkEditChatInfo extends Component {
 
     this.state = {
       chatName: this.props.chatName,
+      iconColor: '#000000',
     };
+
+    this.icons = [
+      "american-football",
+      "aperture",
+      "basketball",
+      "beer",
+      "bicycle",
+      "boat",
+      "bonfire",
+      "bowtie",
+      "bug",
+      "bulb",
+      "bus",
+      "cafe",
+      "car",
+      "cart",
+      "cash",
+      "clock",
+      "cloudy",
+      "cloudy-night",
+      "cog",
+    ];
   }
 
   saveChatName = () => {
@@ -44,7 +68,22 @@ class OinkEditChatInfo extends Component {
     }
   }
 
+  updateIconColor = (iconColor) => {
+    this.setState({iconColor});
+  }
+
   render() {
+    const icons = this.icons.map(icon => (
+      <Button
+        transparent
+        style={{padding: 10}}
+        key={icon}
+        onPress={() => alert(icon)}
+      >
+        <Icon style={{color: this.state.iconColor}} name={icon} />
+      </Button>
+    ));
+
     return (
       <Container style={styles.chatContainer}>
 
@@ -72,9 +111,9 @@ class OinkEditChatInfo extends Component {
           </Right>
         </Header>
 
-        <Content>
+        <Content style={{padding: 10}}>
           <Text>
-            Pick a name to use in the chat.
+            Pick a name
           </Text>
           <TextInput
             style={styles.chatTextInput}
@@ -82,9 +121,25 @@ class OinkEditChatInfo extends Component {
             placeholder="Pick a Name"
             returnKeyType="done"
             onChangeText={chatName => this.setState({chatName})}
-            onSubmitEditing={this.saveChatName}
             value={this.state.chatName}
           />
+
+          <Text>
+            Pick an icon
+          </Text>
+          <View style={styles.iconWrapper}>
+            {icons}
+          </View>
+
+          <Text>
+            Pick an icon color
+          </Text>
+          <View style={{height:300}}>
+            <ColorPicker
+              onColorSelected={color => this.updateIconColor(color)}
+              style={{flex: 1}}
+            />
+          </View>
         </Content>
 
       </Container>
@@ -107,6 +162,12 @@ const styles = {
     alignSelf: 'stretch',
     margin: 10,
     color: '#333',
+  },
+  iconWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    padding: 10,
   },
 };
 
