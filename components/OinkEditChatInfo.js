@@ -175,6 +175,8 @@ OinkEditChatInfo.propTypes = {
   navigator: React.PropTypes.object.isRequired,
   chatInfo: React.PropTypes.shape({
     chatName: React.PropTypes.string,
+    icon: React.PropTypes.string,
+    iconColor: React.PropTypes.string,
   }).isRequired,
   saveChatInfo: React.PropTypes.func.isRequired,
 };

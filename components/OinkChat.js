@@ -114,7 +114,11 @@ OinkChat.propTypes = {
   messages: React.PropTypes.array.isRequired,
   messagesLoading: React.PropTypes.bool.isRequired,
   sendChatMessage: React.PropTypes.func.isRequired,
-  chatName: React.PropTypes.string,
+  chatInfo: React.PropTypes.shape({
+    chatName: React.PropTypes.string,
+    icon: React.PropTypes.string,
+    iconColor: React.PropTypes.string,
+  }).isRequired,
 };
 
 const styles = {
