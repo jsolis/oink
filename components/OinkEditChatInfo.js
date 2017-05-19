@@ -57,6 +57,87 @@ class OinkEditChatInfo extends Component {
       "cloudy",
       "cloudy-night",
       "cog",
+      "color-wand",
+      "contact",
+      "cube",
+      "cut",
+      "egg",
+      "eye",
+      "finger-print",
+      "flame",
+      "football",
+      "game-controller-b",
+      "globe",
+      "hammer",
+      "hand",
+      "happy",
+      "headset",
+      "heart",
+      "home",
+      "ice-cream",
+      "images",
+      "infinite",
+      "ionitron",
+      "jet",
+      "key",
+      "leaf",
+      "lock",
+      "magnet",
+      "mail-open",
+      "medical",
+      "medkit",
+      "megaphone",
+      "mic",
+      "moon",
+      "musical-note",
+      "notifications",
+      "nutrition",
+      "paper-plane",
+      "paw",
+      "people",
+      "person",
+      "phone-portrait",
+      "pizza",
+      "plane",
+      "planet",
+      "play",
+      "pricetag",
+      "rainy",
+      "recording",
+      "resize",
+      "restaurant",
+      "ribbon",
+      "rose",
+      "sad",
+      "school",
+      "shirt",
+      "snow",
+      "speedometer",
+      "star",
+      "sunny",
+      "tennisball",
+      "thumbs-down",
+      "thumbs-up",
+      "thunderstorm",
+      "time",
+      "train",
+      "trash",
+      "trophy",
+      "umbrella",
+      "volume-up",
+      "walk",
+      "wifi",
+      "logo-android",
+      "logo-apple",
+      "logo-github",
+      "logo-google",
+      "logo-octocat",
+      "logo-reddit",
+      "logo-snapchat",
+      "logo-tux",
+      "logo-twitter",
+      "logo-xbox",
+      "logo-youtube",
     ];
   }
 
@@ -147,13 +228,6 @@ class OinkEditChatInfo extends Component {
           />
 
           <Text style={{fontWeight: 'bold'}}>
-            Pick an icon
-          </Text>
-          <View style={styles.iconWrapper}>
-            {icons}
-          </View>
-
-          <Text style={{fontWeight: 'bold'}}>
             Pick an icon color
           </Text>
           <View style={{height: 300, padding: 25, marginBottom: 25}}>
@@ -164,6 +238,15 @@ class OinkEditChatInfo extends Component {
               style={{flex: 1}}
             />
           </View>
+
+          <Text style={{fontWeight: 'bold'}}>
+            Pick an icon
+          </Text>
+          <View style={styles.iconWrapper}>
+            {icons}
+          </View>
+
+
         </Content>
 
       </Container>
