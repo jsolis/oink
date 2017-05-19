@@ -65,7 +65,7 @@ class OinkChat extends Component {
 
         <KeyboardAwareScrollView
           ref={(scrollView) => { _scrollView = scrollView; }}
-          onContentSizeChange={() => _scrollView.scrollToEnd({animated: true})}
+          onContentSizeChange={() => _scrollView.scrollToEnd(false)}
         >
           <List
             dataArray={this.props.messages}
