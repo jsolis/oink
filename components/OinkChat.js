@@ -35,7 +35,7 @@ class OinkChat extends Component {
   }
 
   sendChatMessage = () => {
-    this.props.sendChatMessage(this.state.message, this.props.chatName);
+    this.props.sendChatMessage(this.state.message, this.props.chatInfo);
     this.state.message = '';
   }
 
@@ -69,29 +69,37 @@ class OinkChat extends Component {
         >
           <List
             dataArray={this.props.messages}
-            renderRow={(message) =>
-              <ListItem
-                avatar
-              >
-                <Left>
-                  {message.name === 'Oink Bot' ?
-                    <MaterialCommunityIcons 
-                      name='pig'
-                      style={{ color:'#FFA4D0', fontSize: 28 }}
-                    />
-                  :
-                    <Icon name='person' style={{ fontSize: 28 }} />
-                  }
-                </Left>
-                <Body>
-                  <Text>{message.message}</Text>
-                  <Text note>{message.name}</Text>
-                </Body>
-                <Right>
-                  <Text note>{moment(message.timestamp).from(Date.now())}</Text>
-                </Right>
-              </ListItem>
-            }
+            renderRow={(message) => {
+              message.chatInfo = message.chatInfo || {};
+              return (
+                <ListItem
+                  avatar
+                >
+                  <Left>
+                    {(message.chatInfo.chatName === 'Oink Bot'
+                      || message.name === 'Oink Bot')
+                      && !message.chatInfo.icon ?
+                      <MaterialCommunityIcons 
+                        name='pig'
+                        style={{ color:'#FFA4D0', fontSize: 28 }}
+                      />
+                    :
+                      <Icon 
+                        name={message.chatInfo.icon || 'person'}
+                        style={{ fontSize: 28, color: message.chatInfo.iconColor }}
+                      />
+                    }
+                  </Left>
+                  <Body>
+                    <Text>{message.message}</Text>
+                    <Text note>{message.name || message.chatInfo.chatName}</Text>
+                  </Body>
+                  <Right>
+                    <Text note>{moment(message.timestamp).from(Date.now())}</Text>
+                  </Right>
+                </ListItem>
+              );
+            }}
           />
           <TextInput
             style={styles.chatTextInput}

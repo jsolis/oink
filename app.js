@@ -123,7 +123,10 @@ class OinkNavigator extends Component {
           });
         });
       this.recordMedicineHistory(medicineKey, takenDate.getTime());
-      this.sendChatMessage(`${this.state.name} took ${medicineName} at ${formattedDate}`, 'Oink Bot');
+      this.sendChatMessage(
+        `${this.state.name} took ${medicineName} at ${formattedDate}`,
+        { chatName: 'Oink Bot' }
+      );
     }
   }
 
@@ -302,13 +305,13 @@ class OinkNavigator extends Component {
     });
   }
 
-  sendChatMessage = (message, name, timestamp = Date.now()) => {
+  sendChatMessage = (message, chatInfo, timestamp = Date.now()) => {
 
     if (message) {
       const newMessageRef = this.chatRef.push();
       newMessageRef.set({
         message,
-        name,
+        chatInfo,
         timestamp,
       });
     }
