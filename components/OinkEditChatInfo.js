@@ -29,12 +29,13 @@ class OinkEditChatInfo extends Component {
   constructor(props) {
     super(props);
 
-    this.isNew = !this.props.chatName;
+    this.isNew = !this.props.chatInfo.chatName;
 
     this.state = {
-      chatName: this.props.chatName,
-      iconColor: '#000000',
+      chatInfo: this.props.chatInfo,
     };
+
+    console.log(JSON.stringify(this.state.chatInfo))
 
     this.icons = [
       "american-football",
@@ -59,8 +60,9 @@ class OinkEditChatInfo extends Component {
     ];
   }
 
-  saveChatName = () => {
-    this.props.saveChatName(this.state.chatName);
+  saveChatInfo = () => {
+    console.log('about to save', JSON.stringify(this.state.chatInfo))
+    this.props.saveChatInfo(this.state.chatInfo);
     if (this.isNew) {
       this.props.navigator.replace({id: 'chat'});
     } else {
@@ -68,8 +70,28 @@ class OinkEditChatInfo extends Component {
     }
   }
 
+  updateChatName = (chatName) => {
+    const chatInfo = this.state.chatInfo;
+    chatInfo.chatName = chatName;
+    this.setState({
+      chatInfo,
+    });
+  }
+
+  updateIcon = (icon) => {
+    const chatInfo = this.state.chatInfo;
+    chatInfo.icon = icon;
+    this.setState({
+      chatInfo,
+    });
+  }
+
   updateIconColor = (iconColor) => {
-    this.setState({iconColor});
+    const chatInfo = this.state.chatInfo;
+    chatInfo.iconColor = iconColor;
+    this.setState({
+      chatInfo,
+    });
   }
 
   render() {
@@ -78,9 +100,9 @@ class OinkEditChatInfo extends Component {
         transparent
         style={{padding: 10}}
         key={icon}
-        onPress={() => alert(icon)}
+        onPress={() => this.updateIcon(icon)}
       >
-        <Icon style={{color: this.state.iconColor}} name={icon} />
+        <Icon style={{color: this.state.chatInfo.iconColor}} name={icon} />
       </Button>
     ));
 
@@ -101,7 +123,7 @@ class OinkEditChatInfo extends Component {
           <Right>
             <Button 
               transparent
-              onPress={() => this.saveChatName()}
+              onPress={() => this.saveChatInfo()}
             >
               <FontAwesome name='save'
                 size={(platform === 'ios') ? 30 : 28}
@@ -120,8 +142,8 @@ class OinkEditChatInfo extends Component {
             autoCapitalize="words"
             placeholder="Pick a Name"
             returnKeyType="done"
-            onChangeText={chatName => this.setState({chatName})}
-            value={this.state.chatName}
+            onChangeText={chatName => this.updateChatName(chatName)}
+            value={this.state.chatInfo.chatName}
           />
 
           <Text style={{fontWeight: 'bold'}}>
@@ -136,6 +158,7 @@ class OinkEditChatInfo extends Component {
           </Text>
           <View style={{height: 300, padding: 25, marginBottom: 25}}>
             <ColorPicker
+              defaultColor={this.state.chatInfo.iconColor}
               onColorChange={color => this.updateIconColor(fromHsv(color))}
               onColorSelected={color => this.updateIconColor(color)}
               style={{flex: 1}}
@@ -150,8 +173,10 @@ class OinkEditChatInfo extends Component {
 
 OinkEditChatInfo.propTypes = {
   navigator: React.PropTypes.object.isRequired,
-  chatName: React.PropTypes.string,
-  saveChatName: React.PropTypes.func.isRequired,
+  chatInfo: React.PropTypes.shape({
+    chatName: React.PropTypes.string,
+  }).isRequired,
+  saveChatInfo: React.PropTypes.func.isRequired,
 };
 
 const styles = {

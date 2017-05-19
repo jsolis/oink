@@ -56,7 +56,7 @@ class OinkNavigator extends Component {
       user: 'dummier',
       name: '',
       personKey: '',
-      chatName: '',
+      chatInfo: {},
       people: [],
       medicines: {},
       medicineList: [],
@@ -315,10 +315,10 @@ class OinkNavigator extends Component {
 
   }
 
-  saveChatName = (chatName) => {
-    AsyncStorage.setItem('chatName', chatName);
+  saveChatInfo = (chatInfo) => {
+    AsyncStorage.setItem('chatInfo', JSON.stringify(chatInfo));
     this.setState({
-      chatName,
+      chatInfo,
     });
   }
 
@@ -339,9 +339,10 @@ class OinkNavigator extends Component {
       }
     });
 
-    AsyncStorage.getItem('chatName').then((chatName) => {
+    AsyncStorage.getItem('chatInfo').then((chatInfo) => {
+      chatInfo = chatInfo || {};
       this.setState({
-        chatName: chatName || '',
+        chatInfo: JSON.parse(chatInfo),
       });
     });
 
@@ -405,24 +406,24 @@ class OinkNavigator extends Component {
                   navigator={navigator}
                   people={this.state.people} />;
       case 'chat':
-        return this.state.chatName ?
+        return this.state.chatInfo.chatName ?
                 <OinkChat
                   navigator={navigator}
                   messages={this.state.messages}
                   messagesLoading={this.state.messagesLoading}
                   sendChatMessage={this.sendChatMessage}
-                  chatName={this.state.chatName}
-                  saveChatName={this.saveChatName} />
+                  chatInfo={this.state.chatInfo}
+                  saveChatInfo={this.saveChatInfo} />
                 :
                 <OinkEditChatInfo
                   navigator={navigator}
-                  chatName={this.state.chatName}
-                  saveChatName={this.saveChatName} />;
+                  chatInfo={this.state.chatInfo}
+                  saveChatInfo={this.saveChatInfo} />;
       case 'editChatInfo':
         return <OinkEditChatInfo
                   navigator={navigator}
-                  chatName={this.state.chatName}
-                  saveChatName={this.saveChatName} />;
+                  chatInfo={this.state.chatInfo}
+                  saveChatInfo={this.saveChatInfo} />;
       default:
         return <Text style={{paddingTop: 25}}>Huh?</Text>;
     }
