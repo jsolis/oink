@@ -111,8 +111,8 @@ class OinkEditChatInfo extends Component {
           </Right>
         </Header>
 
-        <Content style={{padding: 10}}>
-          <Text>
+        <Content padder>
+          <Text style={{fontWeight: 'bold'}}>
             Pick a name
           </Text>
           <TextInput
@@ -124,17 +124,17 @@ class OinkEditChatInfo extends Component {
             value={this.state.chatName}
           />
 
-          <Text>
+          <Text style={{fontWeight: 'bold'}}>
             Pick an icon
           </Text>
           <View style={styles.iconWrapper}>
             {icons}
           </View>
 
-          <Text>
+          <Text style={{fontWeight: 'bold'}}>
             Pick an icon color
           </Text>
-          <View style={{height:300}}>
+          <View style={{height: 300, padding: 25, marginBottom: 25}}>
             <ColorPicker
               onColorSelected={color => this.updateIconColor(color)}
               style={{flex: 1}}
