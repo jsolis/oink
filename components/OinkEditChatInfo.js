@@ -21,7 +21,7 @@ import {
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Platform } from 'react-native';
-import { ColorPicker } from 'react-native-color-picker';
+import { ColorPicker, fromHsv } from 'react-native-color-picker';
 
 const platform = Platform.OS;
 
@@ -136,6 +136,7 @@ class OinkEditChatInfo extends Component {
           </Text>
           <View style={{height: 300, padding: 25, marginBottom: 25}}>
             <ColorPicker
+              onColorChange={color => this.updateIconColor(fromHsv(color))}
               onColorSelected={color => this.updateIconColor(color)}
               style={{flex: 1}}
             />
