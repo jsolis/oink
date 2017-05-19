@@ -86,7 +86,7 @@ class OinkChat extends Component {
                     :
                       <Icon 
                         name={message.chatInfo.icon || 'person'}
-                        style={{ fontSize: 28, color: message.chatInfo.iconColor }}
+                        style={{ fontSize: 28, color: message.chatInfo.iconColor, width: 31 }}
                       />
                     }
                   </Left>
