@@ -343,9 +343,10 @@ class OinkNavigator extends Component {
     });
 
     AsyncStorage.getItem('chatInfo').then((chatInfo) => {
-      chatInfo = chatInfo || {};
+      chatInfo = chatInfo || '{}';
+      chatInfo = JSON.parse(chatInfo);
       this.setState({
-        chatInfo: JSON.parse(chatInfo),
+        chatInfo: chatInfo,
       });
     });
 
