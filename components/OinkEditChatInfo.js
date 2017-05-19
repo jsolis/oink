@@ -178,6 +178,7 @@ class OinkEditChatInfo extends Component {
   render() {
     const icons = this.icons.map(icon => (
       <Button
+        bordered={icon === this.state.chatInfo.icon}
         transparent
         style={{padding: 10}}
         key={icon}
