@@ -106,6 +106,7 @@ class OinkChat extends Component {
             autoCapitalize="sentences"
             placeholder="Write something"
             returnKeyType="send"
+            returnKeyLabel="send"
             onChangeText={text => this.setState({message: text})}
             onSubmitEditing={this.sendChatMessage}
             value={this.state.message}
