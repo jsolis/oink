@@ -33,6 +33,8 @@ class OinkEditChatInfo extends Component {
 
     this.state = {
       chatInfo: this.props.chatInfo,
+      changeColor: false,
+      changeIcon: false,
     };
 
     console.log(JSON.stringify(this.state.chatInfo))
@@ -164,6 +166,7 @@ class OinkEditChatInfo extends Component {
     chatInfo.icon = icon;
     this.setState({
       chatInfo,
+      changeIcon: false,
     });
   }
 
@@ -217,7 +220,7 @@ class OinkEditChatInfo extends Component {
 
         <Content padder>
           <Text style={{fontWeight: 'bold'}}>
-            Pick a name
+            Chat Name
           </Text>
           <TextInput
             style={styles.chatTextInput}
@@ -225,11 +228,31 @@ class OinkEditChatInfo extends Component {
             placeholder="Pick a Name"
             returnKeyType="done"
             onChangeText={chatName => this.updateChatName(chatName)}
+            onSubmitEditing={event => this.updateChatName(this.state.chatInfo.chatName)}
             value={this.state.chatInfo.chatName}
           />
 
           <Text style={{fontWeight: 'bold'}}>
-            Pick an icon color
+            Icon
+          </Text>
+          <View style={styles.iconWrapper}>
+            <Button
+              bordered
+              transparent
+              style={{padding: 10}}
+              onPress={() => this.setState({changeIcon: true})}
+            >
+              <Icon style={{color: this.state.chatInfo.iconColor}} name={this.state.chatInfo.icon} />
+            </Button>
+          </View>
+          {this.state.changeIcon &&
+            <View style={styles.iconWrapper}>
+              {icons}
+            </View>
+          }
+
+          <Text style={{fontWeight: 'bold'}}>
+            Icon Color
           </Text>
           <View style={{height: 300, padding: 25, marginBottom: 25}}>
             <ColorPicker
@@ -239,14 +262,6 @@ class OinkEditChatInfo extends Component {
               style={{flex: 1}}
             />
           </View>
-
-          <Text style={{fontWeight: 'bold'}}>
-            Pick an icon
-          </Text>
-          <View style={styles.iconWrapper}>
-            {icons}
-          </View>
-
 
         </Content>
 
