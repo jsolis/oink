@@ -181,7 +181,7 @@ class OinkNavigator extends Component {
   }
 
   listenForMedicines(medicinesRef) {
-    medicinesRef.on('value', (snapshot) => {
+    medicinesRef.orderByChild('name').on('value', (snapshot) => {
       const medicineList = [];
       const medicines = {};
 
