@@ -10,8 +10,10 @@ import {
   AsyncStorage,
   BackAndroid,
   ListView,
-  Navigator,
 } from 'react-native';
+import {
+  Navigator,
+} from 'react-native-deprecated-custom-components';
 import {
   Text,
   Toast,
