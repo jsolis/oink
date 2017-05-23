@@ -61,10 +61,12 @@ class OinkList extends Component {
   };
 
   render() {
+    const { params } = this.props.navigation.state;
+    const { listLoading, peopleLoading, people, medicineList, name } = params;
     let content;
-    if (this.props.listLoading || this.props.peopleLoading) {
+    if (listLoading || peopleLoading) {
       content = <View><Spinner color='blue' /></View>;
-    } else if (this.props.people.length === 0 || !this.props.name) {
+    } else if (people.length === 0 || !name) {
       content = (
         <View style={{padding: 25}}>
           <Text style={{fontSize: 20}}>Nobody here :-(</Text>
@@ -72,10 +74,10 @@ class OinkList extends Component {
           <Text style={{fontSize: 20}}>Use the drawer on your left.</Text>
         </View>
       );
-    } else if (this.props.medicineList.length === 0) {
+    } else if (medicineList.length === 0) {
       content = (
         <View style={{padding: 25}}>
-          <Text style={{fontSize: 20}}>Welcome {this.props.name}</Text>
+          <Text style={{fontSize: 20}}>Welcome {name}</Text>
           <Text style={{fontSize: 20}}>You have not added anything yet.</Text>
           <Text style={{fontSize: 20}}>Trying adding something!</Text>
           <Text style={{fontSize: 20}}>Use the plus sign up top.</Text>
@@ -85,14 +87,14 @@ class OinkList extends Component {
       content = (
         <View style={styles.listWrapper}>
           <List
-            dataArray={this.props.medicineList}
+            dataArray={medicineList}
             renderRow={(rowData) => {
               const doseInfo = rowData.dose ? `${rowData.dose} / ${rowData.frequency}` : '';
               return (
                 <TouchableHighlight 
                   underlayColor="#e0ffff"
                   style={styles.listItem}
-                  onPress={() => this.props.navigator.push({id: 'details', medicineKey: rowData._key})
+                  onPress={() => navigator.push({id: 'details', medicineKey: rowData._key})
                 }>
                   <View style={styles.listItemView}>
                     <Text style={styles['priority'+rowData.priority]}>&nbsp;</Text>

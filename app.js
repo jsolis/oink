@@ -12,6 +12,9 @@ import {
   ListView,
 } from 'react-native';
 import {
+  StackNavigator,
+} from 'react-navigation';
+import {
   Navigator,
 } from 'react-native-deprecated-custom-components';
 import {
@@ -49,6 +52,15 @@ BackAndroid.addEventListener('hardwareBackPress', () => {
   return true;
 });
 
+const OinkStackNavigator = StackNavigator({
+  OinkList: {
+    screen: OinkList,
+  },
+  OinkDetails: {
+    screen: OinkDetails,
+  },
+});
+
 class OinkNavigator extends Component {
 
   constructor(props) {
@@ -70,6 +82,10 @@ class OinkNavigator extends Component {
       listLoading: true,
       messagesLoading: true,
     };
+
+    this.navigator && this.navigator.dispatch({ type: 'Navigate', routeName: 'OinkList', params: {
+      people: this.state.people
+    } });
 
   }
 
@@ -435,11 +451,17 @@ class OinkNavigator extends Component {
     }
   };
 
-  render() {
+  /*render() {
     return (
       <Navigator
         initialRoute={{ id: 'list' }}
         renderScene={this.renderScene} />
+    );
+  }*/
+
+  render() {
+    return (
+      <OinkStackNavigator ref={nav => { this.navigator = nav; }} />
     );
   }
 
