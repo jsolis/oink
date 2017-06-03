@@ -78,9 +78,11 @@ class OinkDetails extends Component {
   };
 
   componentDidMount() {
-
     this.props.updateHistoryRefAndListen(this.props.medicine._key);
+  }
 
+  componentWillUnmount() {
+    this.props.stopListenForHistory();
   }
 
   render() {
@@ -270,6 +272,7 @@ OinkDetails.propTypes = {
   deleteMedicine: React.PropTypes.func.isRequired,
   takeMedicine: React.PropTypes.func.isRequired,
   updateHistoryRefAndListen: React.PropTypes.func.isRequired,
+  stopListenForHistory: React.PropTypes.func.isRequired,
   medicineHistory: React.PropTypes.array.isRequired,
 };
 

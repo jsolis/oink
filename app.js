@@ -273,17 +273,17 @@ class OinkNavigator extends Component {
 
   }
 
-  stopListenForHistory(historyRef) {
-    if (historyRef) {
-      historyRef.off('value');
+  stopListenForHistory = () => {
+    if (this.historyRef) {
+      this.historyRef.off('value');
     }
   }
 
   updateHistoryRefAndListen = (medicineKey) => {
 
     if (medicineKey) {
-      // TODO call off when exiting details / edit details view?
-      this.stopListenForHistory(this.historyRef);
+      this.stopListenForHistory();
+      // TODO we should be using ${personKey} instead of ${this.state.name} to avoid losing history when renaming
       this.historyRef = firebaseApp.database().ref(`users/${this.state.user}/history/${this.state.name}/${medicineKey}`);
       this.listenForHistory(this.historyRef);
     }
@@ -388,6 +388,7 @@ class OinkNavigator extends Component {
                   deleteMedicine={this.deleteMedicine}
                   takeMedicine={this.takeMedicine}
                   updateHistoryRefAndListen={this.updateHistoryRefAndListen}
+                  stopListenForHistory={this.stopListenForHistory}
                   medicineHistory={this.state.medicineHistory} />;
       case 'edit':
         var medicine = this.state.medicines[route.medicineKey];
