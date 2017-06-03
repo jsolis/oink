@@ -291,7 +291,7 @@ class OinkNavigator extends Component {
   }
 
   listenForChatMessages(chatRef) {
-    chatRef.orderByKey().limitToLast(50).on('value', (snapshot) => {
+    chatRef.orderByKey().limitToLast(15).on('value', (snapshot) => {
       const messages = [];
 
       snapshot.forEach(child => {
