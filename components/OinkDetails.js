@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 import {
   Alert,
   Modal,
@@ -261,19 +261,19 @@ class OinkDetails extends Component {
 }
 
 OinkDetails.propTypes = {
-  navigator: React.PropTypes.object.isRequired,
-  medicine: React.PropTypes.shape({
-    name: React.PropTypes.string.isRequired,
-    dose: React.PropTypes.string.isRequired,
-    frequency: React.PropTypes.string.isRequired,
-    priority: React.PropTypes.string.isRequired,
-    details: React.PropTypes.string.isRequired,
+  navigator: PropTypes.object.isRequired,
+  medicine: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    dose: PropTypes.string.isRequired,
+    frequency: PropTypes.string.isRequired,
+    priority: PropTypes.string.isRequired,
+    details: PropTypes.string.isRequired,
   }).isRequired,
-  deleteMedicine: React.PropTypes.func.isRequired,
-  takeMedicine: React.PropTypes.func.isRequired,
-  updateHistoryRefAndListen: React.PropTypes.func.isRequired,
-  stopListenForHistory: React.PropTypes.func.isRequired,
-  medicineHistory: React.PropTypes.array.isRequired,
+  deleteMedicine: PropTypes.func.isRequired,
+  takeMedicine: PropTypes.func.isRequired,
+  updateHistoryRefAndListen: PropTypes.func.isRequired,
+  stopListenForHistory: PropTypes.func.isRequired,
+  medicineHistory: PropTypes.array.isRequired,
 };
 
 const styles = {

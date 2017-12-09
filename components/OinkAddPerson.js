@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Alert,
   TextInput,
@@ -137,11 +138,11 @@ class OinkAddPerson extends Component {
 }
 
 OinkAddPerson.propTypes = {
-  navigator: React.PropTypes.object.isRequired,
-  addPerson: React.PropTypes.func,
-  deletePerson: React.PropTypes.func,
-  updatePerson: React.PropTypes.func,
-  person: React.PropTypes.object,
+  navigator: PropTypes.object.isRequired,
+  addPerson: PropTypes.func,
+  deletePerson: PropTypes.func,
+  updatePerson: PropTypes.func,
+  person: PropTypes.object,
 };
 
 const styles = {

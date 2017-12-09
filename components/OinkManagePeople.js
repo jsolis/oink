@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Body,
   Button,
@@ -70,8 +71,8 @@ class OinkManagePeople extends Component {
 }
 
 OinkManagePeople.propTypes = {
-  navigator: React.PropTypes.object.isRequired,
-  people: React.PropTypes.array.isRequired,
+  navigator: PropTypes.object.isRequired,
+  people: PropTypes.array.isRequired,
 };
 
 const styles = {

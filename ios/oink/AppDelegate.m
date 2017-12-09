@@ -18,8 +18,15 @@
 {
   NSURL *jsCodeLocation;
 
-  //jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
-  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  // used when working locally to load dynamically generated bundle from localhost server
+  // npm start
+  // npm run ios
+  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+
+  // used when generated static bundle for installation independant of localhost server
+  // npm run bundle-ios
+  // Then use xcode to install on a device target
+  //jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"oink"

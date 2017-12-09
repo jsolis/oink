@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   TextInput,
   Keyboard,
@@ -271,13 +272,13 @@ class OinkEditChatInfo extends Component {
 }
 
 OinkEditChatInfo.propTypes = {
-  navigator: React.PropTypes.object.isRequired,
-  chatInfo: React.PropTypes.shape({
-    chatName: React.PropTypes.string,
-    icon: React.PropTypes.string,
-    iconColor: React.PropTypes.string,
+  navigator: PropTypes.object.isRequired,
+  chatInfo: PropTypes.shape({
+    chatName: PropTypes.string,
+    icon: PropTypes.string,
+    iconColor: PropTypes.string,
   }).isRequired,
-  saveChatInfo: React.PropTypes.func.isRequired,
+  saveChatInfo: PropTypes.func.isRequired,
 };
 
 const styles = {

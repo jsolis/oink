@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   TouchableHighlight,
   View,
@@ -187,15 +188,15 @@ class OinkList extends Component {
 }
 
 OinkList.propTypes = {
-  navigator: React.PropTypes.object.isRequired,
-  name: React.PropTypes.string.isRequired,
-  people: React.PropTypes.array.isRequired,
-  medicineList: React.PropTypes.array.isRequired,
-  updateFilter: React.PropTypes.func.isRequired,
-  filter: React.PropTypes.string.isRequired,
-  peopleLoading: React.PropTypes.bool.isRequired,
-  listLoading: React.PropTypes.bool.isRequired,
-  switchPerson: React.PropTypes.func.isRequired,
+  navigator: PropTypes.object.isRequired,
+  name: PropTypes.string.isRequired,
+  people: PropTypes.array.isRequired,
+  medicineList: PropTypes.array.isRequired,
+  updateFilter: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired,
+  peopleLoading: PropTypes.bool.isRequired,
+  listLoading: PropTypes.bool.isRequired,
+  switchPerson: PropTypes.func.isRequired,
 };
 
 const styles = {

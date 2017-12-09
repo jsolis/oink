@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   StyleSheet,
   TouchableHighlight,
@@ -67,10 +68,10 @@ class OinkDrawer extends Component {
 }
 
 OinkDrawer.propTypes = {
-  navigator: React.PropTypes.object.isRequired,
-  people: React.PropTypes.array.isRequired,
-  switchPerson: React.PropTypes.func.isRequired,
-  closeDrawer: React.PropTypes.func.isRequired,
+  navigator: PropTypes.object.isRequired,
+  people: PropTypes.array.isRequired,
+  switchPerson: PropTypes.func.isRequired,
+  closeDrawer: PropTypes.func.isRequired,
 };
 
 const styles = {

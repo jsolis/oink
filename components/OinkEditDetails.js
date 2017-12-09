@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   TextInput,
   Picker,
@@ -140,16 +141,16 @@ class OinkEditDetails extends Component {
 }
 
 OinkEditDetails.propTypes = {
-  navigator: React.PropTypes.object.isRequired,
-  medicine: React.PropTypes.shape({
-    name: React.PropTypes.string.isRequired,
-    dose: React.PropTypes.string.isRequired,
-    frequency: React.PropTypes.string.isRequired,
-    priority: React.PropTypes.string.isRequired,
-    details: React.PropTypes.string.isRequired,
+  navigator: PropTypes.object.isRequired,
+  medicine: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    dose: PropTypes.string.isRequired,
+    frequency: PropTypes.string.isRequired,
+    priority: PropTypes.string.isRequired,
+    details: PropTypes.string.isRequired,
   }),
-  addMedicine: React.PropTypes.func.isRequired,
-  updateMedicine: React.PropTypes.func.isRequired,
+  addMedicine: PropTypes.func.isRequired,
+  updateMedicine: PropTypes.func.isRequired,
 };
 
 const styles = {
