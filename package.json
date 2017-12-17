@@ -11,7 +11,7 @@
     "update": "sudo npm install -g react-native-git-upgrade && react-native-git-upgrade"
   },
   "dependencies": {
-    "firebase": "^3.4.1",
+    "firebase": "^4.8.0",
     "moment": "^2.18.1",
     "native-base": "^2.1.1",
     "prop-types": "^15.6.0",
