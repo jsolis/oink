@@ -15,6 +15,7 @@ import {
   Navigator,
 } from 'react-native-deprecated-custom-components';
 import {
+  Root,
   Text,
   Toast,
 } from 'native-base';
@@ -70,6 +71,10 @@ class OinkNavigator extends Component {
       listLoading: true,
       messagesLoading: true,
     };
+
+    console.ignoredYellowBox = [
+      'Setting a timer'
+    ];
 
   }
 
@@ -438,9 +443,11 @@ class OinkNavigator extends Component {
 
   render() {
     return (
-      <Navigator
-        initialRoute={{ id: 'list' }}
-        renderScene={this.renderScene} />
+      <Root>
+        <Navigator
+          initialRoute={{ id: 'list' }}
+          renderScene={this.renderScene} />
+      </Root>
     );
   }
 
