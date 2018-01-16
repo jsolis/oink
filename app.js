@@ -144,7 +144,7 @@ class OinkNavigator extends Component {
     this.historyRef
       .update(taken)
       .then(() => {
-        
+        // if we want to do something else when we're done
       });
   }
 
@@ -343,7 +343,7 @@ class OinkNavigator extends Component {
     AsyncStorage.getItem('personKey').then((personKey) => {
       if (personKey) {
         this.setState({
-          personKey: personKey || '',
+          personKey,
         });
         this.updateMedicineRefAndListen(this.state.personKey);
       }
@@ -386,20 +386,20 @@ class OinkNavigator extends Component {
                   listLoading={this.state.listLoading}
                   switchPerson={this.switchPerson} />;
       case 'details':
-        var medicine = this.state.medicines[route.medicineKey];
+        const detailsMedicine = this.state.medicines[route.medicineKey];
         return <OinkDetails 
                   navigator={navigator} 
-                  medicine={medicine}
+                  medicine={detailsMedicine}
                   deleteMedicine={this.deleteMedicine}
                   takeMedicine={this.takeMedicine}
                   updateHistoryRefAndListen={this.updateHistoryRefAndListen}
                   stopListenForHistory={this.stopListenForHistory}
                   medicineHistory={this.state.medicineHistory} />;
       case 'edit':
-        var medicine = this.state.medicines[route.medicineKey];
+        const editMedicine = this.state.medicines[route.medicineKey];
         return <OinkEditDetails 
                   navigator={navigator} 
-                  medicine={medicine} 
+                  medicine={editMedicine} 
                   addMedicine={this.addMedicine}
                   updateMedicine={this.updateMedicine} />;
       case 'addPerson':
@@ -407,7 +407,7 @@ class OinkNavigator extends Component {
                   navigator={navigator}
                   addPerson={this.addPerson} />;
       case 'editPerson':
-        var person = this.state.people.find(person => person._key === route.personKey);
+        const person = this.state.people.find(person => person._key === route.personKey);
         return <OinkAddPerson
                   navigator={navigator}
                   deletePerson={this.deletePerson}
